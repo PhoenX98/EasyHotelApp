@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">EasyHotelApp</string>
+    <!-- Configuracion Facebnok SDK -->
+    <string name="facebook_app_id">243198089955805</string>
+    <string name="fb_login_protocol_scheme">fb243198089955805</string>
+
+
+    <string name="title_activity_drawable">DrawableActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="success_login">Bienvenido Usuario</string>
+    <string name="cancel_login">Se cancelo el inicio de sesion</string>
+    <string name="error_login">Ocurrio un error al intentar conectarse</string>
+    <string name="not_log_in">No se pudo iniciar sesion</string>
+    <string name="not_firebase_auth">No se pudo autenticar con Firebase</string>
+    <string name="firebase_error_login">Error de autenticacion</string>
+    <string name="not_revoke">No se pudo revocar el acceso</string>
+    <string name="not_close_session">No se pudo cerrar sesion</string>
+    <string name="now_logged_in">Bienvenido Usuario</string>
+    <string name="signed_success">Exito al iniciar sesion</string>
+    <string name="sign_credential_fail">FAllo en autenticacion de telefono</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

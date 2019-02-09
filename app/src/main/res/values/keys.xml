@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<string name="maps_key">AIzaSyDKAr7EMofFXwyq3EoEa8TdjxiI56504to</string>-->
+    <!--Nueva clave api google maps-->
+    <string name="maps_key">AIzaSyCsqFZsYKwfEw44LgEezgGtwCy3GcUblUs</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <!--<item-->
+        <!--android:id="@+id/menu_cat"-->
+        <!--android:title="Categorias"></item>-->
+        <!--<item-->
+        <!--android:id="@+id/menu_cerca"-->
+        <!--android:title="Mas Cercanos"></item>-->
+        <!--<item-->
+        <!--android:id="@+id/menu_menor_precio"-->
+        <!--android:title="Menor Precio"></item>-->
+        <!--<item-->
+        <!--android:id="@+id/menu_mayor_precio"-->
+        <!--android:title="Mayor Precio"></item>-->
+
+    </group>
+
+</menu>

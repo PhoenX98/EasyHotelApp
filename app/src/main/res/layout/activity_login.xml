@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/fondo_base_1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        tools:context=".LoginActivity">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="225dp"
+            android:layout_height="41dp"
+            android:gravity="center"
+            android:text="ACCEDER"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/com_facebook_button_background_color_focused"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText"
+            tools:layout_editor_absoluteX="178dp"
+            tools:layout_editor_absoluteY="175dp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="220dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/logo_easy_miniatura"
+            tools:ignore="ContentDescription"
+            tools:layout_editor_absoluteX="199dp"
+            tools:layout_editor_absoluteY="36dp" />
+
+        <Button
+            android:id="@+id/btnPhoneAuth"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Acceder con Telefono" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/loginButton"
+            android:layout_width="209dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="236dp" />
+
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signInButton"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            tools:layout_editor_absoluteX="183dp"
+            tools:layout_editor_absoluteY="282dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="260dp"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Al continuar usted acepta:"
+            android:textAlignment="center"
+            android:textColor="@color/com_facebook_button_background_color_focused"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="154dp"
+            tools:layout_editor_absoluteY="361dp" />
+        <!--android:text="@string/acuerdos"-->
+
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_width="204dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:autoLink="all"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:linksClickable="true"
+            android:text="Términos y condiciones"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/com_facebook_button_background_color_focused"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="401dp" />
+        <!--android:text="@string/t_y_c"-->
+
+        <TextView
+            android:id="@+id/txt2"
+            android:layout_width="260dp"
+            android:layout_height="40dp"
+            android:autoLink="all"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:linksClickable="true"
+            android:text="Políticas de privacidad"
+            android:textAlignment="center"
+            android:textColor="@color/com_facebook_button_background_color_focused"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="210dp"
+            tools:layout_editor_absoluteY="445dp" />
+        <!--android:text="@string/p_d_p"-->
+
+    </LinearLayout>
+</ScrollView>
