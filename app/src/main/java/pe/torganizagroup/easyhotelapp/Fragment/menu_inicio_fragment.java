@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 
 import pe.torganizagroup.easyhotelapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class menu_inicio_fragment extends Fragment {
+
+
 
 
     public menu_inicio_fragment() {
         // Required empty public constructor
     }
+
 
 
     @Override

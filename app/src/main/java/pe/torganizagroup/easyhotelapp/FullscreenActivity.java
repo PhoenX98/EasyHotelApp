@@ -1,11 +1,12 @@
 package pe.torganizagroup.easyhotelapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class FullscreenActivity extends AppCompatActivity {
+public class FullscreenActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
