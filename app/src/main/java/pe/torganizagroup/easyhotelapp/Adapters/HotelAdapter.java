@@ -4,6 +4,7 @@ package pe.torganizagroup.easyhotelapp.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -50,10 +53,21 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder>{
         Hotel item = dataset.get (i);
         String costeF = "Desde: S/. ";
 //        viewHolder.id.setText (String.valueOf (h.getIdentificador ()));
-        if((i % 2) == 0)
-            viewHolder.cardView.setBackgroundColor(Color.BLUE);
-        else
-            viewHolder.cardView.setBackgroundColor(Color.YELLOW);
+        if((i % 2) == 0){
+            viewHolder.cardView.setBackgroundColor(Color.LTGRAY);
+            viewHolder.nombreLocal.setTextColor (Color.MAGENTA);
+            viewHolder.tipoLocal.setTextColor (Color.MAGENTA);
+            viewHolder.tarifaLocal.setTextColor (Color.MAGENTA);
+            viewHolder.direccionLocal.setTextColor (Color.MAGENTA);
+        }
+        else{
+            viewHolder.cardView.setBackgroundColor(Color.TRANSPARENT);
+            viewHolder.nombreLocal.setTextColor (Color.WHITE);
+            viewHolder.tipoLocal.setTextColor (Color.WHITE);
+            viewHolder.tarifaLocal.setTextColor (Color.WHITE);
+            viewHolder.direccionLocal.setTextColor (Color.WHITE);
+        }
+
 
         viewHolder.nombreLocal.setText (item.getNombreEmpresa ());
         viewHolder.tipoLocal.setText (item.getTipoLocal ());
@@ -61,9 +75,15 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder>{
         viewHolder.direccionLocal.setText (item.getDireccion ());
         Glide.with (context)
                 .load ("https://t-organizagroup.com/ws_easyhotel/public/api/imagen/local/"+ item.getNumber ())
-//                .centerCrop()
-//                .crossFade()
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .apply (new RequestOptions ()
+//                        .diskCacheStrategy (DiskCacheStrategy.ALL)
+
+                        .centerCrop ()
+                        .placeholder (R.mipmap.ic_launcher)
+//                        .fallback (R.mipmap.ic_launcher)
+                        .fitCenter ()
+                        .override (100,110)
+                )
                 .into(viewHolder.fotoLocal);
 
     }

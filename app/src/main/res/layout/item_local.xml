@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/fotoLocal"
-            android:layout_width="100dp"
-            android:layout_height="108dp"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center" />
         <!--android:background="@color/colorAccent" />-->
 
@@ -40,7 +40,7 @@
                 android:gravity="center_vertical"
                 android:text="Nombre Empresa"
                 android:textAlignment="center"
-                android:textColor="@color/com_facebook_button_background_color_focused"
+                android:textColor="@color/colorAccent"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="Tipo_local"
-                android:textColor="@color/com_facebook_button_background_color_focused"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
             <TextView
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="Direccion"
-                android:textColor="@color/com_facebook_button_background_color_focused"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
             <TextView
@@ -69,7 +69,7 @@
                 android:gravity="center_vertical"
                 android:text="Tarifa"
                 android:textAlignment="center"
-                android:textColor="@color/com_facebook_button_background_color_focused"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
