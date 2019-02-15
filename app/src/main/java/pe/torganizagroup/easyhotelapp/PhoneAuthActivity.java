@@ -119,7 +119,6 @@ public class PhoneAuthActivity extends Activity {
 
     public void signIn(View view) {
         String code = txtCodigo.getText().toString();
-        //rehabilitar codigo cuando se
 
         if (TextUtils.isEmpty(code))
             return;

@@ -47,6 +47,8 @@ import pe.torganizagroup.easyhotelapp.Fragment.lista_hoteles_fragment;
 import pe.torganizagroup.easyhotelapp.Fragment.mapa_fragment;
 import pe.torganizagroup.easyhotelapp.Fragment.menu_inicio_fragment;
 
+import static pe.torganizagroup.easyhotelapp.R.drawable.user;
+
 public class DrawableActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -92,7 +94,7 @@ public class DrawableActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener (this);
 
         FragmentManager fragmentManager=getSupportFragmentManager ();
-        fragmentManager.beginTransaction ().replace (R.id.contenedor, new menu_inicio_fragment ()).commit ();
+        fragmentManager.beginTransaction ().replace (R.id.contenedor, new mapa_fragment ()).commit ();
 
         @SuppressLint("CutPasteId")
         View header = ((NavigationView)findViewById (R.id.nav_view)).getHeaderView (0);
@@ -148,15 +150,33 @@ public class DrawableActivity extends AppCompatActivity
         FirebaseAuth.getInstance ().getCurrentUser ();
 
         if (user != null) {
+            String phone = user.getPhoneNumber ();
             String name = user.getDisplayName ();
             String email = user.getEmail ();
             Uri photoUrl = user.getPhotoUrl ();
 
+            ((TextView) header.findViewById (R.id.txtPhone)).setText (phone);
             ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
             ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
-            Glide.with (this)
-                    .load (photoUrl)
-                    .into ((ImageView) header.findViewById (R.id.photoImageView));
+            ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
+
+            if( photoUrl == null ){
+                Glide.with (this)
+                        .load (R.drawable.user)
+                        .into ((ImageView) header.findViewById (R.id.photoImageView));
+            } else {
+                Glide.with (this)
+                        .load (photoUrl)
+                        .into ((ImageView) header.findViewById (R.id.photoImageView));
+            }
+
+            if (name == null ){
+                ((TextView) header.findViewById(R.id.nameTextView)).setText("Anónimo");
+            } else {
+                ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
+            }
+
+
         } else {
             goLogInScreen ();
         }
@@ -242,7 +262,6 @@ public class DrawableActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
 //        switch (item.getItemId ()){
 //            case R.id.menu_cat:
 //                break;
@@ -253,7 +272,6 @@ public class DrawableActivity extends AppCompatActivity
 //            case R.id.menu_menor_precio:
 //                break;
 //        }
-
         return super.onOptionsItemSelected (item);
     }
 
@@ -265,7 +283,7 @@ public class DrawableActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager ();
 
         if (id == R.id.nav_inicio) {
-            fragmentManager.beginTransaction ().replace (R.id.contenedor, new menu_inicio_fragment ()).commit ();
+            fragmentManager.beginTransaction ().replace (R.id.contenedor, new mapa_fragment ()).commit ();
         } else if (id == R.id.nav_lista_hotel) {
             fragmentManager.beginTransaction ().replace (R.id.contenedor, new lista_hoteles_fragment ()).commit ();
         } else if (id == R.id.nav_busqueda_avanzada) {
