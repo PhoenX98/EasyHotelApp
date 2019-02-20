@@ -3,6 +3,7 @@ package pe.torganizagroup.easyhotelapp.Fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,7 +14,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,10 +69,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     GoogleMap mGoogleMap;
 
     private boolean mapsSupported= true;
-//    private GoogleApiClient mGoogleApiClient;
 
     public mapa_fragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -84,24 +86,13 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         cargarMarcadores();
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated (savedInstanceState);
-//        MapsInitializer.initialize (Objects.requireNonNull (getActivity ()));
-//
-//        if (mMapView != null) {
-//            mMapView.onCreate (savedInstanceState);
-//        }
-//        initializeMap ();
-//    }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated (view, savedInstanceState);
-        // Gets the MapView from the XML layout and creates it
+
         mMapView = view.findViewById (R.id.mapViewCompleto);
         mMapView.onCreate (savedInstanceState);
-        mMapView.onResume(); // needed to get the map to display immediately
+        mMapView.onResume();
 
         try {
             MapsInitializer.initialize(Objects.requireNonNull (getActivity ()).getApplicationContext());
@@ -109,14 +100,14 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
             e.printStackTrace();
         }
 
-        mMapView.getMapAsync (this); //this is important
+        mMapView.getMapAsync (this);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v = inflater.inflate (R.layout.fragment_mapa, container, false);
 
         mMapView = (MapView) v.findViewById (R.id.mapViewCompleto);
@@ -175,8 +166,6 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
 
                         for (int i = 0; i<listaMarker.size (); i++){
                             Coordenada I = listaMarker.get (i);
-//                        Log.i (TAG," Local Latitud: " + I.getLatitud ());
-//                        Log.i(TAG, " Local Longitud: " + I.getLongitud ());
                             Double lat = Double.parseDouble (I.getLatitud ());
                             Double lng = Double.parseDouble (I.getLongitud ());
                             String title = I.getNombreEmpresa ();
@@ -202,6 +191,26 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
                 Log.i (TAG,"Hay un error en la respuesta: " + t.getMessage ());
             }
         });
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 
     @Override
@@ -234,23 +243,4 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         mMapView.onLowMemory();
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
 }

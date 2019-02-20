@@ -43,6 +43,8 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 import pe.torganizagroup.easyhotelapp.Fragment.busqueda_fragment;
+import pe.torganizagroup.easyhotelapp.Fragment.habitacion_detalle_fragment;
+import pe.torganizagroup.easyhotelapp.Fragment.hotel_detalle_fragment;
 import pe.torganizagroup.easyhotelapp.Fragment.lista_hoteles_fragment;
 import pe.torganizagroup.easyhotelapp.Fragment.mapa_fragment;
 import pe.torganizagroup.easyhotelapp.Fragment.menu_inicio_fragment;
@@ -87,6 +89,7 @@ public class DrawableActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById (R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle.getDrawerArrowDrawable ().setColor (getResources ().getColor (R.color.colorPrimaryDark));
         drawer.addDrawerListener (toggle);
         toggle.syncState ();
 
@@ -289,7 +292,7 @@ public class DrawableActivity extends AppCompatActivity
         } else if (id == R.id.nav_busqueda_avanzada) {
             fragmentManager.beginTransaction ().replace (R.id.contenedor, new busqueda_fragment ()).commit ();
         } else if (id == R.id.nav_mapa) {
-            fragmentManager.beginTransaction ().replace (R.id.contenedor, new mapa_fragment ()).commit ();
+            fragmentManager.beginTransaction ().replace (R.id.contenedor, new hotel_detalle_fragment ()).commit ();
         } else if (id == R.id.nav_revocar) {
             finish ();
         } else if (id == R.id.nav_cerrar_sesion) {

@@ -24,6 +24,14 @@
     <string name="signed_success">Exito al iniciar sesion</string>
     <string name="sign_credential_fail">Fallo en autenticacion de telefono</string>
 
+    <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
+
+        <item name="android:scaleX">0.3</item>
+        <item name="android:scaleY">0.3</item>
+        <!--Modo de transfrir imagenes-->
+        <!--<item name="android:progressDrawable">@drawable/ratingbar</item>-->
+    </style>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

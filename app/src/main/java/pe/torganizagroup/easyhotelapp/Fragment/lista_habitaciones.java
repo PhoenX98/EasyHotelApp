@@ -1,28 +1,33 @@
 package pe.torganizagroup.easyhotelapp.Fragment;
 
-
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import pe.torganizagroup.easyhotelapp.R;
 
-public class hotel_detalle_fragment extends Fragment {
+
+public class lista_habitaciones extends Fragment {
 
 
-    public hotel_detalle_fragment() {
+    public lista_habitaciones() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate (savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate (R.layout.fragment_hotel_detalle, container, false);
-
-        return v;
+        // Inflate the layout for this fragment
+        return inflater.inflate (R.layout.fragment_lista_habitaciones, container, false);
     }
+
 
 }

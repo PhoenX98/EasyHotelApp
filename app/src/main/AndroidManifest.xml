@@ -32,7 +32,7 @@
 
         </activity>
 
-        <!-- Meta data para usar Google maps y geolocalizacion -->
+        <!-- Meta data para usar Google maps, Facebook login y geolocalizacion -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/maps_key" />
