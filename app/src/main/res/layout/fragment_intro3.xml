@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#FFFFFF"
+    tools:context=".Fragment.Intro3">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Al continuar, usted afirma ser mayor de edad y esta de acuerdo con nuestros:"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/txtmuestra1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtCredits1"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/txtmuestra2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtCredits2"
+        android:textSize="24sp" />
+
+
+</LinearLayout>

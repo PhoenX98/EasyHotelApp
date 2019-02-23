@@ -55,10 +55,10 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder>{
 //        viewHolder.id.setText (String.valueOf (h.getIdentificador ()));
         if((i % 2) == 0){
             viewHolder.cardView.setBackgroundColor(Color.LTGRAY);
-            viewHolder.nombreLocal.setTextColor (Color.MAGENTA);
-            viewHolder.tipoLocal.setTextColor (Color.MAGENTA);
-            viewHolder.tarifaLocal.setTextColor (Color.MAGENTA);
-            viewHolder.direccionLocal.setTextColor (Color.MAGENTA);
+            viewHolder.nombreLocal.setTextColor (Color.parseColor ("#FEAA18"));
+            viewHolder.tipoLocal.setTextColor (Color.parseColor ("#FEAA18"));
+            viewHolder.tarifaLocal.setTextColor (Color.parseColor ("#FEAA18"));
+            viewHolder.direccionLocal.setTextColor (Color.parseColor ("#FEAA18"));
         }
         else{
             viewHolder.cardView.setBackgroundColor(Color.TRANSPARENT);
@@ -77,7 +77,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder>{
                 .load ("https://t-organizagroup.com/ws_easyhotel/public/api/imagen/local/"+ item.getNumber ())
                 .apply (new RequestOptions ()
 //                        .diskCacheStrategy (DiskCacheStrategy.ALL)
-
                         .centerCrop ()
                         .placeholder (R.mipmap.ic_launcher)
 //                        .fallback (R.mipmap.ic_launcher)

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -48,6 +49,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.content.Context.LOCATION_SERVICE;
 import static pe.torganizagroup.easyhotelapp.Retrofit.Utilidades.COORDENADA_URL;
 
 public class mapa_fragment extends Fragment implements OnMapReadyCallback, LocationListener {
@@ -60,6 +62,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     double lng = -76.98385873408341;
     double latitude = 0.0;
     double longitude = 0.0;
+    AlertDialog alert = null;
 
     private Retrofit retrofit;
     private CoordenadaService markerService;
@@ -113,24 +116,37 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         mMapView = (MapView) v.findViewById (R.id.mapViewCompleto);
         mMapView.onCreate (savedInstanceState);
 
+        LocationManager locationManager = (LocationManager) getActivity ().getSystemService(LOCATION_SERVICE);
+
+        assert locationManager != null;
+        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            AlertNoGps();
+        }
         return v;
+    }
+
+    private void AlertNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder( getActivity ());
+        builder.setMessage("El sistema GPS esta desactivado, ¿Desea activarlo?")
+                .setCancelable(false)
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        alert = builder.create();
+        alert.show();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         setUpMap ();
-
-//        LatLng marker = new LatLng(lat, lng);
-
-//        CameraPosition camera = new CameraPosition.Builder()
-//                .target (marker)
-//                .zoom (18)          //limite -> 21°
-//                .bearing (90)       //nivel de rotacion de mapa(sentido horario) -> 365°
-//                .tilt(30)           //nivel de angulo de inclinacion de mapa -> limite= 90°
-//                .build();
-//
-//        googleMap.animateCamera (CameraUpdateFactory.newCameraPosition (camera));
 
     }
 

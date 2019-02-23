@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.icu.text.LocaleDisplayNames;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -71,6 +73,8 @@ public class DrawableActivity extends AppCompatActivity
         setContentView (R.layout.activity_drawable);
 
         Toolbar toolbar = findViewById (R.id.toolbar);
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission (this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission (this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions (this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ACCESS_FINE);
@@ -153,10 +157,13 @@ public class DrawableActivity extends AppCompatActivity
         FirebaseAuth.getInstance ().getCurrentUser ();
 
         if (user != null) {
+            String id = user.getUid ();
+            String provider = user.getProviderId ();
             String phone = user.getPhoneNumber ();
             String name = user.getDisplayName ();
             String email = user.getEmail ();
             Uri photoUrl = user.getPhotoUrl ();
+
 
             ((TextView) header.findViewById (R.id.txtPhone)).setText (phone);
             ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
@@ -166,10 +173,16 @@ public class DrawableActivity extends AppCompatActivity
             if( photoUrl == null ){
                 Glide.with (this)
                         .load (R.drawable.user)
+                        .apply (new RequestOptions ()
+                        .fitCenter ()
+                        .circleCrop ())
                         .into ((ImageView) header.findViewById (R.id.photoImageView));
             } else {
                 Glide.with (this)
                         .load (photoUrl)
+                        .apply (new RequestOptions ()
+                                .fitCenter ()
+                                .circleCrop ())
                         .into ((ImageView) header.findViewById (R.id.photoImageView));
             }
 

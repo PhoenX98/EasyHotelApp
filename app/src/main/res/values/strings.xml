@@ -32,7 +32,8 @@
         <!--<item name="android:progressDrawable">@drawable/ratingbar</item>-->
     </style>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--<string name="txtCredits">www.google.com</string>-->
+    <string name="txtCredits1"><a href="http://www.google.com">Términos y condiciones</a></string>
+    <string name="txtCredits2"><a href="http://www.stackoverflow.com">Politicas de Privacidad</a></string>
 
 </resources>

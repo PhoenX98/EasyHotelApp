@@ -3,7 +3,9 @@ package pe.torganizagroup.easyhotelapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -39,8 +41,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import java.util.Arrays;
 import java.util.Objects;
 
-
-public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     //Variables para inicio de sesion con google
     private GoogleApiClient googleApiClient;
     private SignInButton signInButton;
@@ -63,8 +64,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_login);
 
-        txt1 = (TextView) findViewById (R.id.txt1);
-        txt2 = (TextView) findViewById (R.id.txt2);
         phone = (Button) findViewById (R.id.btnPhoneAuth);
         direccion="";
 
@@ -76,8 +75,23 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        txt1.setOnClickListener (this);
-        txt2.setOnClickListener (this);
+
+
+        Thread thread = new Thread (new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences (getBaseContext ());
+                boolean isFirstStart = getPrefs.getBoolean ("firstStart", true);
+                if (isFirstStart){
+                    startActivity (new Intent (LoginActivity.this, MyIntro.class));
+                    SharedPreferences.Editor e = getPrefs.edit ();
+                    e.putBoolean ("firstStart",false);
+                    e.apply ();
+                }
+            }
+        });
+
+        thread.start ();
 
 
         //Metodo callback manager para
@@ -240,17 +254,5 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId ()){
-            case R.id.txt1:
-                direccion="http://www.google.com.pe";
-                break;
-            case R.id.txt2:
-                direccion="http://www.youtube.com";
-                break;
-                default:
-                    break;
-        }
-    }
+
 }
