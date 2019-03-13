@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">EasyHotelApp</string>
+    <string name="app_name">EasyHotel</string>
     <!-- Configuracion Facebnok SDK -->
     <string name="facebook_app_id">243198089955805</string>
     <string name="fb_login_protocol_scheme">fb243198089955805</string>
-
 
     <string name="title_activity_drawable">DrawableActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

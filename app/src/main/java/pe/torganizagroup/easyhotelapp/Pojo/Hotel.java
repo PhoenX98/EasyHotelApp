@@ -94,14 +94,8 @@ public class Hotel {
 
     public int getNumber() {
         String [] urlPartes = urlImagen.split ("/");
-        //solucionar error
         return Integer.parseInt (urlPartes[urlPartes.length -1]) ;
-//        String urlImagen = "https://t-organizagroup.com/ws_easyhotel/public/api/imagen/local/local4.JPG";
 
-//        String [] urlPartes = urlImagen.split ("/");
-//        String numeroStr = urlPartes[urlPartes.length -1];
-//        int numero = Integer.parseInt(numeroStr.replaceAll("\\D+",""));
-//        return numero;
     }
 
     public void setNumber(int number) {

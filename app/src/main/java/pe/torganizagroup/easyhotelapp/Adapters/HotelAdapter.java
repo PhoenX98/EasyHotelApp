@@ -52,7 +52,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Hotel item = dataset.get (i);
         String costeF = "Desde: S/. ";
-//        viewHolder.id.setText (String.valueOf (h.getIdentificador ()));
+
         if((i % 2) == 0){
             viewHolder.cardView.setBackgroundColor(Color.LTGRAY);
             viewHolder.nombreLocal.setTextColor (Color.parseColor ("#FEAA18"));
@@ -68,7 +68,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder>{
             viewHolder.direccionLocal.setTextColor (Color.WHITE);
         }
 
-
+//        viewHolder.id.setText (String.valueOf (h.getIdentificador ()));
         viewHolder.nombreLocal.setText (item.getNombreEmpresa ());
         viewHolder.tipoLocal.setText (item.getTipoLocal ());
         viewHolder.tarifaLocal.setText (costeF + String.valueOf (item.getTarifaMinima ()));
@@ -76,12 +76,12 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder>{
         Glide.with (context)
                 .load ("https://t-organizagroup.com/ws_easyhotel/public/api/imagen/local/"+ item.getNumber ())
                 .apply (new RequestOptions ()
-//                        .diskCacheStrategy (DiskCacheStrategy.ALL)
+                        .diskCacheStrategy (DiskCacheStrategy.ALL)
                         .centerCrop ()
                         .placeholder (R.mipmap.ic_launcher)
 //                        .fallback (R.mipmap.ic_launcher)
                         .fitCenter ()
-                        .override (100,110)
+                        .override (100,155)
                 )
                 .into(viewHolder.fotoLocal);
 

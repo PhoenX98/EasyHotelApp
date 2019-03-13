@@ -1,6 +1,5 @@
 package pe.torganizagroup.easyhotelapp.Fragment;
 
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Trace;
@@ -13,16 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-
+import java.util.Objects;
 import static com.bumptech.glide.load.resource.gif.GifDrawable.LOOP_INTRINSIC;
-
 import pe.torganizagroup.easyhotelapp.R;
 
 public class Intro1 extends Fragment {
@@ -31,7 +29,6 @@ public class Intro1 extends Fragment {
     String URL = "https://media.giphy.com/media/20k1punZ5bpmM/giphy.gif";
     ImageView Gif;
 
-
     public Intro1() {
 
     }
@@ -39,36 +36,30 @@ public class Intro1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View v = inflater.inflate (R.layout.fragment_intro1, container, false);
 
         ImageView Gif = (ImageView) v.findViewById (R.id.imgGif);
-//        TextView t1 = (TextView) v.findViewById (R.id.txtmuestra1);
-//        TextView t3 = (TextView) v.findViewById (R.id.txtmuestra2);
-//        TextView t2 = (TextView) v.findViewById (R.id.txtmuestra);
-//
-//        t1.setMovementMethod (LinkMovementMethod.getInstance ());
-//        t2.setMovementMethod (LinkMovementMethod.getInstance ());
-//        t3.setMovementMethod (LinkMovementMethod.getInstance ());
 
-        Glide.with (getContext ())
-                .load (R.drawable.giphy)
+        Glide.with (Objects.requireNonNull (getContext ()))
+                .load (R.drawable.inicio)
                 .apply (new RequestOptions ()
-                .fitCenter ()
-                .circleCrop ())
+//                .fitCenter ()
+                .diskCacheStrategy (DiskCacheStrategy.ALL)
+                )
                 .listener (new RequestListener<Drawable> () {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         return false;
                     }
-
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
 //                        resource.setLoopCount(LOOP_INTRINSIC);
                         return false;
                     }
-                })
+                }
+                )
                 .into (Gif);
-
         return v;
     }
 
@@ -80,7 +71,6 @@ public class Intro1 extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
 
 }

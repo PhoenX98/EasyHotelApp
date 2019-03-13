@@ -3,18 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/fondo"
+    android:background="#FFFFFF"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".Fragment.Intro1">
 
-
     <ImageView
         android:id="@+id/imgGif"
         android:layout_width="fill_parent"
-
         android:layout_height="fill_parent" />
-
-
 
 </LinearLayout>

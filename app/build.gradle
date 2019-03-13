@@ -44,8 +44,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.5'
+    //API facebook
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
-
+    //Pantalla intro persoalizada
     implementation 'com.github.AppIntro:AppIntro:v4.2.3'
 }
 android {

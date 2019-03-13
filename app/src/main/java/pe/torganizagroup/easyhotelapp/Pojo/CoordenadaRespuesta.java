@@ -12,9 +12,7 @@ public class CoordenadaRespuesta {
     @Expose
     private ArrayList<Coordenada> data;
 
-    public CoordenadaRespuesta(){
-
-    }
+    public CoordenadaRespuesta(){ }
 
     public CoordenadaRespuesta(ArrayList<Coordenada> data) {
         this.data = data;

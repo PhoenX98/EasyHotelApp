@@ -41,7 +41,7 @@ public class MyIntro extends AppIntro2 implements ISlidePolicy {
         showStatusBar (false);
         showSkipButton (false);
         setFadeAnimation ();
-        setBarColor (Color.parseColor ("#FF6904"));
+        setBarColor (Color.TRANSPARENT);
 
     }
 

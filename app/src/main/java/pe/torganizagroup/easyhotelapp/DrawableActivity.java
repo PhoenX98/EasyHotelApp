@@ -80,12 +80,6 @@ public class DrawableActivity extends AppCompatActivity
             ActivityCompat.requestPermissions (this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ACCESS_FINE);
         }
 
-//        /****Mejora****/
-//        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-//            AlertNoGps();
-//        }
-//        /********/
-
         setSupportActionBar (toolbar);
         Objects.requireNonNull (getSupportActionBar ()).setLogo (R.drawable.logo_easy_miniatura);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -115,14 +109,11 @@ public class DrawableActivity extends AppCompatActivity
                 .addApi (Auth.GOOGLE_SIGN_IN_API, gso)
                 .build ();
 
-        //firebase google
         firebaseAuth = FirebaseAuth.getInstance ();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser ();
-                //Cuando se arregle el error de firebase, raconectar el codigo de abajo de vuelta
-                //solucion temporal de acceso al menu
 
                 if (user != null) {
                     setUserData (user);
@@ -131,24 +122,6 @@ public class DrawableActivity extends AppCompatActivity
                 }
             }
         };
-    }
-
-    private void AlertNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("El sistema GPS esta desactivado, ¿Desea activarlo?")
-                .setCancelable(false)
-                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent (android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-                    }
-                });
-        alert = builder.create();
-        alert.show();
     }
 
     private void setUserData(FirebaseUser user) {
@@ -164,7 +137,6 @@ public class DrawableActivity extends AppCompatActivity
             String email = user.getEmail ();
             Uri photoUrl = user.getPhotoUrl ();
 
-
             ((TextView) header.findViewById (R.id.txtPhone)).setText (phone);
             ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
             ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
@@ -174,8 +146,8 @@ public class DrawableActivity extends AppCompatActivity
                 Glide.with (this)
                         .load (R.drawable.user)
                         .apply (new RequestOptions ()
-                        .fitCenter ()
-                        .circleCrop ())
+                            .fitCenter ()
+                            .circleCrop ())
                         .into ((ImageView) header.findViewById (R.id.photoImageView));
             } else {
                 Glide.with (this)
@@ -191,8 +163,6 @@ public class DrawableActivity extends AppCompatActivity
             } else {
                 ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
             }
-
-
         } else {
             goLogInScreen ();
         }
@@ -205,12 +175,9 @@ public class DrawableActivity extends AppCompatActivity
         if(requestCode == REQUEST_ACCESS_FINE){
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 Toast.makeText (this, "Permiso Otorgado", Toast.LENGTH_SHORT).show ();
-
             else
                 Toast.makeText (this, "Permiso denegado", Toast.LENGTH_SHORT).show ();
-
         }
-
     }
 
     @Override

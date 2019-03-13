@@ -9,4 +9,5 @@ public interface LocalService {
 
     @GET("local")
     Call<LocalRespuesta> obtenerLocales(@Query("current_page") int page);
+
 }

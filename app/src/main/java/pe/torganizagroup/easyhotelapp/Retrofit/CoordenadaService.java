@@ -12,9 +12,4 @@ public interface CoordenadaService {
     @GET("ubicacion")
     Call<CoordenadaRespuesta> obtenerMarcadores();
 
-    //Antiguo servicio local
-//    @GET("local")
-//    Call<LocalData> obtenerListaLocales(@Query("page") int page);
-
-
 }
