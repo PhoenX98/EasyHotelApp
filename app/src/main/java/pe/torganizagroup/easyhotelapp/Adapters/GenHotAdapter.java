@@ -1,6 +1,7 @@
 package pe.torganizagroup.easyhotelapp.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -33,8 +34,8 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
     @NonNull
     @Override
     public GenHotAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_local, viewGroup, false);
+        LayoutInflater inflater = LayoutInflater.from (mContext);
+        View view = inflater.inflate(R.layout.item_local, viewGroup, false);
         return new ViewHolder (view);
     }
 
@@ -42,16 +43,28 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         GenHot hotel = hotelsList.get(i);
         String costeF = "Desde: S/. ";
-//        viewHolder.title.setText(hotel.getTitle());
         String thumbnail = hotel.getImage ();
+
+        if((i % 2) == 0){
+            viewHolder.cardView.setBackgroundColor(Color.LTGRAY);
+            viewHolder.nombreLocal.setTextColor (Color.parseColor ("#FEAA18"));
+            viewHolder.tipoLocal.setTextColor (Color.parseColor ("#FEAA18"));
+            viewHolder.tarifaLocal.setTextColor (Color.parseColor ("#FEAA18"));
+            viewHolder.direccionLocal.setTextColor (Color.parseColor ("#FEAA18"));
+        }
+        else{
+            viewHolder.cardView.setBackgroundColor(Color.TRANSPARENT);
+            viewHolder.nombreLocal.setTextColor (Color.WHITE);
+            viewHolder.tipoLocal.setTextColor (Color.WHITE);
+            viewHolder.tarifaLocal.setTextColor (Color.WHITE);
+            viewHolder.direccionLocal.setTextColor (Color.WHITE);
+        }
+
         viewHolder.nombreLocal.setText (hotel.getNombreLocal ());
-        viewHolder.tipoLocal.setText (hotel.getId ());
+        viewHolder.tipoLocal.setText (hotel.getDistrito ());
         viewHolder.tarifaLocal.setText (costeF + String.valueOf (hotel.getTarifaMinima ()));
         viewHolder.direccionLocal.setText (hotel.getDireccion ());
 
-//        Glide.with(mContext)
-//                .load(thumbnail)
-//                .into(viewHolder.fotoLocal);
         Glide.with (mContext)
                 .load (hotel.getImage ())
                 .apply (new RequestOptions ()
@@ -70,6 +83,11 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
         if(hotelsList == null)
             return 0;
         return hotelsList.size ();
+    }
+
+    public void adicionarListaHoteles(List<GenHot> localItems) {
+        hotelsList.addAll (localItems);
+        notifyDataSetChanged ();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

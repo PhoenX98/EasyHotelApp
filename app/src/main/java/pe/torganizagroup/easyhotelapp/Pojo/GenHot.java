@@ -1,11 +1,10 @@
 package pe.torganizagroup.easyhotelapp.Pojo;
 
-import android.location.Location;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.List;
 
 public class GenHot {
 
@@ -48,18 +47,18 @@ public class GenHot {
     @SerializedName("nombreLocal")
     @Expose
     private String nombreLocal;
-    @SerializedName("location")
-    @Expose
-    private String location;
-    @SerializedName("locacion")
-    @Expose
-    private String locacion;
+//    @SerializedName("location")
+//    @Expose
+//    private List<Location> location;
+//    @SerializedName("locacion")
+//    @Expose
+//    private String locacion;
 
     public GenHot(){
 
     }
 
-    public GenHot(Double latitud, Double longitud, String image, String createdAt, String updatedAt, String id, String nombre, String direccion, String calificacion, Integer tarifaMinima, String distrito, Integer distancia, String nombreLocal, String location, String locacion) {
+    public GenHot(Double latitud, Double longitud, String image, String createdAt, String updatedAt, String id, String nombre, String direccion, String calificacion, Integer tarifaMinima, String distrito, Integer distancia, String nombreLocal) {
         this.latitud = latitud;
         this.longitud = longitud;
         this.image = image;
@@ -73,8 +72,6 @@ public class GenHot {
         this.distrito = distrito;
         this.distancia = distancia;
         this.nombreLocal = nombreLocal;
-        this.location = location;
-        this.locacion = locacion;
     }
 
     public Double getLatitud() {
@@ -179,21 +176,5 @@ public class GenHot {
 
     public void setNombreLocal(String nombreLocal) {
         this.nombreLocal = nombreLocal;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getLocacion() {
-        return locacion;
-    }
-
-    public void setLocacion(String locacion) {
-        this.locacion = locacion;
     }
 }

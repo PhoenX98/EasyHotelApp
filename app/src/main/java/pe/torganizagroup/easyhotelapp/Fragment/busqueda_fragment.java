@@ -9,21 +9,19 @@ import android.view.ViewGroup;
 
 import pe.torganizagroup.easyhotelapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class busqueda_fragment extends Fragment {
 
 
     public busqueda_fragment() {
-        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate (R.layout.fragment_busqueda, container, false);
+        View v =  inflater.inflate (R.layout.fragment_busqueda, container, false);
+
+        return v;
     }
 
 }

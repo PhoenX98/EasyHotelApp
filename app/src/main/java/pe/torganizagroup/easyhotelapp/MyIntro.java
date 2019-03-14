@@ -23,8 +23,6 @@ public class MyIntro extends AppIntro2 implements ISlidePolicy {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
-//        setContentView (R.layout.activity_my_intro);
-
 
         Intro1 fragment1 = new Intro1 ();
         Intro2 fragment2 = new Intro2 ();
@@ -32,11 +30,6 @@ public class MyIntro extends AppIntro2 implements ISlidePolicy {
         addSlide (fragment1);
         addSlide (fragment2);
         addSlide (fragment3);
-
-//        addSlide (AppIntroFragment.newInstance ("Bienvenido a Easy Hotel",
-//                "Cofee",
-//                R.drawable.logo3,
-//                Color.parseColor ("#FFFFFF")));
 
         showStatusBar (false);
         showSkipButton (false);
