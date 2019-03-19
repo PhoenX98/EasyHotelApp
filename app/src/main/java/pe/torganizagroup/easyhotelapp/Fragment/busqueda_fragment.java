@@ -34,7 +34,7 @@ public class busqueda_fragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setDeptData();
-
+        setProvData ();
         setDistData();
 
     }
@@ -54,6 +54,12 @@ public class busqueda_fragment extends Fragment {
         depAdap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spDep.setAdapter (depAdap);
 
+        ArrayAdapter<Provincia> provAdap= new ArrayAdapter<Provincia>(getContext(),android.R.layout.simple_spinner_item,provList);
+        spPro.setAdapter (provAdap);
+
+        ArrayAdapter<Distrito> disAdap= new ArrayAdapter<Distrito>(getContext(),android.R.layout.simple_spinner_item,disList);
+        spDis.setAdapter (disAdap);
+
         spDep.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener () {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -61,17 +67,35 @@ public class busqueda_fragment extends Fragment {
                 Departamento departamento = (Departamento) spDep.getSelectedItem ();
                     String val = departamento.getId ().toString ();
 
-                    switch (val)
-                    {
-                        case "01":
-                            ArrayAdapter<Provincia> adapter= new ArrayAdapter<Provincia>(view.getContext(),android.R.layout.simple_spinner_item,provList);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spPro.setAdapter(adapter);
-                        case "02":
-                            ArrayAdapter<Provincia> adapter2= new ArrayAdapter<Provincia>(view.getContext(),android.R.layout.simple_spinner_item,provList);
-                            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spPro.setAdapter(adapter2);
+                    switch (parent.getId ()){
+                        case R.id.spDepartamento:
+                            break;
+                        case R.id.spProvincia:
+                            break;
+                        case R.id.spDistrito:
+                            break;
                     }
+
+//                    if(parent.getItemAtPosition (position).equals ("01")){
+//                        ArrayAdapter<Provincia> adapter= new ArrayAdapter<Provincia>(view.getContext(),android.R.layout.simple_spinner_item,provList);
+//                        spPro.setAdapter (adapter);
+//                    }
+//                    if(parent.getItemAtPosition (position).equals ("02")){
+//                        ArrayAdapter<Distrito> adapter= new ArrayAdapter<Distrito>(view.getContext(),android.R.layout.simple_spinner_item,disList);
+//                        spPro.setAdapter (adapter);
+//                    }
+
+//                    switch (val)
+//                    {
+//                        case "01":
+//                            ArrayAdapter<Provincia> adapter= new ArrayAdapter<Provincia>(view.getContext(),android.R.layout.simple_spinner_item,provList);
+////                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                            spPro.setAdapter(adapter);
+//                        case "02":
+//                            ArrayAdapter<Provincia> adapter2= new ArrayAdapter<Provincia>(view.getContext(),android.R.layout.simple_spinner_item,provList);
+////                            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                            spPro.setAdapter(adapter2);
+//                    }
 
             }
 
@@ -80,8 +104,6 @@ public class busqueda_fragment extends Fragment {
 
             }
         });
-
-        setProvData();
 
         spPro.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener () {
             @Override
