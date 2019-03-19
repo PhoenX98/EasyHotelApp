@@ -6,9 +6,8 @@ import pe.torganizagroup.easyhotelapp.Pojo.GenHot;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface LocalTest {
+public interface HotelDetalle {
 
-    @GET("listas")
-    Call<List<GenHot>> getlocal();
-
+    @GET("")
+    Call<List<GenHot>> getDetalle();
 }

@@ -35,4 +35,45 @@
     <string name="txtCredits1"><a href="http://www.google.com">Términos y condiciones</a></string>
     <string name="txtCredits2"><a href="http://www.stackoverflow.com">Politicas de Privacidad</a></string>
 
+    <string-array name="departamentos">
+        <item value="1">Amazonas</item>
+        <item value="2">Áncash</item>
+        <item value="3">Apurímac</item>
+        <item value="4">Arequipa</item>
+        <item value="5">Ayacucho</item>
+        <item value="6">Cajamarca</item>
+        <item value="7">Callao</item>
+        <item value="8">Cusco</item>
+        <item value="9">Huancavelica</item>
+        <item value="10">Huánuco</item>
+        <item value="11">Ica</item>
+        <item value="12">Junín</item>
+        <item value="13">La Libertad</item>
+        <item value="14">Lambayeque</item>
+        <item value="15">Lima</item>
+        <item value="16">Loreto</item>
+        <item value="17">Madre de Dios</item>
+        <item value="18">Moquegua</item>
+        <item value="19">Pasco</item>
+        <item value="20">Piura</item>
+        <item value="21">Puno</item>
+        <item value="22">San Martín</item>
+        <item value="23">Tacna</item>
+        <item value="24">Tumbes</item>
+        <item value="25">Ucayali</item>
+    </string-array>
+
+    <string-array name="provincias">
+        <item value="1">Chachapoyas</item>
+        <item value="1">Bagua</item>
+        <item value="1">Bongara</item>
+        <item value="1">Condorcanqui</item>
+        <item value="1">Luya</item>
+        <item value="1">Rodriguez de Mendoza</item>
+        <item value="1">Utcubamba</item>
+        <item value="2">Huaraz</item>
+        <item value="2">Aija</item>
+        <item value="2">Antonio Raymondi</item>
+    </string-array>
+
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +20,7 @@ import java.util.Objects;
 import pe.torganizagroup.easyhotelapp.Adapters.GenHotAdapter;
 import pe.torganizagroup.easyhotelapp.Pojo.GenHot;
 import pe.torganizagroup.easyhotelapp.R;
-import pe.torganizagroup.easyhotelapp.Retrofit.LocalTest;
+import pe.torganizagroup.easyhotelapp.Retrofit.HotelLista;
 import pe.torganizagroup.easyhotelapp.Retrofit.Utilidades;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,8 +34,7 @@ public class lista_hoteles_fragment extends Fragment {
     private RecyclerView recyclerView;
     private GenHotAdapter lhAdapter;
     private List<GenHot> lH = new ArrayList<> ();
-    private LocalTest localTest;
-
+    private HotelLista localTest;
 
     public lista_hoteles_fragment() {
         // Required empty public constructor
@@ -54,9 +54,15 @@ public class lista_hoteles_fragment extends Fragment {
         recyclerView = view.findViewById (R.id.ListaFullHotel);
         lhAdapter = new GenHotAdapter (getContext (),lH);
         recyclerView.setAdapter (lhAdapter);
-
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager (getContext (), 2);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager (getActivity ());
-        recyclerView.setLayoutManager (linearLayoutManager);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (position % 3 == 0 ? 2 : 1);
+            }
+        });
+        recyclerView.setLayoutManager (gridLayoutManager);
         recyclerView.setHasFixedSize (true);
         recyclerView.setItemAnimator (new DefaultItemAnimator ());
 

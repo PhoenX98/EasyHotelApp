@@ -29,19 +29,19 @@
             <Spinner
                 android:id="@+id/spDepartamento"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:spinnerMode="dialog" />
 
             <Spinner
                 android:id="@+id/spProvincia"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="40dp" />
 
             <Spinner
                 android:id="@+id/spDistrito"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:spinnerMode="dialog" />
 

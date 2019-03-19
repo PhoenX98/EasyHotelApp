@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/nuevo_fondo_1"
+    android:background="#FFFFFF"
     tools:context=".Fragment.lista_hoteles_fragment">
 
     <android.support.v7.widget.RecyclerView
@@ -13,7 +13,7 @@
         android:id="@+id/ListaFullHotel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/nuevo_fondo_1"
+        android:background="#a7a3a2"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_local">
 

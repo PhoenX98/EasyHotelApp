@@ -11,20 +11,13 @@ import pe.torganizagroup.easyhotelapp.R;
 
 public class menu_inicio_fragment extends Fragment {
 
-
-
-
-    public menu_inicio_fragment() {
-        // Required empty public constructor
-    }
-
-
+    public menu_inicio_fragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate (R.layout.fragment_menu_inicio, container, false);
+        View v = inflater.inflate (R.layout.fragment_menu_inicio, container, false);
+        return v;
     }
 
 }

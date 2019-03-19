@@ -93,6 +93,7 @@ public class DrawableActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById (R.id.nav_view);
         navigationView.setNavigationItemSelectedListener (this);
+//        navigationView.setItemIconTintList (null);
 
         FragmentManager fragmentManager=getSupportFragmentManager ();
         fragmentManager.beginTransaction ().replace (R.id.contenedor, new mapa_fragment ()).commit ();
@@ -114,7 +115,6 @@ public class DrawableActivity extends AppCompatActivity
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser ();
-
                 if (user != null) {
                     setUserData (user);
                 } else {
