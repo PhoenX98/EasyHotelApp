@@ -46,18 +46,18 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
         String thumbnail = hotel.getImage ();
 
         if((i % 2) == 0){
-            viewHolder.cardView.setBackgroundColor(Color.LTGRAY);
-            viewHolder.nombreLocal.setTextColor (Color.parseColor ("#FEAA18"));
-            viewHolder.tipoLocal.setTextColor (Color.parseColor ("#FEAA18"));
-            viewHolder.tarifaLocal.setTextColor (Color.parseColor ("#FEAA18"));
-            viewHolder.direccionLocal.setTextColor (Color.parseColor ("#FEAA18"));
+            viewHolder.cardView.setBackgroundColor(Color.parseColor ("#ffab02"));
+            viewHolder.nombreLocal.setTextColor (Color.parseColor ("#FFFFFF"));
+            viewHolder.tipoLocal.setTextColor (Color.parseColor ("#000000"));
+            viewHolder.tarifaLocal.setTextColor (Color.parseColor ("#000000"));
+            viewHolder.direccionLocal.setTextColor (Color.parseColor ("#000000"));
         }
         else{
-            viewHolder.cardView.setBackgroundColor(Color.TRANSPARENT);
+            viewHolder.cardView.setBackgroundColor(Color.parseColor ("#ffab02"));
             viewHolder.nombreLocal.setTextColor (Color.WHITE);
-            viewHolder.tipoLocal.setTextColor (Color.WHITE);
-            viewHolder.tarifaLocal.setTextColor (Color.WHITE);
-            viewHolder.direccionLocal.setTextColor (Color.WHITE);
+            viewHolder.tipoLocal.setTextColor (Color.BLACK);
+            viewHolder.tarifaLocal.setTextColor (Color.BLACK);
+            viewHolder.direccionLocal.setTextColor (Color.BLACK);
         }
 
         viewHolder.nombreLocal.setText (hotel.getNombreLocal ());
@@ -70,7 +70,7 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
                 .apply (new RequestOptions ()
                                 .diskCacheStrategy (DiskCacheStrategy.ALL)
                                 .centerCrop ()
-                                .placeholder (R.mipmap.ic_launcher)
+                                .placeholder (R.drawable.icono_easy_hotel)
 //                        .fallback (R.mipmap.ic_launcher)
                                 .fitCenter ()
                                 .override (100,155)

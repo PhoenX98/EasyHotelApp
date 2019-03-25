@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EasyHotel</string>
+    <string name="app_name">Easy Hotel</string>
     <!-- Configuracion Facebnok SDK -->
     <string name="facebook_app_id">243198089955805</string>
     <string name="fb_login_protocol_scheme">fb243198089955805</string>

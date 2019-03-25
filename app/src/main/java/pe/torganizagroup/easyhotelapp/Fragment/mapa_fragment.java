@@ -67,7 +67,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     private Retrofit retrofit;
     private CoordenadaService markerService;
 
-    Marker marker;
+    Marker markerLocation;
     MapView mMapView;
     GoogleMap mGoogleMap;
 
