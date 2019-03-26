@@ -33,15 +33,15 @@ public class Departamento {
         return name;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof Departamento){
-            Departamento d = (Departamento )obj;
-            if(d.getName().equals(name) && d.getId()==id ) return true;
-        }
-
-        return false;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if(obj instanceof Departamento){
+//            Departamento d = (Departamento )obj;
+//            if(d.getName().equals(name) && d.getId()==id ) return true;
+//        }
+//
+//        return false;
+//    }
 
 
 }

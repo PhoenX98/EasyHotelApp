@@ -14,7 +14,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import pe.torganizagroup.easyhotelapp.Pojo.Departamento;
@@ -179,17 +181,20 @@ public class busqueda_fragment extends Fragment {
                         try {
                             List<UbigeoPojo> dep = response.body ();
                             ArrayList<String> dex = new ArrayList<> ();
+                            Map<String, String> myMap = new HashMap<String, String> ();
 
 //                            assert dep != null;
 //                            String[] se = new String[dep.size ()];
 //                            se = dep.toArray (se);
+
                             dex.add ("--Seleccione un Departamento--");
                             if (dep != null) {
                                 for (UbigeoPojo h: dep){
                                     dex.add(h.getNombre ());
+//                                    dex.add(h.getDepartamento ());
                                     val1 = h.getDepartamento ();
 
-//                                    dex.add(h.getDepartamento ());
+
                                 }
                             }
 

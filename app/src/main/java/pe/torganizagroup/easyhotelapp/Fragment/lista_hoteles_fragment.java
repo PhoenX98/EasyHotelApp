@@ -101,6 +101,8 @@ public class lista_hoteles_fragment extends Fragment {
                 }
             }
 
+
+
             @Override
             public void onFailure(Call<List<GenHot>> call, Throwable t) {
                 Log.i (TAG_ERROR,"Error en el parseo de JSON, redefinir parametros"+t.getMessage ());

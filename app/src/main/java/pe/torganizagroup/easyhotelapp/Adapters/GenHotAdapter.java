@@ -74,7 +74,7 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
                         .placeholder (R.drawable.fondo_edificio_alterno)
                         .fallback (R.mipmap.ic_launcher)
                         .fitCenter ()
-                        .override (50,50)
+                        .override (160,115)
                 )
                 .into(viewHolder.fotoLocal);
     }
