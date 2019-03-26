@@ -7,15 +7,15 @@
 
         <item
             android:id="@+id/nav_inicio"
-            android:icon="@drawable/home"
+            android:icon="@drawable/menu_item_mapa_icon"
             android:title="Mapa" />
         <item
             android:id="@+id/nav_lista_hotel"
-            android:icon="@drawable/lista"
+            android:icon="@drawable/menu_item_lista_icon"
             android:title="Lista" />
         <item
             android:id="@+id/nav_busqueda_avanzada"
-            android:icon="@drawable/buscar"
+            android:icon="@drawable/lista"
             android:title="Filtro" />
         <item
             android:id="@+id/nav_mapa"
@@ -24,7 +24,7 @@
             android:title="Ver mapa completo" />
         <item
             android:id="@+id/nav_revocar"
-            android:icon="@drawable/ic_cancel_black_24dp"
+            android:icon="@drawable/exit"
             android:onClick="revoke"
             android:title="Cerrar sesión" />
         <item

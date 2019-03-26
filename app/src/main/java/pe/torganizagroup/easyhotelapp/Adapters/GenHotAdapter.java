@@ -42,7 +42,8 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         GenHot hotel = hotelsList.get(i);
-        String costeF = "Desde: S/. ";
+//        String costeF = "Desde: S/. ";
+        String costeF = "S/. ";
         String thumbnail = hotel.getImage ();
 
         if((i % 2) == 0){
@@ -61,19 +62,19 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
         }
 
         viewHolder.nombreLocal.setText (hotel.getNombreLocal ());
-        viewHolder.tipoLocal.setText (hotel.getDistrito ());
+//        viewHolder.tipoLocal.setText (hotel.getDistrito ());
         viewHolder.tarifaLocal.setText (costeF + String.valueOf (hotel.getTarifaMinima ()));
         viewHolder.direccionLocal.setText (hotel.getDireccion ());
 
         Glide.with (mContext)
                 .load (hotel.getImage ())
                 .apply (new RequestOptions ()
-                                .diskCacheStrategy (DiskCacheStrategy.ALL)
-                                .centerCrop ()
-                                .placeholder (R.drawable.icono_easy_hotel)
-//                        .fallback (R.mipmap.ic_launcher)
-                                .fitCenter ()
-                                .override (100,155)
+                        .diskCacheStrategy (DiskCacheStrategy.ALL)
+                        .centerCrop ()
+                        .placeholder (R.drawable.fondo_edificio_alterno)
+                        .fallback (R.mipmap.ic_launcher)
+                        .fitCenter ()
+                        .override (50,50)
                 )
                 .into(viewHolder.fotoLocal);
     }

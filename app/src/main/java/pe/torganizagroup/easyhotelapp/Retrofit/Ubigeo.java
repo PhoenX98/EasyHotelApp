@@ -13,6 +13,11 @@ public interface Ubigeo {
     @GET("ubigeo")
     Call<List<UbigeoPojo>> getDepartamentos(@Query("distrito") String dist, @Query ("provincia") String prov);
 
+    //Departamento cambia de valor, distroto debe ser "00"
     @GET("ubigeo")
-    Call<List<UbigeoPojo>> getProvincias(@Query ("departamento") String dep);
+    Call<List<UbigeoPojo>> getProvincias(@Query ("departamento") String dep, @Query ("Distrito") String dis);
+
+    //Departamento y provincia deben cambiar de valor dependiendo de la eleccion anterior
+    @GET("ubigeo")
+    Call<List<UbigeoPojo>> getDistritos(@Query ("departamento") String dep, @Query ("Provincia") String pro);
 }

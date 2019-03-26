@@ -116,4 +116,14 @@ public class lista_hoteles_fragment extends Fragment {
         super.onStart ();
         obtenerDatos();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume ();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop ();
+    }
 }

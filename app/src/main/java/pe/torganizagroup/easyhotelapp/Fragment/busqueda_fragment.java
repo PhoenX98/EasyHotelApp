@@ -169,7 +169,7 @@ public class busqueda_fragment extends Fragment {
 
         private void setDeptData () {
 
-            depList.add (new Departamento ("00", "--Seleccione un Departamento--"));
+//            depList.add (new Departamento ("00", "--Seleccione un Departamento--"));
             spinnerFilter = rtUbigeo.create (Ubigeo.class);
             Call<List<UbigeoPojo>> call = spinnerFilter.getDepartamentos ("00", "00");
             call.enqueue (new Callback<List<UbigeoPojo>> () {
@@ -183,22 +183,9 @@ public class busqueda_fragment extends Fragment {
 //                            assert dep != null;
 //                            String[] se = new String[dep.size ()];
 //                            se = dep.toArray (se);
-
-//                            assert dep != null;
-//                            for (int i = 0; i > dep.size (); i++) {
-//                                String Code = dep.get (i).getId ();
-//                                String d1 = dep.get (i).getDepartamento ();
-//                                String d2 = dep.get (i).getProvincia ();
-//                                String d3 = dep.get (i).getDistrito ();
-//                                String d4 = dep.get (i).getNombre ();
-//                                dex.add(d1);
-//                                dex.add(d4);
-//                            }
-
+                            dex.add ("--Seleccione un Departamento--");
                             if (dep != null) {
                                 for (UbigeoPojo h: dep){
-//                                    Log.d ("Name: ", h.getNombre ());
-//                                    Log.d ("ID",h.getDepartamento ());
                                     dex.add(h.getNombre ());
                                     val1 = h.getDepartamento ();
 
@@ -209,7 +196,6 @@ public class busqueda_fragment extends Fragment {
                             depAdap = new ArrayAdapter<String> (getContext (), android.R.layout.simple_spinner_dropdown_item,dex);
                             depAdap.notifyDataSetChanged ();
                             spDep.setAdapter (depAdap);
-
 
                         } catch (Exception e) {
                             Log.d (TAG_ERROR, "Hay un error");
@@ -228,7 +214,6 @@ public class busqueda_fragment extends Fragment {
 
 
             //Departamentos
-
 
 //            depList.add (new Departamento ("01", "Amazonas"));
 //            depList.add (new Departamento ("02", "Áncash"));
@@ -259,10 +244,7 @@ public class busqueda_fragment extends Fragment {
 
         }
 
-        private void setProvData (String val) {
-//
-//            Provincia pr = (Provincia) p.getSelectedItem ();
-//             val = pr.getDepartamento ();
+        private void setProvData () {
 
             //Provincias
 
