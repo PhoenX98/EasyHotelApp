@@ -26,7 +26,7 @@ import pe.torganizagroup.easyhotelapp.R;
 public class Intro1 extends Fragment {
 
     TextView t1,t2,t3;
-    String URL = "https://media.giphy.com/media/20k1punZ5bpmM/giphy.gif";
+//    String URL = "https://media.giphy.com/media/20k1punZ5bpmM/giphy.gif";
     ImageView Gif;
 
     public Intro1() {

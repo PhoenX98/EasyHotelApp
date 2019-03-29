@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/fondo_base_1"
+    android:background="#E8E8E8"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:weightSum="2"
     tools:context=".Fragment.Intro2">
 
+    <ImageView
+        android:id="@+id/imgIntro2"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/inicio_intro2"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:layout_margin="25dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:text="Bienvenido a la mejor plataforma de busqueda de Hoteles, Hostales y Hospedajes "
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 
-</FrameLayout>
+</LinearLayout>

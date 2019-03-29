@@ -70,18 +70,16 @@ public class lista_hoteles_fragment extends Fragment {
     }
 
     private void obtenerDatos() {
-
         Call<List<GenHot>> call = localTest.getlocal ();
-
         call.enqueue (new Callback<List<GenHot>> () {
             @Override
             public void onResponse(Call<List<GenHot>> call, Response<List<GenHot>> response) {
                 if(response.isSuccessful ()){
                     try {
-
                         List<GenHot> hotels = response.body ();
 
 //                        Funcion logcat activo
+
 //                        for (GenHot h: hotels){
 //                            Log.d ("Name: ", h.getNombreLocal ());
 //                            Log.d ("Direccion: ", h.getDireccion ());
