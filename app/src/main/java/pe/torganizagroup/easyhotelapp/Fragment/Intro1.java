@@ -42,7 +42,7 @@ public class Intro1 extends Fragment {
         ImageView Gif = (ImageView) v.findViewById (R.id.imgGif);
 
         Glide.with (Objects.requireNonNull (getContext ()))
-                .load (R.drawable.inicio)
+                .load (R.drawable.animacion_easy_hotel_intro)
                 .apply (new RequestOptions ()
 //                .fitCenter ()
                 .diskCacheStrategy (DiskCacheStrategy.ALL)

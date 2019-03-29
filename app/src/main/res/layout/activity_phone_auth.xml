@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
+    android:background="#E8E8E8"
     android:gravity="center_horizontal|center_vertical"
     tools:context=".PhoneAuthActivity"
     android:orientation="vertical">
@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Telefono"
-        android:textColor="@color/colorPrimary"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
         android:textSize="36sp"
         android:textStyle="bold" />
 
@@ -22,14 +23,19 @@
         android:id="@+id/txtTelefono"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
-        android:hint="Ejemplo: +51939024979"
+        android:hint="Ejemplo: 999187..."
+        android:textColorHint="@color/colorAccent"
+        android:background="@drawable/bordes_redondos"
         android:inputType="phone" />
 
     <Button
         android:id="@+id/btnEnviar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/bordes_color_boton"
         android:onClick="requestCode"
         android:text="Enviar SMS" />
 
@@ -37,23 +43,30 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="*Se aplican cargos"
+        android:layout_margin="10dp"
+        android:text="Recibira un codigo de verificacion por SMS a su telefono"
+        android:textColor="@color/colorAccent"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/txtCodigo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/bordes_redondos"
         android:ems="10"
-        android:hint="Codigo"
+        android:hint="Codigo de Verificacion"
+        android:textColorHint="@color/colorAccent"
         android:inputType="number" />
 
     <Button
         android:id="@+id/btnVerificar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:onClick="signIn"
+        android:background="@drawable/bordes_color_boton"
         android:text="Verificar" />
 
 </LinearLayout>

@@ -56,7 +56,7 @@ public class PhoneAuthActivity extends Activity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
-                    Toast.makeText(PhoneAuthActivity.this, getString(R.string.now_logged_in) + firebaseAuth.getCurrentUser().getProviderId(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhoneAuthActivity.this, getString(R.string.now_logged_in), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(PhoneAuthActivity.this, DrawableActivity.class);
                     startActivity(intent);
                     finish();
@@ -66,7 +66,9 @@ public class PhoneAuthActivity extends Activity {
     }
 
     public void requestCode(View view){
-        String phoneNumber = txtTelefono.getText ().toString ();
+        String codigoPais = "+51";
+        String Telefono = txtTelefono.getText ().toString ();
+        String phoneNumber = codigoPais + Telefono;
         if(TextUtils.isEmpty (phoneNumber))
             return;
         PhoneAuthProvider.getInstance ().verifyPhoneNumber (
@@ -80,14 +82,14 @@ public class PhoneAuthActivity extends Activity {
                     @Override
                     public void onVerificationFailed(FirebaseException e) {
                         //incorrect phone number, verification code, emulator, etc.
-                        Toast.makeText(PhoneAuthActivity.this, "Verificacion Fallida " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PhoneAuthActivity.this, "Verificacion Fallida : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         //now the code has been sent, save the verificationId we may need it
                         super.onCodeSent(verificationId, forceResendingToken);
-
+                        Toast.makeText (PhoneAuthActivity.this, "Verificando...",Toast.LENGTH_LONG).show ();
                         idVerificacion = verificationId;
                     }
 
@@ -95,7 +97,7 @@ public class PhoneAuthActivity extends Activity {
                     public void onCodeAutoRetrievalTimeOut(String verificationId) {
                         //called after timeout if onVerificationCompleted has not been called
                         super.onCodeAutoRetrievalTimeOut(verificationId);
-                        Toast.makeText(PhoneAuthActivity.this, "onCodeAutoRetrievalTimeOut :" + verificationId, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PhoneAuthActivity.this, "Se agoto el tiempo de respuesta :" + verificationId, Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -126,6 +128,7 @@ public class PhoneAuthActivity extends Activity {
         Intent intent2 = new Intent(PhoneAuthActivity.this, DrawableActivity.class);
         startActivity(intent2);
         signInWithCredential(PhoneAuthProvider.getCredential(idVerificacion, code));
+        Toast.makeText (PhoneAuthActivity.this, "Verificando...",Toast.LENGTH_LONG).show ();
     }
 
 }
