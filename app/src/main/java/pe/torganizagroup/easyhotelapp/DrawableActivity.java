@@ -25,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,7 +96,7 @@ public class DrawableActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener (this);
 //        navigationView.setItemIconTintList (null);
 
-        FragmentManager fragmentManager=getSupportFragmentManager ();
+        FragmentManager fragmentManager = getSupportFragmentManager ();
         fragmentManager.beginTransaction ().replace (R.id.contenedor, new mapa_fragment ()).commit ();
 
         @SuppressLint("CutPasteId")
@@ -110,63 +111,65 @@ public class DrawableActivity extends AppCompatActivity
                 .addApi (Auth.GOOGLE_SIGN_IN_API, gso)
                 .build ();
 
-        firebaseAuth = FirebaseAuth.getInstance ();
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser ();
-                if (user != null) {
-                    setUserData (user);
-                } else {
-                    goLogInScreen ();
-                }
-            }
-        };
+//        Habilitar login alterno por menu(En proceso)
+//
+//        firebaseAuth = FirebaseAuth.getInstance ();
+//        firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser ();
+//                if (user != null) {
+//                    setUserData (user);
+//                } else {
+//                    goLogInScreen ();
+//                }
+//            }
+//        };
     }
 
-    private void setUserData(FirebaseUser user) {
-
-        View header = ((NavigationView)findViewById (R.id.nav_view)).getHeaderView (0);
-        FirebaseAuth.getInstance ().getCurrentUser ();
-
-        if (user != null) {
-            String id = user.getUid ();
-            String provider = user.getProviderId ();
-            String phone = user.getPhoneNumber ();
-            String name = user.getDisplayName ();
-            String email = user.getEmail ();
-            Uri photoUrl = user.getPhotoUrl ();
-
-            ((TextView) header.findViewById (R.id.txtPhone)).setText (phone);
-            ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
-            ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
-            ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
-
-            if( photoUrl == null ){
-                Glide.with (this)
-                        .load (R.drawable.user)
-                        .apply (new RequestOptions ()
-                            .fitCenter ()
-                            .circleCrop ())
-                        .into ((ImageView) header.findViewById (R.id.photoImageView));
-            } else {
-                Glide.with (this)
-                        .load (photoUrl)
-                        .apply (new RequestOptions ()
-                                .fitCenter ()
-                                .circleCrop ())
-                        .into ((ImageView) header.findViewById (R.id.photoImageView));
-            }
-
-            if (name == null ){
-                ((TextView) header.findViewById(R.id.nameTextView)).setText("Anónimo");
-            } else {
-                ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
-            }
-        } else {
-            goLogInScreen ();
-        }
-    }
+//    private void setUserData(FirebaseUser user) {
+//
+//        View header = ((NavigationView)findViewById (R.id.nav_view)).getHeaderView (0);
+//        FirebaseAuth.getInstance ().getCurrentUser ();
+//
+//        if (user != null) {
+//            String id = user.getUid ();
+//            String provider = user.getProviderId ();
+//            String phone = user.getPhoneNumber ();
+//            String name = user.getDisplayName ();
+//            String email = user.getEmail ();
+//            Uri photoUrl = user.getPhotoUrl ();
+//
+//            ((TextView) header.findViewById (R.id.txtPhone)).setText (phone);
+//            ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
+//            ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
+//            ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
+//
+//            if( photoUrl == null ){
+//                Glide.with (this)
+//                        .load (R.drawable.user)
+//                        .apply (new RequestOptions ()
+//                            .fitCenter ()
+//                            .circleCrop ())
+//                        .into ((ImageView) header.findViewById (R.id.photoImageView));
+//            } else {
+//                Glide.with (this)
+//                        .load (photoUrl)
+//                        .apply (new RequestOptions ()
+//                                .fitCenter ()
+//                                .circleCrop ())
+//                        .into ((ImageView) header.findViewById (R.id.photoImageView));
+//            }
+//
+//            if (name == null){
+//                ((TextView) header.findViewById(R.id.nameTextView)).setText("Anónimo");
+//            } else {
+//                ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
+//            }
+//        } else {
+//            goLogInScreen ();
+//        }
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
@@ -178,12 +181,12 @@ public class DrawableActivity extends AppCompatActivity
             else
                 Toast.makeText (this, "Permiso denegado", Toast.LENGTH_SHORT).show ();
         }
-    }
+}
 
     @Override
     protected void onStart() {
         super.onStart ();
-        firebaseAuth.addAuthStateListener (firebaseAuthListener);
+//        firebaseAuth.addAuthStateListener (firebaseAuthListener);
     }
 
     private void goLogInScreen() {
@@ -204,7 +207,7 @@ public class DrawableActivity extends AppCompatActivity
                 if (status.isSuccess ()) {
                     finish ();
                 } else {
-                    Toast.makeText (getApplicationContext (), getString (R.string.not_close_session), Toast.LENGTH_SHORT).show ();
+                    Toast.makeText (getApplicationContext (), getString (R.string.session_closed), Toast.LENGTH_SHORT).show ();
                 }
             }
         });
@@ -229,12 +232,43 @@ public class DrawableActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById (R.id.drawer_layout);
-        if (drawer.isDrawerOpen (GravityCompat.START)) {
-            drawer.closeDrawer (GravityCompat.START);
-        } else {
-            super.onBackPressed ();
-        }
+
+//        DrawerLayout drawer = findViewById (R.id.drawer_layout);
+//        if (drawer.isDrawerOpen (GravityCompat.START)) {
+//            drawer.closeDrawer (GravityCompat.START);
+//        } else {
+//            super.onBackPressed ();
+//        }
+
+//        FrameLayout fl = (FrameLayout) findViewById(R.id.content_frame);
+//        if (fl.getChildCount() == 1) {
+//            super.onBackPressed();
+//            if (fl.getChildCount() == 0) {
+//                new AlertDialog.Builder(this)
+//                        .setTitle("Close App?")
+//                        .setMessage("Do you really want to close this beautiful app?")
+//                        .setPositiveButton("YES",
+//                                new DialogInterface.OnClickListener() {
+//
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        finish();
+//                                    }
+//                                })
+//                        .setNegativeButton("NO",
+//                                new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                    }
+//                                }).show();
+//                // load your first Fragment here
+//            }
+//        } else if (fl.getChildCount() == 0) {
+//            // load your first Fragment here
+//        } else {
+//            super.onBackPressed();
+//        }
+
     }
 
     @Override
@@ -276,6 +310,9 @@ public class DrawableActivity extends AppCompatActivity
         } else if (id == R.id.nav_revocar) {
             finish ();
         } else if (id == R.id.nav_cerrar_sesion) {
+            finish ();
+        } else if (id == R.id.nav_iniciar_sesion){
+            //metodo
             finish ();
         }
 

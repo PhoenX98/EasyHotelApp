@@ -206,7 +206,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             pdDialog = ProgressDialog.show (LoginActivity.this, "Iniciando sesión","Comprobando credenciales...", false, false);
 
         }else {
-            Toast.makeText (this,   R.string.not_log_in,Toast.LENGTH_SHORT).show ();
+            Toast.makeText (this,R.string.not_log_in,Toast.LENGTH_SHORT).show ();
         }
     }
 
