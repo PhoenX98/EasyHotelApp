@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.paolorotolo.appintro.ISlidePolicy;
+
 import pe.torganizagroup.easyhotelapp.R;
 
 
-public class Intro3 extends Fragment {
+public class Intro3 extends Fragment implements ISlidePolicy {
 
     TextView t1,t2;
 
@@ -46,4 +48,13 @@ public class Intro3 extends Fragment {
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
 
+    @Override
+    public boolean isPolicyRespected() {
+        return false;
+    }
+
+    @Override
+    public void onUserIllegallyRequestedNextPage() {
+
+    }
 }

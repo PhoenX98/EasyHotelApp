@@ -40,7 +40,7 @@ public class MyIntro extends AppIntro2 implements ISlidePolicy {
 
     @Override
     public void onDonePressed(){
-        startActivity (new Intent (this, LoginActivity.class));
+        startActivity (new Intent (this, DrawableActivity.class));
         finish ();
     }
 

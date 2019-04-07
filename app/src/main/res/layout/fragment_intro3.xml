@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="50dp"
         android:adjustViewBounds="true"
         android:background="@drawable/ratingbar"
@@ -22,9 +22,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginVertical="50dp"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/bordes_redondos"
         android:text="Easy Hotel utiliza tu geolocalización para poder ubicar los Hoteles, Hostales y Hospedajes mas cercanos a ti de forma efectiva."
         android:textAlignment="center"
+
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -34,7 +37,7 @@
         android:weightSum="3"
         android:orientation="horizontal">
 
-        <TextView
+        <CheckBox
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +47,7 @@
             android:text="Aceptar"
             android:textAlignment="center"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/txtmuestra1"
@@ -76,6 +79,7 @@
             android:text="Aceptar"
             android:textAlignment="center"
             android:textSize="18sp"
+            android:visibility="invisible"
             android:textStyle="bold" />
 
         <TextView
@@ -87,6 +91,7 @@
             android:text="@string/txtCredits2"
             android:textAlignment="center"
             android:textSize="18sp"
+            android:visibility="invisible"
             android:textStyle="bold|italic" />
     </LinearLayout>
 

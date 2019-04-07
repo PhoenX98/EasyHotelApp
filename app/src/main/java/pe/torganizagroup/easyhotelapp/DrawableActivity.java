@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -65,7 +66,7 @@ public class DrawableActivity extends AppCompatActivity
     LocationManager locationManager;
     LocationListener locationListener;
     AlertDialog alert = null;
-
+    boolean doubleBackToExitPressedOnce = false;
     private static final int REQUEST_ACCESS_FINE = 0;
 
     @Override
@@ -95,7 +96,6 @@ public class DrawableActivity extends AppCompatActivity
         NavigationView navigationView = findViewById (R.id.nav_view);
         navigationView.setNavigationItemSelectedListener (this);
 //        navigationView.setItemIconTintList (null);
-
         FragmentManager fragmentManager = getSupportFragmentManager ();
         fragmentManager.beginTransaction ().replace (R.id.contenedor, new mapa_fragment ()).commit ();
 
@@ -113,63 +113,82 @@ public class DrawableActivity extends AppCompatActivity
 
 //        Habilitar login alterno por menu(En proceso)
 //
-//        firebaseAuth = FirebaseAuth.getInstance ();
-//        firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = firebaseAuth.getCurrentUser ();
-//                if (user != null) {
-//                    setUserData (user);
-//                } else {
-//                    goLogInScreen ();
-//                }
-//            }
-//        };
+        firebaseAuth = FirebaseAuth.getInstance ();
+            if(firebaseAuth == null){
+                Toast.makeText (this,"Prueba 1",Toast.LENGTH_LONG);
+                hideItem();
+                showItem();
+            } else {
+                firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    FirebaseUser user = firebaseAuth.getCurrentUser ();
+                    if (user != null) {
+                        setUserData (user);
+                    } else {
+                        goLogInScreen ();
+                    }
+                }
+            };
+        }
+
     }
 
-//    private void setUserData(FirebaseUser user) {
-//
-//        View header = ((NavigationView)findViewById (R.id.nav_view)).getHeaderView (0);
-//        FirebaseAuth.getInstance ().getCurrentUser ();
-//
-//        if (user != null) {
-//            String id = user.getUid ();
-//            String provider = user.getProviderId ();
-//            String phone = user.getPhoneNumber ();
-//            String name = user.getDisplayName ();
-//            String email = user.getEmail ();
-//            Uri photoUrl = user.getPhotoUrl ();
-//
-//            ((TextView) header.findViewById (R.id.txtPhone)).setText (phone);
-//            ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
-//            ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
-//            ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
-//
-//            if( photoUrl == null ){
-//                Glide.with (this)
-//                        .load (R.drawable.user)
-//                        .apply (new RequestOptions ()
-//                            .fitCenter ()
-//                            .circleCrop ())
-//                        .into ((ImageView) header.findViewById (R.id.photoImageView));
-//            } else {
-//                Glide.with (this)
-//                        .load (photoUrl)
-//                        .apply (new RequestOptions ()
-//                                .fitCenter ()
-//                                .circleCrop ())
-//                        .into ((ImageView) header.findViewById (R.id.photoImageView));
-//            }
-//
-//            if (name == null){
-//                ((TextView) header.findViewById(R.id.nameTextView)).setText("Anónimo");
-//            } else {
-//                ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
-//            }
-//        } else {
-//            goLogInScreen ();
-//        }
-//    }
+    private void showItem() {
+        NavigationView navigationView = findViewById (R.id.nav_view);
+        Menu nav_menu = navigationView.getMenu ();
+        nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (true);
+    }
+
+    private void hideItem() {
+        NavigationView navigationView = findViewById (R.id.nav_view);
+        Menu nav_menu = navigationView.getMenu ();
+        nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (false);
+    }
+
+    private void setUserData(FirebaseUser user) {
+
+        View header = ((NavigationView)findViewById (R.id.nav_view)).getHeaderView (0);
+        FirebaseAuth.getInstance ().getCurrentUser ();
+
+        if (user != null) {
+            String id = user.getUid ();
+            String provider = user.getProviderId ();
+            String phone = user.getPhoneNumber ();
+            String name = user.getDisplayName ();
+            String email = user.getEmail ();
+            Uri photoUrl = user.getPhotoUrl ();
+
+            ((TextView) header.findViewById (R.id.txtPhone)).setText (phone);
+            ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
+            ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
+            ((TextView) header.findViewById(R.id.emailTextView)).setText(email);
+
+            if( photoUrl == null ){
+                Glide.with (this)
+                        .load (R.drawable.user)
+                        .apply (new RequestOptions ()
+                            .fitCenter ()
+                            .circleCrop ())
+                        .into ((ImageView) header.findViewById (R.id.photoImageView));
+            } else {
+                Glide.with (this)
+                        .load (photoUrl)
+                        .apply (new RequestOptions ()
+                                .fitCenter ()
+                                .circleCrop ())
+                        .into ((ImageView) header.findViewById (R.id.photoImageView));
+            }
+
+            if (name == null){
+                ((TextView) header.findViewById(R.id.nameTextView)).setText("Anónimo");
+            } else {
+                ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
+            }
+        } else {
+            goLogInScreen ();
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
@@ -186,7 +205,7 @@ public class DrawableActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart ();
-//        firebaseAuth.addAuthStateListener (firebaseAuthListener);
+        firebaseAuth.addAuthStateListener (firebaseAuthListener);
     }
 
     private void goLogInScreen() {
@@ -233,41 +252,23 @@ public class DrawableActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
 
-//        DrawerLayout drawer = findViewById (R.id.drawer_layout);
-//        if (drawer.isDrawerOpen (GravityCompat.START)) {
-//            drawer.closeDrawer (GravityCompat.START);
-//        } else {
-//            super.onBackPressed ();
-//        }
+        //Presionar 2 veces atras para salir
 
-//        FrameLayout fl = (FrameLayout) findViewById(R.id.content_frame);
-//        if (fl.getChildCount() == 1) {
-//            super.onBackPressed();
-//            if (fl.getChildCount() == 0) {
-//                new AlertDialog.Builder(this)
-//                        .setTitle("Close App?")
-//                        .setMessage("Do you really want to close this beautiful app?")
-//                        .setPositiveButton("YES",
-//                                new DialogInterface.OnClickListener() {
-//
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        finish();
-//                                    }
-//                                })
-//                        .setNegativeButton("NO",
-//                                new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                    }
-//                                }).show();
-//                // load your first Fragment here
-//            }
-//        } else if (fl.getChildCount() == 0) {
-//            // load your first Fragment here
-//        } else {
-//            super.onBackPressed();
-//        }
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Presione atras otra vez para salir", Toast.LENGTH_SHORT).show();
+
+        new Handler ().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
 
     }
 
@@ -313,7 +314,8 @@ public class DrawableActivity extends AppCompatActivity
             finish ();
         } else if (id == R.id.nav_iniciar_sesion){
             //metodo
-            finish ();
+            goLogInScreen ();
+
         }
 
         DrawerLayout drawer = findViewById (R.id.drawer_layout);
