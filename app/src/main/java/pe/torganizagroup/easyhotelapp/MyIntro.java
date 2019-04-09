@@ -1,5 +1,6 @@
 package pe.torganizagroup.easyhotelapp;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
@@ -35,7 +36,9 @@ public class MyIntro extends AppIntro2 implements ISlidePolicy {
         showSkipButton (false);
         setFadeAnimation ();
         setBarColor (Color.TRANSPARENT);
+//        askForPermissions (new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION}, 3);
 
+//        isPolicyRespected ();
     }
 
     @Override

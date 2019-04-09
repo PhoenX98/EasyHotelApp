@@ -17,6 +17,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -111,26 +112,29 @@ public class DrawableActivity extends AppCompatActivity
                 .addApi (Auth.GOOGLE_SIGN_IN_API, gso)
                 .build ();
 
+//                hideItem();
+                showItem();
 //        Habilitar login alterno por menu(En proceso)
 //
-        firebaseAuth = FirebaseAuth.getInstance ();
-            if(firebaseAuth == null){
-                Toast.makeText (this,"Prueba 1",Toast.LENGTH_LONG);
-                hideItem();
-                showItem();
-            } else {
-                firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    FirebaseUser user = firebaseAuth.getCurrentUser ();
-                    if (user != null) {
-                        setUserData (user);
-                    } else {
-                        goLogInScreen ();
-                    }
-                }
-            };
-        }
+//        firebaseAuth = FirebaseAuth.getInstance ();
+//            if(firebaseAuth == null){
+//                Toast.makeText (this,"Prueba 1",Toast.LENGTH_LONG);
+//                hideItem();
+//                showItem();
+//            } else {
+//                firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
+//                @Override
+//                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                    FirebaseUser user = firebaseAuth.getCurrentUser ();
+//                    if (user != null) {
+//                        setUserData (user);
+//                    } else {
+//                        Log.d ("Prueba metodo: ","DESVIO 1");
+////                        goLogInScreen ();
+//                    }
+//                }
+//            };
+//        }
 
     }
 
@@ -138,12 +142,14 @@ public class DrawableActivity extends AppCompatActivity
         NavigationView navigationView = findViewById (R.id.nav_view);
         Menu nav_menu = navigationView.getMenu ();
         nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (true);
+        nav_menu.findItem (R.id.nav_cerrar_sesion).setVisible (false);
     }
 
     private void hideItem() {
         NavigationView navigationView = findViewById (R.id.nav_view);
         Menu nav_menu = navigationView.getMenu ();
         nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (false);
+        nav_menu.findItem (R.id.nav_cerrar_sesion).setVisible (true);
     }
 
     private void setUserData(FirebaseUser user) {
@@ -186,7 +192,8 @@ public class DrawableActivity extends AppCompatActivity
                 ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
             }
         } else {
-            goLogInScreen ();
+            Toast.makeText (this,"SET USER DATA",Toast.LENGTH_LONG);
+//            goLogInScreen ();
         }
     }
 
@@ -200,12 +207,12 @@ public class DrawableActivity extends AppCompatActivity
             else
                 Toast.makeText (this, "Permiso denegado", Toast.LENGTH_SHORT).show ();
         }
-}
+    }
 
     @Override
     protected void onStart() {
         super.onStart ();
-        firebaseAuth.addAuthStateListener (firebaseAuthListener);
+//        firebaseAuth.addAuthStateListener (firebaseAuthListener);
     }
 
     private void goLogInScreen() {
@@ -313,9 +320,7 @@ public class DrawableActivity extends AppCompatActivity
         } else if (id == R.id.nav_cerrar_sesion) {
             finish ();
         } else if (id == R.id.nav_iniciar_sesion){
-            //metodo
             goLogInScreen ();
-
         }
 
         DrawerLayout drawer = findViewById (R.id.drawer_layout);

@@ -34,6 +34,8 @@ public class Intro3 extends Fragment implements ISlidePolicy {
         t1.setMovementMethod (LinkMovementMethod.getInstance ());
         t2.setMovementMethod (LinkMovementMethod.getInstance ());
 
+
+
         return v;
     }
 

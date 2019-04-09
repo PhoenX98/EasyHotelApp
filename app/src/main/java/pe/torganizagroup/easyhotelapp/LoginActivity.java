@@ -216,6 +216,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onStart ();
         //Añade el listener
         firebaseAuth.addAuthStateListener (firebaseAuthListener);
+        //PARA INICIAR EL MODO SIN LOGEO EN LA APP AL SALIR Y VOLVER A ENTRAR
+        goMainScreen ();
     }
 
     //el AuthListener termina su funcion en esta clase
