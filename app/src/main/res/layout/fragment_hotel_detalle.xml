@@ -18,7 +18,7 @@
 
             <android.support.v4.view.ViewPager
                 android:layout_width="wrap_content"
-                android:layout_height="250dp" />
+                android:layout_height="200dp" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -136,7 +136,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="6"
+                                android:layout_weight="5"
                                 android:text="direccion muestra"
                                 android:textColor="#000000"
                                 android:textAlignment="textStart" />
@@ -144,27 +144,28 @@
                             <View
                                 android:layout_width="2dp"
                                 android:layout_height="wrap_content"
-                                android:background="#000080" />
+                                android:layout_margin="3dp"
+                                android:background="#000000" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:orientation="horizontal"
-                                android:weightSum="2">
+                                android:weightSum="3">
 
                                 <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginHorizontal="10dp"
-                                    android:layout_marginVertical="5dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginHorizontal="5dp"
+                                    android:scaleType="fitCenter"
                                     android:layout_weight="1"
                                     android:background="@drawable/car" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="1"
+                                    android:layout_weight="2"
                                     android:text="min"
                                     android:textColor="#000000"
                                     android:textAlignment="center"
@@ -186,62 +187,77 @@
                         android:background="@drawable/img_telefono_con_fondo"
                         android:gravity="center|end"
                         android:text="959368787"
-                        android:textColor="#000000"
                         android:textAlignment="textEnd"
-                        android:textSize="15sp" />
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
                 </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginHorizontal="5dp"
                     android:text="Servicios"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textColor="#000000"
                     android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.RecyclerView
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/Re_servicios"
                         android:layout_width="fill_parent"
                         android:layout_height="120dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="5dp"
+                        tools:listitem="@layout/dh_item_servicios"
                         >
                     </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
             </LinearLayout>
+            <View
+                android:background="#ffab02"
+                android:layout_height="5dp"
+                android:layout_width="fill_parent"
+                android:layout_marginVertical="5dp"
+                android:layout_marginHorizontal="5dp">
+            </View>
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="125dp"
                 android:weightSum="3"
                 android:orientation="horizontal">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/Re_Tipo_Hab"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    tools:listitem="@layout/dh_item_hab_icon">
 
-                <TextView
-                    android:id="@+id/txtDireccion"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="Direccion"
-                    android:textAlignment="center"
-                    android:textColor="#000000"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:text="Calificar Hotel"/>
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
+
+            <View
+                android:background="#ffab02"
+                android:layout_height="5dp"
+                android:layout_width="fill_parent"
+                android:layout_marginVertical="5dp"
+                android:layout_marginHorizontal="5dp">
+            </View>
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="60dp"
                 android:gravity="bottom"
                 android:background="@drawable/btn_go_map"
                 android:textAlignment="center" />

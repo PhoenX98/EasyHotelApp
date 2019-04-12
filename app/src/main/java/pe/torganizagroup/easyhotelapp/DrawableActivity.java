@@ -320,7 +320,8 @@ public class DrawableActivity extends AppCompatActivity
         } else if (id == R.id.nav_cerrar_sesion) {
             finish ();
         } else if (id == R.id.nav_iniciar_sesion){
-            goLogInScreen ();
+//            goLogInScreen ();
+            fragmentManager.beginTransaction ().replace (R.id.contenedor, new hotel_detalle_fragment ()).commit ();
         }
 
         DrawerLayout drawer = findViewById (R.id.drawer_layout);
