@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.icu.text.LocaleDisplayNames;
 import android.location.Location;
@@ -11,6 +12,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -111,6 +113,22 @@ public class DrawableActivity extends AppCompatActivity
                 .enableAutoManage (this, this)
                 .addApi (Auth.GOOGLE_SIGN_IN_API, gso)
                 .build ();
+
+        Thread thread = new Thread (new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences (getBaseContext ());
+                boolean isFirstStart = getPrefs.getBoolean ("firstStart", true);
+                if (isFirstStart){
+                    startActivity (new Intent (DrawableActivity.this, MyIntro.class));
+                    SharedPreferences.Editor e = getPrefs.edit ();
+                    e.putBoolean ("firstStart",false);
+                    e.apply ();
+                }
+            }
+        });
+
+        thread.start ();
 
 //                hideItem();
                 showItem();
@@ -318,10 +336,13 @@ public class DrawableActivity extends AppCompatActivity
         } else if (id == R.id.nav_revocar) {
             finish ();
         } else if (id == R.id.nav_cerrar_sesion) {
-            finish ();
+
+            firebaseAuth.getInstance().signOut ();
+
+//            finish ();
         } else if (id == R.id.nav_iniciar_sesion){
-//            goLogInScreen ();
-            fragmentManager.beginTransaction ().replace (R.id.contenedor, new hotel_detalle_fragment ()).commit ();
+            goLogInScreen ();
+//            fragmentManager.beginTransaction ().replace (R.id.contenedor, new hotel_detalle_fragment ()).commit ();
         }
 
         DrawerLayout drawer = findViewById (R.id.drawer_layout);
@@ -329,9 +350,9 @@ public class DrawableActivity extends AppCompatActivity
         return true;
     }
 
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
     @Override

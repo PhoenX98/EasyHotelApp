@@ -15,7 +15,7 @@ import com.github.paolorotolo.appintro.ISlidePolicy;
 import pe.torganizagroup.easyhotelapp.R;
 
 
-public class Intro3 extends Fragment implements ISlidePolicy {
+public class Intro3 extends Fragment  {
 
     TextView t1,t2;
 
@@ -50,13 +50,4 @@ public class Intro3 extends Fragment implements ISlidePolicy {
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
 
-    @Override
-    public boolean isPolicyRespected() {
-        return false;
-    }
-
-    @Override
-    public void onUserIllegallyRequestedNextPage() {
-
-    }
 }

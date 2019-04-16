@@ -75,23 +75,21 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-
-
-        Thread thread = new Thread (new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences (getBaseContext ());
-                boolean isFirstStart = getPrefs.getBoolean ("firstStart", true);
-                if (isFirstStart){
-                    startActivity (new Intent (LoginActivity.this, MyIntro.class));
-                    SharedPreferences.Editor e = getPrefs.edit ();
-                    e.putBoolean ("firstStart",false);
-                    e.apply ();
-                }
-            }
-        });
-
-        thread.start ();
+//        Thread thread = new Thread (new Runnable() {
+//            @Override
+//            public void run() {
+//                SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences (getBaseContext ());
+//                boolean isFirstStart = getPrefs.getBoolean ("firstStart", true);
+//                if (isFirstStart){
+//                    startActivity (new Intent (LoginActivity.this, MyIntro.class));
+//                    SharedPreferences.Editor e = getPrefs.edit ();
+//                    e.putBoolean ("firstStart",false);
+//                    e.apply ();
+//                }
+//            }
+//        });
+//
+//        thread.start ();
 
 
         //Metodo callback manager para

@@ -220,9 +220,10 @@
 
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:background="#ffab02"
-                android:layout_height="5dp"
+                android:layout_height="10dp"
                 android:layout_width="fill_parent"
                 android:layout_marginVertical="5dp"
                 android:layout_marginHorizontal="5dp">
@@ -250,7 +251,7 @@
                 android:layout_height="5dp"
                 android:layout_width="fill_parent"
                 android:layout_marginVertical="5dp"
-                android:layout_marginHorizontal="5dp">
+                android:layout_marginHorizontal="10dp">
             </View>
 
             <Button

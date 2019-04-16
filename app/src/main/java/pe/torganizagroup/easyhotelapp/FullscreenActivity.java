@@ -16,10 +16,10 @@ public class FullscreenActivity extends Activity {
         new Handler ().postDelayed (new Runnable () {
             @Override
             public void run() {
-                Intent i = new Intent (FullscreenActivity.this, LoginActivity.class);
+                Intent i = new Intent (FullscreenActivity.this, DrawableActivity.class);
                 i.addFlags (Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity (i);
             }
-        }, 4000);
+        }, 3500);
     }
 }

@@ -34,17 +34,23 @@ public class MyIntro extends AppIntro2 implements ISlidePolicy {
 
         showStatusBar (false);
         showSkipButton (false);
-        setFadeAnimation ();
+        showDoneButton (true);
+        setZoomAnimation ();
         setBarColor (Color.TRANSPARENT);
-//        askForPermissions (new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION}, 3);
+        askForPermissions (new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},2);
 
-//        isPolicyRespected ();
+
     }
 
     @Override
     public void onDonePressed(){
         startActivity (new Intent (this, DrawableActivity.class));
         finish ();
+    }
+
+    @Override
+    public void onNextPressed() {
+        super.onNextPressed ();
     }
 
     @Override

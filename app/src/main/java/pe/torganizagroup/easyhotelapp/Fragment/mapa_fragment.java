@@ -153,12 +153,12 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     @SuppressLint("MissingPermission")
     private void setUpMap() {
         mGoogleMap.getUiSettings ().isCompassEnabled ();
-        mGoogleMap.setMaxZoomPreference (16);
+        mGoogleMap.setMaxZoomPreference (20);
         mGoogleMap.setMinZoomPreference (10);
         mGoogleMap.getUiSettings ().setMyLocationButtonEnabled (true);
         mGoogleMap.getUiSettings ().setZoomControlsEnabled (true);
 
-        mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, lng), 15));
+        mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, lng), 17));
 
         if (ActivityCompat.checkSelfPermission (Objects.requireNonNull (getActivity ()), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission (getActivity (), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
