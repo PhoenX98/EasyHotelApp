@@ -58,7 +58,9 @@ public class GenHot {
 
     }
 
-    public GenHot(Double latitud, Double longitud, String image, String createdAt, String updatedAt, String id, String nombre, String direccion, String calificacion, Integer tarifaMinima, String distrito, Integer distancia, String nombreLocal) {
+    public GenHot(Double latitud, Double longitud, String image, String createdAt, String updatedAt,
+                  String id, String nombre, String direccion, String calificacion, Integer tarifaMinima,
+                  String distrito, Integer distancia, String nombreLocal) {
         this.latitud = latitud;
         this.longitud = longitud;
         this.image = image;

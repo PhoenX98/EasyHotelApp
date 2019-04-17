@@ -121,12 +121,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken (getString (R.string.default_web_client_id))
                 .requestEmail ()
                 .build();
 
-        googleApiClient = new GoogleApiClient.Builder(this)
+        googleApiClient = new GoogleApiClient
+                .Builder(this)
                 .enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
@@ -169,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful ()){
-                    Toast.makeText (getApplicationContext (), getString(R.string.firebase_error_login), Toast.LENGTH_LONG).show ();
+                    Toast.makeText (getApplicationContext (),  getString(R.string.firebase_error_login), Toast.LENGTH_LONG).show ();
                 }
 //                progressBar.setVisibility (View.GONE);|
                 loginButton.setVisibility (View.VISIBLE);

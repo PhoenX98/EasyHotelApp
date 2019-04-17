@@ -28,6 +28,7 @@ public class MyIntro extends AppIntro2 implements ISlidePolicy {
         Intro1 fragment1 = new Intro1 ();
         Intro2 fragment2 = new Intro2 ();
         Intro3 fragment3 = new Intro3 ();
+
         addSlide (fragment1);
         addSlide (fragment2);
         addSlide (fragment3);
@@ -37,8 +38,8 @@ public class MyIntro extends AppIntro2 implements ISlidePolicy {
         showDoneButton (true);
         setZoomAnimation ();
         setBarColor (Color.TRANSPARENT);
-        askForPermissions (new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},2);
 
+        askForPermissions (new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},3);
 
     }
 
@@ -55,7 +56,6 @@ public class MyIntro extends AppIntro2 implements ISlidePolicy {
 
     @Override
     public boolean isPolicyRespected() {
-
         return false;
     }
 
