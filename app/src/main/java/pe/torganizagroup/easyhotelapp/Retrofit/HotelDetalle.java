@@ -10,4 +10,5 @@ public interface HotelDetalle {
 
     @GET("")
     Call<List<GenHot>> getDetalle();
+
 }

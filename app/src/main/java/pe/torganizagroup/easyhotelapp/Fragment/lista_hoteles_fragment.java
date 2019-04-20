@@ -19,6 +19,7 @@ import java.util.Objects;
 
 import pe.torganizagroup.easyhotelapp.Adapters.GenHotAdapter;
 import pe.torganizagroup.easyhotelapp.Pojo.GenHot;
+import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
 import pe.torganizagroup.easyhotelapp.Retrofit.HotelLista;
 import pe.torganizagroup.easyhotelapp.Retrofit.Utilidades;
@@ -34,6 +35,7 @@ public class lista_hoteles_fragment extends Fragment {
     private RecyclerView recyclerView;
     private GenHotAdapter lhAdapter;
     private List<GenHot> lH = new ArrayList<> ();
+    private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
 
     public lista_hoteles_fragment() {
@@ -70,6 +72,31 @@ public class lista_hoteles_fragment extends Fragment {
     }
 
     private void obtenerDatos() {
+
+        Call<List<Hotels>> call1 = localTest.getHotels ();
+        call1.enqueue (new Callback<List<Hotels>> () {
+            @Override
+            public void onResponse(Call<List<Hotels>> call, Response<List<Hotels>> response) {
+                if(response.isSuccessful ()){
+                    try {
+                        List<Hotels> h = response.body ();
+                    } catch (Exception e){
+                        Log.d (TAG_ERROR, "Hay un error");
+                        e.printStackTrace ();
+                    }
+                } else {
+                    Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Hotels>> call, Throwable t) {
+
+            }
+        });
+
+
         Call<List<GenHot>> call = localTest.getlocal ();
         call.enqueue (new Callback<List<GenHot>> () {
             @Override

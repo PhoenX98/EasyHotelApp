@@ -29,10 +29,10 @@ public class Intro3 extends Fragment  {
         View v = inflater.inflate (R.layout.fragment_intro3, container, false);
 
         TextView t1 = (TextView) v.findViewById (R.id.txtmuestra1);
-        TextView t2 = (TextView) v.findViewById (R.id.txtmuestra2);
+//        TextView t2 = (TextView) v.findViewById (R.id.txtmuestra2);
 
         t1.setMovementMethod (LinkMovementMethod.getInstance ());
-        t2.setMovementMethod (LinkMovementMethod.getInstance ());
+//        t2.setMovementMethod (LinkMovementMethod.getInstance ());
 
 
 

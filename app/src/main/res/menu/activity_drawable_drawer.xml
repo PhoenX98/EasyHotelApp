@@ -26,6 +26,7 @@
             android:id="@+id/nav_revocar"
             android:icon="@drawable/exit"
             android:onClick="revoke"
+            android:visible="false"
             android:title="Cerrar sesión" />
         <item
             android:id="@+id/nav_cerrar_sesion"

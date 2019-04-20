@@ -133,28 +133,30 @@ public class DrawableActivity extends AppCompatActivity
         thread.start ();
 
 //                hideItem();
-                showItem();
+//                showItem();
 //        Habilitar login alterno por menu(En proceso)
 //
-//        firebaseAuth = FirebaseAuth.getInstance ();
-//            if(firebaseAuth == null){
-//                Toast.makeText (this,"Prueba 1",Toast.LENGTH_LONG);
+        firebaseAuth = FirebaseAuth.getInstance ();
+            if(firebaseAuth == null){
+                Toast.makeText (this,"Prueba 1",Toast.LENGTH_LONG);
 //                hideItem();
-//                showItem();
-//            } else {
-//                firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
-//                @Override
-//                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                    FirebaseUser user = firebaseAuth.getCurrentUser ();
-//                    if (user != null) {
-//                        setUserData (user);
-//                    } else {
-//                        Log.d ("Prueba metodo: ","DESVIO 1");
-////                        goLogInScreen ();
-//                    }
-//                }
-//            };
-//        }
+                showItem();
+            } else {
+                firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    FirebaseUser user = firebaseAuth.getCurrentUser ();
+                    if (user != null) {
+                        setUserData (user);
+                    } else {
+                        Log.d ("Prueba metodo: ","DESVIO 1 ASDASDASDASDASDASDDASDSADASDASDSADASDASDASDASDASDASDASDASDASDASDSASDAS");
+//                        Toast.makeText (this,"",Toast.LENGTH_LONG);
+//                        goLogInScreen ();
+//                hideItem();
+                    }
+                }
+            };
+        }
 
     }
 
@@ -232,7 +234,7 @@ public class DrawableActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart ();
-//        firebaseAuth.addAuthStateListener (firebaseAuthListener);
+        firebaseAuth.addAuthStateListener (firebaseAuthListener);
     }
 
     private void goLogInScreen() {
@@ -339,9 +341,9 @@ public class DrawableActivity extends AppCompatActivity
             finish ();
         } else if (id == R.id.nav_cerrar_sesion) {
 
-            firebaseAuth.getInstance().signOut ();
+//            firebaseAuth.getInstance().signOut ();
 
-//            finish ();
+            finish ();
         } else if (id == R.id.nav_iniciar_sesion){
             goLogInScreen ();
 //            fragmentManager.beginTransaction ().replace (R.id.contenedor, new hotel_detalle_fragment ()).commit ();
