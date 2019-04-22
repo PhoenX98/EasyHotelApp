@@ -12,4 +12,6 @@ public interface CoordenadaService {
     @GET("ubicacion")
     Call<CoordenadaRespuesta> obtenerMarcadores();
 
+
+
 }

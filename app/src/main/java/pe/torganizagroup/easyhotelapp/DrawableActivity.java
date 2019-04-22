@@ -71,6 +71,7 @@ public class DrawableActivity extends AppCompatActivity
     AlertDialog alert = null;
     boolean doubleBackToExitPressedOnce = false;
     private static final int REQUEST_ACCESS_FINE = 0;
+    AlertDialog ACS = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,8 +138,9 @@ public class DrawableActivity extends AppCompatActivity
 //        Habilitar login alterno por menu(En proceso)
 //
         firebaseAuth = FirebaseAuth.getInstance ();
+
             if(firebaseAuth == null){
-                Toast.makeText (this,"Prueba 1",Toast.LENGTH_LONG);
+                Toast.makeText (this,"Prueba 1",Toast.LENGTH_LONG).show ();
 //                hideItem();
                 showItem();
             } else {
@@ -148,15 +150,19 @@ public class DrawableActivity extends AppCompatActivity
                     FirebaseUser user = firebaseAuth.getCurrentUser ();
                     if (user != null) {
                         setUserData (user);
-                    } else {
                         Log.d ("Prueba metodo: ","DESVIO 1 ASDASDASDASDASDASDDASDSADASDASDSADASDASDASDASDASDASDASDASDASDASDSASDAS");
+                    } else {
+
 //                        Toast.makeText (this,"",Toast.LENGTH_LONG);
 //                        goLogInScreen ();
-//                hideItem();
+//                        hideItem();
+
                     }
                 }
             };
         }
+
+
 
     }
 
@@ -341,9 +347,10 @@ public class DrawableActivity extends AppCompatActivity
             finish ();
         } else if (id == R.id.nav_cerrar_sesion) {
 
-//            firebaseAuth.getInstance().signOut ();
-
+            Toast.makeText (this,"Has cerrado sesion",Toast.LENGTH_LONG).show ();
             finish ();
+            startActivity (getIntent ());
+
         } else if (id == R.id.nav_iniciar_sesion){
             goLogInScreen ();
 //            fragmentManager.beginTransaction ().replace (R.id.contenedor, new hotel_detalle_fragment ()).commit ();

@@ -80,6 +80,9 @@ public class lista_hoteles_fragment extends Fragment {
                 if(response.isSuccessful ()){
                     try {
                         List<Hotels> h = response.body ();
+
+
+
                     } catch (Exception e){
                         Log.d (TAG_ERROR, "Hay un error");
                         e.printStackTrace ();

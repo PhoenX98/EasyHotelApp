@@ -51,6 +51,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static pe.torganizagroup.easyhotelapp.Retrofit.Utilidades.COORDENADA_URL;
+import static pe.torganizagroup.easyhotelapp.Retrofit.Utilidades.NEW_TEST_URL;
 
 public class mapa_fragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
@@ -64,7 +65,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     double longitude = 0.0;
     AlertDialog alert = null;
 
-    private Retrofit retrofit;
+    private Retrofit retrofit, re1;
     private CoordenadaService markerService;
 
     Marker markerLocation;
@@ -83,6 +84,11 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
 
         retrofit = new Retrofit.Builder ()
                 .baseUrl (COORDENADA_URL)
+                .addConverterFactory (GsonConverterFactory.create ())
+                .build ();
+
+        re1 = new Retrofit.Builder()
+                .baseUrl (NEW_TEST_URL)
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
 
@@ -170,6 +176,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     }
 
     private void cargarMarcadores() {
+
+
+
         markerService = retrofit.create (CoordenadaService.class);
         Call<CoordenadaRespuesta> call = markerService.obtenerMarcadores ();
         call.enqueue (new Callback<CoordenadaRespuesta> () {
