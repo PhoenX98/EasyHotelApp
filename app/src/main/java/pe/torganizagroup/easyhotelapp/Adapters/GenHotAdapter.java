@@ -45,7 +45,10 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
 //        String costeF = "Desde: S/. ";
         String costeF = "S/. ";
         String thumbnail = hotel.getImage ();
+        String hname = hotel.getNombreLocal ();
 
+
+        //Para intercalar colores de elementos de la lista de 1 en 1 (A-B-A-B...)
         if((i % 2) == 0){
             viewHolder.cardView.setBackgroundColor(Color.parseColor ("#ffab02"));
             viewHolder.nombreLocal.setTextColor (Color.parseColor ("#FFFFFF"));
@@ -61,13 +64,13 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
             viewHolder.direccionLocal.setTextColor (Color.BLACK);
         }
 
-        viewHolder.nombreLocal.setText (hotel.getNombreLocal ());
+        viewHolder.nombreLocal.setText (hname);
 //        viewHolder.tipoLocal.setText (hotel.getDistrito ());
         viewHolder.tarifaLocal.setText (costeF + String.valueOf (hotel.getTarifaMinima ()));
         viewHolder.direccionLocal.setText (hotel.getDireccion ());
 
         Glide.with (mContext)
-                .load (hotel.getImage ())
+                .load (thumbnail)
                 .apply (new RequestOptions ()
                         .diskCacheStrategy (DiskCacheStrategy.ALL)
                         .centerCrop ()

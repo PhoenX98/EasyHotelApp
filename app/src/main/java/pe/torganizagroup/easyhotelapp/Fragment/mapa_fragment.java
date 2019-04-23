@@ -36,13 +36,17 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import pe.torganizagroup.easyhotelapp.Pojo.Coordenada;
 import pe.torganizagroup.easyhotelapp.Pojo.CoordenadaRespuesta;
+import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
 import pe.torganizagroup.easyhotelapp.Retrofit.CoordenadaService;
+import pe.torganizagroup.easyhotelapp.Retrofit.HotelLista;
+import pe.torganizagroup.easyhotelapp.Retrofit.Utilidades;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,6 +72,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     private Retrofit retrofit, re1;
     private CoordenadaService markerService;
 
+    private List<Hotels> lH1 = new ArrayList<> ();
+    private HotelLista localTest;
+
     Marker markerLocation;
     MapView mMapView;
     GoogleMap mGoogleMap;
@@ -87,10 +94,12 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
 
-        re1 = new Retrofit.Builder()
-                .baseUrl (NEW_TEST_URL)
-                .addConverterFactory (GsonConverterFactory.create ())
-                .build ();
+        localTest = Utilidades.getService ();
+
+//        re1 = new Retrofit.Builder()
+//                .baseUrl (NEW_TEST_URL)
+//                .addConverterFactory (GsonConverterFactory.create ())
+//                .build ();
 
         cargarMarcadores();
     }
@@ -153,7 +162,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         setUpMap ();
-
+//        mGoogleMap.setOnMarkerClickListener ();
     }
 
     @SuppressLint("MissingPermission")
@@ -164,7 +173,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         mGoogleMap.getUiSettings ().setMyLocationButtonEnabled (true);
         mGoogleMap.getUiSettings ().setZoomControlsEnabled (true);
 
-        mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, lng), 17));
+        mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, lng), 13));
 
         if (ActivityCompat.checkSelfPermission (Objects.requireNonNull (getActivity ()), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission (getActivity (), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -177,32 +186,28 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
 
     private void cargarMarcadores() {
 
-
-
-        markerService = retrofit.create (CoordenadaService.class);
-        Call<CoordenadaRespuesta> call = markerService.obtenerMarcadores ();
-        call.enqueue (new Callback<CoordenadaRespuesta> () {
+        Call<List<Hotels>> calln = localTest.getHotels ();
+        calln.enqueue (new Callback<List<Hotels>> () {
             @Override
-            public void onResponse(@NonNull Call<CoordenadaRespuesta> call, @NonNull Response<CoordenadaRespuesta> response) {
-                if (response.isSuccessful ()) {
+            public void onResponse(Call<List<Hotels>> call, Response<List<Hotels>> response) {
+                if(response.isSuccessful ()){
                     try {
-                        CoordenadaRespuesta coordenadaRespuesta = response.body ();
-                        listaMarker = Objects.requireNonNull (coordenadaRespuesta).getData ();
+                        List<Hotels> h = response.body ();
 
-                        for (int i = 0; i<listaMarker.size (); i++){
-                            Coordenada I = listaMarker.get (i);
-                            Double lat = Double.parseDouble (I.getLatitud ());
-                            Double lng = Double.parseDouble (I.getLongitud ());
-                            String title = I.getNombreEmpresa ();
-                            MarkerOptions markerOptions = new MarkerOptions();
+                        assert h != null;
+                        for (Hotels test: h){
+                            Double lat = Double.parseDouble (test.getLatitude ());
+                            Double lng = Double.parseDouble (test.getLength ());
                             LatLng latLng = new LatLng(lat, lng);
+                            String title = test.getNameHotel ();
+                            MarkerOptions markerOptions = new MarkerOptions();
                             markerOptions.position (latLng);
                             markerOptions.title (title);
                             markerOptions.icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker));
                             Marker m = mGoogleMap.addMarker (markerOptions);
                         }
 
-                    } catch (Exception e) {
+                    } catch (Exception e){
                         Log.d (TAG_ERROR, "Hay un error");
                         e.printStackTrace ();
                     }
@@ -212,10 +217,50 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
             }
 
             @Override
-            public void onFailure(Call<CoordenadaRespuesta> call, Throwable t) {
-                Log.i (TAG,"Hay un error en la respuesta: " + t.getMessage ());
+            public void onFailure(Call<List<Hotels>> call, Throwable t) {
+                Log.i (TAG_ERROR,"Error en el parseo de JSON, revisar parametros"+t.getMessage ());
+                t.printStackTrace ();
             }
         });
+
+
+//        markerService = retrofit.create (CoordenadaService.class);
+//        Call<CoordenadaRespuesta> call = markerService.obtenerMarcadores ();
+//        call.enqueue (new Callback<CoordenadaRespuesta> () {
+//            @Override
+//            public void onResponse(@NonNull Call<CoordenadaRespuesta> call, @NonNull Response<CoordenadaRespuesta> response) {
+//                if (response.isSuccessful ()) {
+//                    try {
+//                        CoordenadaRespuesta coordenadaRespuesta = response.body ();
+//                        listaMarker = Objects.requireNonNull (coordenadaRespuesta).getData ();
+//
+//                        for (int i = 0; i<listaMarker.size (); i++){
+//                            Coordenada I = listaMarker.get (i);
+//                            Double lat = Double.parseDouble (I.getLatitud ());
+//                            Double lng = Double.parseDouble (I.getLongitud ());
+//                            String title = I.getNombreEmpresa ();
+//                            MarkerOptions markerOptions = new MarkerOptions();
+//                            LatLng latLng = new LatLng(lat, lng);
+//                            markerOptions.position (latLng);
+//                            markerOptions.title (title);
+//                            markerOptions.icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker));
+//                            Marker m = mGoogleMap.addMarker (markerOptions);
+//                        }
+//
+//                    } catch (Exception e) {
+//                        Log.d (TAG_ERROR, "Hay un error");
+//                        e.printStackTrace ();
+//                    }
+//                } else {
+//                    Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CoordenadaRespuesta> call, Throwable t) {
+//                Log.i (TAG,"Hay un error en la respuesta: " + t.getMessage ());
+//            }
+//        });
     }
 
     @Override

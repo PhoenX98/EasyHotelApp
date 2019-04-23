@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 import pe.torganizagroup.easyhotelapp.Adapters.GenHotAdapter;
+import pe.torganizagroup.easyhotelapp.Adapters.ListaHotelAdapter;
 import pe.torganizagroup.easyhotelapp.Pojo.GenHot;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
@@ -34,6 +35,7 @@ public class lista_hoteles_fragment extends Fragment {
 
     private RecyclerView recyclerView;
     private GenHotAdapter lhAdapter;
+    private ListaHotelAdapter HAdapter;
     private List<GenHot> lH = new ArrayList<> ();
     private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
@@ -55,7 +57,8 @@ public class lista_hoteles_fragment extends Fragment {
 
         recyclerView = view.findViewById (R.id.ListaFullHotel);
         lhAdapter = new GenHotAdapter (getContext (),lH);
-        recyclerView.setAdapter (lhAdapter);
+        HAdapter = new ListaHotelAdapter (getContext (), lH1);
+        recyclerView.setAdapter (HAdapter);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager (getContext (), 2);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager (getActivity ());
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -80,8 +83,8 @@ public class lista_hoteles_fragment extends Fragment {
                 if(response.isSuccessful ()){
                     try {
                         List<Hotels> h = response.body ();
-
-
+                        lH1 = Objects.requireNonNull (h);
+                        HAdapter.addHotelItem(lH1);
 
                     } catch (Exception e){
                         Log.d (TAG_ERROR, "Hay un error");
@@ -95,49 +98,50 @@ public class lista_hoteles_fragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Hotels>> call, Throwable t) {
-
-            }
-        });
-
-
-        Call<List<GenHot>> call = localTest.getlocal ();
-        call.enqueue (new Callback<List<GenHot>> () {
-            @Override
-            public void onResponse(Call<List<GenHot>> call, Response<List<GenHot>> response) {
-                if(response.isSuccessful ()){
-                    try {
-                        List<GenHot> hotels = response.body ();
-
-//                        Funcion logcat activo
-
-//                        for (GenHot h: hotels){
-//                            Log.d ("Name: ", h.getNombreLocal ());
-//                            Log.d ("Direccion: ", h.getDireccion ());
-//                            Log.d ("Distrito: ", h.getDistrito ());
-//                            Log.d ("Imagen: ", h.getImage ());
-//                        }
-
-                        lH = Objects.requireNonNull (hotels);
-                        lhAdapter.adicionarListaHoteles (lH);
-
-                    } catch (Exception e){
-                        Log.d (TAG_ERROR, "Hay un error");
-                        e.printStackTrace ();
-                    }
-                } else {
-                    Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
-                }
-            }
-
-
-
-            @Override
-            public void onFailure(Call<List<GenHot>> call, Throwable t) {
-                Log.i (TAG_ERROR,"Error en el parseo de JSON, redefinir parametros"+t.getMessage ());
+                Log.i (TAG_ERROR,"Error en el parseo de JSON, revisar parametros"+t.getMessage ());
                 t.printStackTrace ();
             }
-
         });
+
+
+//        Call<List<GenHot>> call = localTest.getlocal ();
+//        call.enqueue (new Callback<List<GenHot>> () {
+//            @Override
+//            public void onResponse(Call<List<GenHot>> call, Response<List<GenHot>> response) {
+//                if(response.isSuccessful ()){
+//                    try {
+//                        List<GenHot> hotels = response.body ();
+//
+////                        Funcion logcat activo
+//
+////                        for (GenHot h: hotels){
+////                            Log.d ("Name: ", h.getNombreLocal ());
+////                            Log.d ("Direccion: ", h.getDireccion ());
+////                            Log.d ("Distrito: ", h.getDistrito ());
+////                            Log.d ("Imagen: ", h.getImage ());
+////                        }
+//
+//                        lH = Objects.requireNonNull (hotels);
+//                        lhAdapter.adicionarListaHoteles (lH);
+//
+//                    } catch (Exception e){
+//                        Log.d (TAG_ERROR, "Hay un error");
+//                        e.printStackTrace ();
+//                    }
+//                } else {
+//                    Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
+//                }
+//            }
+//
+//
+//
+//            @Override
+//            public void onFailure(Call<List<GenHot>> call, Throwable t) {
+//                Log.i (TAG_ERROR,"Error en el parseo de JSON, revisar parametros"+t.getMessage ());
+//                t.printStackTrace ();
+//            }
+//
+//        });
 
     }
 
@@ -150,6 +154,7 @@ public class lista_hoteles_fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume ();
+        obtenerDatos ();
     }
 
     @Override
