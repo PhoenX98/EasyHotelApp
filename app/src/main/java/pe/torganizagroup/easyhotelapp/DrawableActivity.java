@@ -117,68 +117,35 @@ public class DrawableActivity extends AppCompatActivity
                 .addApi (Auth.GOOGLE_SIGN_IN_API, gso)
                 .build ();
 
-        Thread thread = new Thread (new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences (getBaseContext ());
-                boolean isFirstStart = getPrefs.getBoolean ("firstStart", true);
-                if (isFirstStart){
-                    startActivity (new Intent (DrawableActivity.this, MyIntro.class));
-                    SharedPreferences.Editor e = getPrefs.edit ();
-                    e.putBoolean ("firstStart",false);
-                    e.apply ();
-                }
-            }
-        });
-
-        thread.start ();
-
-//                hideItem();
-//                showItem();
-//        Habilitar login alterno por menu(En proceso)
-//
         firebaseAuth = FirebaseAuth.getInstance ();
-
-            if(firebaseAuth == null){
-                Toast.makeText (this,"Prueba 1",Toast.LENGTH_LONG).show ();
-//                hideItem();
-                showItem();
+        firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            FirebaseUser user = firebaseAuth.getCurrentUser ();
+            if (user != null) {
+                setUserData (user);
             } else {
-                firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    FirebaseUser user = firebaseAuth.getCurrentUser ();
-                    if (user != null) {
-                        setUserData (user);
-                        Log.d ("Prueba metodo: ","DESVIO 1 ASDASDASDASDASDASDDASDSADASDASDSADASDASDASDASDASDASDASDASDASDASDSASDAS");
-                    } else {
-
-//                        Toast.makeText (this,"",Toast.LENGTH_LONG);
-//                        goLogInScreen ();
-//                        hideItem();
-
-                    }
-                }
-            };
+                goLogInScreen ();
+            }
         }
-
+    };
 
 
     }
 
-    private void showItem() {
-        NavigationView navigationView = findViewById (R.id.nav_view);
-        Menu nav_menu = navigationView.getMenu ();
-        nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (true);
-        nav_menu.findItem (R.id.nav_cerrar_sesion).setVisible (false);
-    }
-
-    private void hideItem() {
-        NavigationView navigationView = findViewById (R.id.nav_view);
-        Menu nav_menu = navigationView.getMenu ();
-        nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (false);
-        nav_menu.findItem (R.id.nav_cerrar_sesion).setVisible (true);
-    }
+//    private void showItem() {
+//        NavigationView navigationView = findViewById (R.id.nav_view);
+//        Menu nav_menu = navigationView.getMenu ();
+//        nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (true);
+//        nav_menu.findItem (R.id.nav_cerrar_sesion).setVisible (false);
+//    }
+//
+//    private void hideItem() {
+//        NavigationView navigationView = findViewById (R.id.nav_view);
+//        Menu nav_menu = navigationView.getMenu ();
+//        nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (false);
+//        nav_menu.findItem (R.id.nav_cerrar_sesion).setVisible (true);
+//    }
 
     private void setUserData(FirebaseUser user) {
 
@@ -220,8 +187,7 @@ public class DrawableActivity extends AppCompatActivity
                 ((TextView) header.findViewById(R.id.nameTextView)).setText(name);
             }
         } else {
-            Toast.makeText (this,"SET USER DATA",Toast.LENGTH_LONG);
-//            goLogInScreen ();
+            goLogInScreen ();
         }
     }
 
