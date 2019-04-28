@@ -64,7 +64,6 @@ public class DrawableActivity extends AppCompatActivity
     private GoogleApiClient googleApiClient;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
-
     Location location;
     LocationManager locationManager;
     LocationListener locationListener;
@@ -101,7 +100,6 @@ public class DrawableActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById (R.id.nav_view);
         navigationView.setNavigationItemSelectedListener (this);
-//        navigationView.setItemIconTintList (null);
         FragmentManager fragmentManager = getSupportFragmentManager ();
         fragmentManager.beginTransaction ().replace (R.id.contenedor, new mapa_fragment ()).commit ();
 
@@ -129,23 +127,7 @@ public class DrawableActivity extends AppCompatActivity
             }
         }
     };
-
-
     }
-
-//    private void showItem() {
-//        NavigationView navigationView = findViewById (R.id.nav_view);
-//        Menu nav_menu = navigationView.getMenu ();
-//        nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (true);
-//        nav_menu.findItem (R.id.nav_cerrar_sesion).setVisible (false);
-//    }
-//
-//    private void hideItem() {
-//        NavigationView navigationView = findViewById (R.id.nav_view);
-//        Menu nav_menu = navigationView.getMenu ();
-//        nav_menu.findItem (R.id.nav_iniciar_sesion).setVisible (false);
-//        nav_menu.findItem (R.id.nav_cerrar_sesion).setVisible (true);
-//    }
 
     private void setUserData(FirebaseUser user) {
 
@@ -153,8 +135,6 @@ public class DrawableActivity extends AppCompatActivity
         FirebaseAuth.getInstance ().getCurrentUser ();
 
         if (user != null) {
-            String id = user.getUid ();
-            String provider = user.getProviderId ();
             String phone = user.getPhoneNumber ();
             String name = user.getDisplayName ();
             String email = user.getEmail ();
@@ -194,7 +174,6 @@ public class DrawableActivity extends AppCompatActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
         super.onRequestPermissionsResult (requestCode, permissions, grantResults);
-        //Solicita los permisos de ubicacion en la app
         if(requestCode == REQUEST_ACCESS_FINE){
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 Toast.makeText (this, "Permiso Otorgado", Toast.LENGTH_SHORT).show ();
@@ -216,10 +195,8 @@ public class DrawableActivity extends AppCompatActivity
     }
 
     public void logOut(MenuItem item) {
-        //funcion para cerrar sesion en facebook
         FirebaseAuth.getInstance ().signOut ();
         LoginManager.getInstance ().logOut ();
-        //funcion para cerrar sesion en google
         firebaseAuth.signOut ();
         Auth.GoogleSignInApi.signOut (googleApiClient).setResultCallback (new ResultCallback<Status> () {
             @Override
@@ -244,7 +221,6 @@ public class DrawableActivity extends AppCompatActivity
                     goLogInScreen ();
                 } else {
                     Toast.makeText (getApplicationContext (), getString (R.string.not_revoke), Toast.LENGTH_SHORT).show ();
-//                    signInButton.setVisibility (View.GONE);
                 }
             }
         });
@@ -252,25 +228,18 @@ public class DrawableActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-
-        //Presionar 2 veces atras para salir
-
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
         }
-
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "Presione atras otra vez para salir", Toast.LENGTH_SHORT).show();
-
         new Handler ().postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
-
     }
 
     @Override
@@ -281,16 +250,6 @@ public class DrawableActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId ()){
-//            case R.id.menu_cat:
-//                break;
-//            case R.id.menu_cerca:
-//                break;
-//            case R.id.menu_mayor_precio:
-//                break;
-//            case R.id.menu_menor_precio:
-//                break;
-//        }
         return super.onOptionsItemSelected (item);
     }
 
@@ -312,14 +271,9 @@ public class DrawableActivity extends AppCompatActivity
         } else if (id == R.id.nav_revocar) {
             finish ();
         } else if (id == R.id.nav_cerrar_sesion) {
-
-            Toast.makeText (this,"Has cerrado sesion",Toast.LENGTH_LONG).show ();
             finish ();
-            startActivity (getIntent ());
-
         } else if (id == R.id.nav_iniciar_sesion){
             goLogInScreen ();
-//            fragmentManager.beginTransaction ().replace (R.id.contenedor, new hotel_detalle_fragment ()).commit ();
         }
 
         DrawerLayout drawer = findViewById (R.id.drawer_layout);

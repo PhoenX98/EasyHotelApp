@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -60,7 +61,7 @@ import static pe.torganizagroup.easyhotelapp.Retrofit.Utilidades.NEW_TEST_URL;
 public class mapa_fragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     //Etiquetas de puracion
-    private static final  String TAG = "Locales";
+    private static final String TAG = "Locales";
     private static final String TAG_ERROR = "Debug";
     private ArrayList<Coordenada> listaMarker = new ArrayList<> ();
     double lat = -12.156496930432596;
@@ -68,8 +69,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     double latitude = 0.0;
     double longitude = 0.0;
     AlertDialog alert = null;
+    AlertDialog upss = null;
 
-    private Retrofit retrofit, re1;
+    private Retrofit retrofit;
     private CoordenadaService markerService;
 
     private List<Hotels> lH1 = new ArrayList<> ();
@@ -79,7 +81,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     MapView mMapView;
     GoogleMap mGoogleMap;
 
-    private boolean mapsSupported= true;
+    private boolean mapsSupported = true;
 
     public mapa_fragment() {
 
@@ -96,26 +98,21 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
 
         localTest = Utilidades.getService ();
 
-//        re1 = new Retrofit.Builder()
-//                .baseUrl (NEW_TEST_URL)
-//                .addConverterFactory (GsonConverterFactory.create ())
-//                .build ();
-
-        cargarMarcadores();
+        cargarMarcadores ();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
 
         mMapView = view.findViewById (R.id.mapViewCompleto);
         mMapView.onCreate (savedInstanceState);
-        mMapView.onResume();
+        mMapView.onResume ();
 
         try {
-            MapsInitializer.initialize(Objects.requireNonNull (getActivity ()).getApplicationContext());
+            MapsInitializer.initialize (Objects.requireNonNull (getActivity ()).getApplicationContext ());
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace ();
         }
 
         mMapView.getMapAsync (this);
@@ -131,11 +128,16 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         mMapView = (MapView) v.findViewById (R.id.mapViewCompleto);
         mMapView.onCreate (savedInstanceState);
 
-        LocationManager locationManager = (LocationManager) getActivity ().getSystemService(LOCATION_SERVICE);
 
-        assert locationManager != null;
+        Criteria criteria = new Criteria ();
+         LocationManager locationManager = (LocationManager) getActivity ().getSystemService (LOCATION_SERVICE);
+        String provider = locationManager.getBestProvider (criteria, true);
+//        Location location = locationManager.getLastKnownLocation (provider);
+
+//        assert locationManager != null;
         if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
             AlertNoGps();
+
         }
         return v;
     }
@@ -162,26 +164,31 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         setUpMap ();
-//        mGoogleMap.setOnMarkerClickListener ();
+
     }
 
     @SuppressLint("MissingPermission")
     private void setUpMap() {
+
         mGoogleMap.getUiSettings ().isCompassEnabled ();
-        mGoogleMap.setMaxZoomPreference (20);
-        mGoogleMap.setMinZoomPreference (10);
+        mGoogleMap.setMaxZoomPreference (25);
+        mGoogleMap.setMinZoomPreference (05);
         mGoogleMap.getUiSettings ().setMyLocationButtonEnabled (true);
         mGoogleMap.getUiSettings ().setZoomControlsEnabled (true);
+        mGoogleMap.getUiSettings ().setMapToolbarEnabled (true);
 
-        mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, lng), 13));
+        mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, lng), 15));
 
-        if (ActivityCompat.checkSelfPermission (Objects.requireNonNull (getActivity ()), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+        if (ActivityCompat.checkSelfPermission
+                (Objects.requireNonNull (getActivity ()), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission (getActivity (), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }
 
+//        Location location= locationManager.getLastKnownLocation (provider);
         mGoogleMap.setMyLocationEnabled (true);
+
     }
 
     private void cargarMarcadores() {
@@ -213,6 +220,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
                     }
                 } else {
                     Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
+                    UpssAlert();
                 }
             }
 
@@ -223,49 +231,32 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
             }
         });
 
+    }
 
-//        markerService = retrofit.create (CoordenadaService.class);
-//        Call<CoordenadaRespuesta> call = markerService.obtenerMarcadores ();
-//        call.enqueue (new Callback<CoordenadaRespuesta> () {
-//            @Override
-//            public void onResponse(@NonNull Call<CoordenadaRespuesta> call, @NonNull Response<CoordenadaRespuesta> response) {
-//                if (response.isSuccessful ()) {
-//                    try {
-//                        CoordenadaRespuesta coordenadaRespuesta = response.body ();
-//                        listaMarker = Objects.requireNonNull (coordenadaRespuesta).getData ();
-//
-//                        for (int i = 0; i<listaMarker.size (); i++){
-//                            Coordenada I = listaMarker.get (i);
-//                            Double lat = Double.parseDouble (I.getLatitud ());
-//                            Double lng = Double.parseDouble (I.getLongitud ());
-//                            String title = I.getNombreEmpresa ();
-//                            MarkerOptions markerOptions = new MarkerOptions();
-//                            LatLng latLng = new LatLng(lat, lng);
-//                            markerOptions.position (latLng);
-//                            markerOptions.title (title);
-//                            markerOptions.icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker));
-//                            Marker m = mGoogleMap.addMarker (markerOptions);
-//                        }
-//
-//                    } catch (Exception e) {
-//                        Log.d (TAG_ERROR, "Hay un error");
-//                        e.printStackTrace ();
-//                    }
-//                } else {
-//                    Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CoordenadaRespuesta> call, Throwable t) {
-//                Log.i (TAG,"Hay un error en la respuesta: " + t.getMessage ());
-//            }
-//        });
+    private void UpssAlert() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull (getActivity ()));
+        builder.setMessage("Parece que hay un error, estamos trabajando en resolverlo ;v")
+                .setCancelable(false)
+                .setTitle (" ¡Upps! ")
+                .setIcon (R.drawable.ic_cancel_black_24dp)
+                .setPositiveButton ("Ok", new DialogInterface.OnClickListener () {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel ();
+                        Toast.makeText (getContext (),"Gracias por tu comprension :3",Toast.LENGTH_SHORT).show ();
+                        dialog.dismiss ();
+                    }
+                })
+        ;
+        upss = builder.create();
+        upss.show();
     }
 
     @Override
     public void onLocationChanged(Location location) {
-
+        if(location!=null){
+            //Do something
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package pe.torganizagroup.easyhotelapp.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import pe.torganizagroup.easyhotelapp.DrawableActivity;
 import pe.torganizagroup.easyhotelapp.Pojo.HotelDetails;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
@@ -55,6 +57,13 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
         viewHolder.nombreLocal.setText (nombre);
         viewHolder.direccionLocal.setText (direccion);
 
+        viewHolder.itemView.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+
+                ((Activity) mContext).finish ();
+            }
+        });
 
     }
 

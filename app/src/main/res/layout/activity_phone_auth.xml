@@ -28,7 +28,7 @@
         android:ems="10"
         android:hint="Ejemplo: 999187..."
         android:textColorHint="@color/colorAccent"
-        android:background="@drawable/bordes_redondos"
+        android:background="@drawable/spinner_borde_redondo"
         android:inputType="phone" />
 
     <Button
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/bordes_redondos"
+        android:background="@drawable/spinner_borde_redondo"
         android:ems="10"
         android:hint="Codigo de Verificacion"
         android:textColorHint="@color/colorAccent"

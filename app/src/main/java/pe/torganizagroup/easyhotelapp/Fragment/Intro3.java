@@ -8,6 +8,8 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.github.paolorotolo.appintro.ISlidePolicy;
@@ -15,10 +17,11 @@ import com.github.paolorotolo.appintro.ISlidePolicy;
 import pe.torganizagroup.easyhotelapp.R;
 
 
-public class Intro3 extends Fragment  {
+public class Intro3 extends Fragment implements ISlidePolicy  {
 
     TextView t1,t2;
-
+    CheckBox ch;
+    Boolean Dex = false;
     public Intro3() {
 
     }
@@ -29,14 +32,22 @@ public class Intro3 extends Fragment  {
         View v = inflater.inflate (R.layout.fragment_intro3, container, false);
 
         TextView t1 = (TextView) v.findViewById (R.id.txtmuestra1);
-//        TextView t2 = (TextView) v.findViewById (R.id.txtmuestra2);
-
+        ch = (CheckBox) v.findViewById (R.id.SuperCheck);
+//        ch.setOnCheckedChangeListener (new CompoundButton.OnCheckedChangeListener () {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked){
+//                   isPolicyRespected ();
+//
+//                }
+//            }
+//        });
         t1.setMovementMethod (LinkMovementMethod.getInstance ());
-//        t2.setMovementMethod (LinkMovementMethod.getInstance ());
 
 
 
         return v;
+
     }
 
     @Override
@@ -50,4 +61,24 @@ public class Intro3 extends Fragment  {
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
 
+    @Override
+    public boolean isPolicyRespected() {
+//        final Boolean Dex =false;
+        ch.setOnCheckedChangeListener (new CompoundButton.OnCheckedChangeListener () {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    Dex = true;
+                }else {
+                    Dex = false;
+                }
+            }
+        });
+        return Dex;
+    }
+
+    @Override
+    public void onUserIllegallyRequestedNextPage() {
+
+    }
 }

@@ -23,8 +23,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Departamento/Distrito"
-                android:background="#ffab02"
+                android:layout_margin="5dp"
+                android:background="@drawable/encabezado_borde_redondo"
                 android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -34,7 +36,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
-                android:background="@drawable/bordes_redondos"
+                android:background="@drawable/spinner_borde_redondo"
                 android:spinnerMode="dialog" />
 
             <Spinner
@@ -43,7 +45,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:spinnerMode="dialog"
-                android:background="@drawable/bordes_redondos"/>
+                android:background="@drawable/spinner_borde_redondo"/>
 
             <Spinner
                 android:id="@+id/spDistrito"
@@ -52,18 +54,20 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:spinnerMode="dialog"
-                android:background="@drawable/bordes_redondos"/>
+                android:background="@drawable/spinner_borde_redondo"/>
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffab02"
+                android:layout_margin="5dp"
+                android:background="@drawable/encabezado_borde_redondo"
                 android:padding="5dp"
                 android:text="Precios"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,14 +88,14 @@
                         android:gravity="center|center_horizontal|center_vertical"
                         android:text="Desde:"
                         android:textAlignment="center"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                     <EditText
                         android:id="@+id/editText3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/bordes_redondos"
+                        android:background="@drawable/spinner_borde_redondo"
                         android:layout_margin="5dp"
                         android:ems="10"
                         android:layout_weight="1"
@@ -112,7 +116,7 @@
                         android:gravity="center|center_horizontal|center_vertical"
                         android:text="Hasta:"
                         android:textAlignment="center"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -120,7 +124,7 @@
                         android:id="@+id/editText2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/bordes_redondos"
+                        android:background="@drawable/spinner_borde_redondo"
                         android:ems="10"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
@@ -221,9 +225,11 @@
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ffab02"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/encabezado_borde_redondo"
                     android:text="Calificacion"
                     android:textAlignment="center"
+                    android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -249,7 +255,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/bordes_redondos"
+                android:background="@drawable/spinner_borde_redondo"
                 android:text="Buscar Hoteles" />
 
         </LinearLayout>

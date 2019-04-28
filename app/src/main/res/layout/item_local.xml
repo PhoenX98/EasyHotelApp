@@ -8,7 +8,7 @@
     android:layout_margin="5dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/bordes_redondos"
+    android:background="@drawable/spinner_borde_redondo"
     android:orientation="horizontal"
     android:focusable="true"
     app:cardCornerRadius="25dp"
@@ -44,8 +44,9 @@
                 android:text="Nombre Empresa"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
 
             <RatingBar
                 android:id="@+id/ratingBar"
@@ -76,31 +77,31 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:weightSum="3"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtDireccionLocal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
                     android:text="Direccion"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txtTarifaLocal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="Tarifa"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
 

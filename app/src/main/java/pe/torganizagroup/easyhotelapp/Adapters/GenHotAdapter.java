@@ -47,7 +47,6 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
         String thumbnail = hotel.getImage ();
         String hname = hotel.getNombreLocal ();
 
-
         //Para intercalar colores de elementos de la lista de 1 en 1 (A-B-A-B...)
         if((i % 2) == 0){
             viewHolder.cardView.setBackgroundColor(Color.parseColor ("#ffab02"));

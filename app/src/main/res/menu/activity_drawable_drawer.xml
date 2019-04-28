@@ -26,13 +26,13 @@
             android:id="@+id/nav_revocar"
             android:icon="@drawable/exit"
             android:onClick="revoke"
-            android:visible="false"
+            android:visible="true"
             android:title="Cerrar sesión" />
         <item
             android:id="@+id/nav_cerrar_sesion"
             android:icon="@drawable/ic_cancel_black_24dp"
             android:onClick="logOut"
-            android:visible="true"
+            android:visible="false"
             android:title="salir" />
         <item
             android:id="@+id/nav_iniciar_sesion"

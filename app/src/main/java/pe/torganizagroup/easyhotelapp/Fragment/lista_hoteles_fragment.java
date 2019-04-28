@@ -1,9 +1,12 @@
 package pe.torganizagroup.easyhotelapp.Fragment;
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,7 @@ public class lista_hoteles_fragment extends Fragment {
     private List<GenHot> lH = new ArrayList<> ();
     private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
+    AlertDialog upss = null;
 
     public lista_hoteles_fragment() {
         // Required empty public constructor
@@ -90,8 +95,10 @@ public class lista_hoteles_fragment extends Fragment {
                         Log.d (TAG_ERROR, "Hay un error");
                         e.printStackTrace ();
                     }
+
                 } else {
                     Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
+                    UpssAlert();
                 }
 
             }
@@ -103,46 +110,25 @@ public class lista_hoteles_fragment extends Fragment {
             }
         });
 
+    }
 
-//        Call<List<GenHot>> call = localTest.getlocal ();
-//        call.enqueue (new Callback<List<GenHot>> () {
-//            @Override
-//            public void onResponse(Call<List<GenHot>> call, Response<List<GenHot>> response) {
-//                if(response.isSuccessful ()){
-//                    try {
-//                        List<GenHot> hotels = response.body ();
-//
-////                        Funcion logcat activo
-//
-////                        for (GenHot h: hotels){
-////                            Log.d ("Name: ", h.getNombreLocal ());
-////                            Log.d ("Direccion: ", h.getDireccion ());
-////                            Log.d ("Distrito: ", h.getDistrito ());
-////                            Log.d ("Imagen: ", h.getImage ());
-////                        }
-//
-//                        lH = Objects.requireNonNull (hotels);
-//                        lhAdapter.adicionarListaHoteles (lH);
-//
-//                    } catch (Exception e){
-//                        Log.d (TAG_ERROR, "Hay un error");
-//                        e.printStackTrace ();
-//                    }
-//                } else {
-//                    Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
-//                }
-//            }
-//
-//
-//
-//            @Override
-//            public void onFailure(Call<List<GenHot>> call, Throwable t) {
-//                Log.i (TAG_ERROR,"Error en el parseo de JSON, revisar parametros"+t.getMessage ());
-//                t.printStackTrace ();
-//            }
-//
-//        });
-
+    private void UpssAlert() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull (getActivity ()));
+        builder.setMessage("Parece que hay un error, estamos trabajando en resolverlo ;v")
+                .setCancelable(false)
+                .setTitle (" ¡Upps! ")
+                .setIcon (R.drawable.ic_cancel_black_24dp)
+                .setPositiveButton ("Ok", new DialogInterface.OnClickListener () {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel ();
+                        Toast.makeText (getContext (),"Gracias por tu comprension :3",Toast.LENGTH_SHORT).show ();
+                        dialog.dismiss ();
+                    }
+                })
+                ;
+        upss = builder.create();
+        upss.show();
     }
 
     @Override

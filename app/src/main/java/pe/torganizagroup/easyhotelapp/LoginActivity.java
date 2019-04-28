@@ -1,6 +1,5 @@
 package pe.torganizagroup.easyhotelapp;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,8 +32,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
@@ -42,14 +39,11 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-    //Variables para inicio de sesion con google
     private GoogleApiClient googleApiClient;
     private SignInButton signInButton;
     public static final int SIGN_INT_CODE = 777;
-    //Variables para inicio de sesion con facebook
     private LoginButton loginButton;
     private CallbackManager callbackManager;
-    //variables para inicio de sesion tanto con facebook como con google
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
     private ProgressDialog pdDialog;
@@ -91,32 +85,23 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         thread.start ();
 
-
-        //Metodo callback manager para
         callbackManager = CallbackManager.Factory.create ();
-        //asignar metodo callbackmanager al boton
         loginButton = (LoginButton) findViewById (R.id.loginButton);
-        //Formas de pedir permisos al usuario para que vea que tipos de datos extraemos
         loginButton.setReadPermissions (Arrays.asList ("email"));
-        //Metodo para manejar los eventos al inicio de sesion
         loginButton.registerCallback (callbackManager, new FacebookCallback<LoginResult> () {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                //Ingreso exitoso
-                //goMainScreen ();
                 handleFacebookAccessToken(loginResult.getAccessToken ());
                 Toast.makeText (getApplicationContext (), getString(R.string.success_login), Toast.LENGTH_SHORT).show ();
             }
 
             @Override
             public void onCancel() {
-                //Proceso cancelado
                 Toast.makeText (getApplicationContext (), R.string.cancel_login, Toast.LENGTH_SHORT).show ();
             }
 
             @Override
             public void onError(FacebookException error) {
-                //error al realizar la conexion a facebook
                 Toast.makeText (getApplicationContext (), R.string.error_login, Toast.LENGTH_SHORT).show ();
             }
         });
@@ -145,8 +130,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        //el AuthListener se ejecuta cuando el login fue exitoso
-        //metodo que se ejecuta cuando se ejecuta algun cambio en la autenticacion
+
         firebaseAuth = FirebaseAuth.getInstance ();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener () {
             @Override
@@ -159,10 +143,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         };
     }
 
-    //esta funcion se ejecuta cuando se completa el proceso
-    //metodo que se ejecuta cuando termina todo el proceso
     private void handleFacebookAccessToken(AccessToken accessToken) {
-//        progressBar.setVisibility (View.VISIBLE);
         pdDialog = ProgressDialog.show (LoginActivity.this, "Iniciando sesión","Comprobando credenciales...", false, false);
         loginButton.setVisibility (View.GONE);
 
@@ -173,15 +154,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 if (!task.isSuccessful ()){
                     Toast.makeText (getApplicationContext (),  getString(R.string.firebase_error_login), Toast.LENGTH_LONG).show ();
                 }
-//                progressBar.setVisibility (View.GONE);|
                 loginButton.setVisibility (View.VISIBLE);
             }
         });
     }
 
-    //metodo de firebase con google
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount) {
-        //Progress bar dialog
         pdDialog = ProgressDialog.show (LoginActivity.this, "Iniciando sesión","Comprobando credenciales...", false, false);
         signInButton.setVisibility (View.GONE);
         AuthCredential credential = GoogleAuthProvider.getCredential (signInAccount.getIdToken (), null);
@@ -196,7 +175,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         });
     }
 
-    //metodo para manejar el resultado de inicio de sesion en google
     private void handleSignInResult(GoogleSignInResult result) {
 
         if (result.isSuccess ()){
@@ -210,21 +188,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-    //el AuthListener empieza su funcion en esta clase
     @Override
     protected void onStart() {
         super.onStart ();
-        //Añade el listener
         firebaseAuth.addAuthStateListener (firebaseAuthListener);
-        //PARA INICIAR EL MODO SIN LOGEO EN LA APP AL SALIR Y VOLVER A ENTRAR
-        goMainScreen ();
     }
 
-    //el AuthListener termina su funcion en esta clase
+
     @Override
     protected void onStop() {
         super.onStop ();
-        //
         if (firebaseAuthListener != null){
             firebaseAuth.removeAuthStateListener (firebaseAuthListener);
         }
@@ -236,25 +209,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     }
 
-    //funcion para redireccionar a la activity principal
     private void goMainScreen() {
         Intent intent = new Intent (this, DrawableActivity.class);
         intent.addFlags (Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         callbackManager.onActivityResult (requestCode, resultCode, data);
         super.onActivityResult (requestCode, resultCode, data);
-
         if(requestCode == SIGN_INT_CODE){
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent (data);
             handleSignInResult(result);
         }
-
     }
-
 
 }

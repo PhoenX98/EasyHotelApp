@@ -10,7 +10,6 @@ public class EasyHotelApp extends Application {
     @Override
     public void onCreate(){
         super.onCreate ();
-        //Para activar servicios de SDK Facebook
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
     }

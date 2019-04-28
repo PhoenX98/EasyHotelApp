@@ -22,9 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 public class PhoneAuthActivity extends Activity {
 
-    //Nota importante, la autenticacion con telefono NO funciona en emuladores,
-    // tener esto en cuenta a la hora de ejecutar el codigo
-
     private EditText txtTelefono;
     private EditText txtCodigo;
     private String idVerificacion;
@@ -35,7 +32,6 @@ public class PhoneAuthActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        //en este metodo se añade el listener para el autenticador
         mAuth.addAuthStateListener(mAuthStateListener);
     }
 
@@ -44,12 +40,10 @@ public class PhoneAuthActivity extends Activity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_phone_auth);
 
-        //inicio del codigo
         txtTelefono = (EditText) findViewById (R.id.txtTelefono);
         txtCodigo = (EditText) findViewById (R.id.txtCodigo);
         acceder = (Button) findViewById (R.id.btnVerificar);
 
-        //Llamar a instancia de Firebase
         mAuth = FirebaseAuth.getInstance ();
         mAuthStateListener = new FirebaseAuth.AuthStateListener (){
 
@@ -75,19 +69,16 @@ public class PhoneAuthActivity extends Activity {
                 phoneNumber, 60, TimeUnit.SECONDS, PhoneAuthActivity.this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks () {
                     @Override
                     public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                        //Llamado por si no se necesita ingresar codigo de verificacion(experimental)
                         signInWithCredential(phoneAuthCredential);
                     }
 
                     @Override
                     public void onVerificationFailed(FirebaseException e) {
-                        //incorrect phone number, verification code, emulator, etc.
                         Toast.makeText(PhoneAuthActivity.this, "Verificacion Fallida : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        //now the code has been sent, save the verificationId we may need it
                         super.onCodeSent(verificationId, forceResendingToken);
                         Toast.makeText (PhoneAuthActivity.this, "Verificando...",Toast.LENGTH_LONG).show ();
                         idVerificacion = verificationId;
@@ -95,7 +86,6 @@ public class PhoneAuthActivity extends Activity {
 
                     @Override
                     public void onCodeAutoRetrievalTimeOut(String verificationId) {
-                        //called after timeout if onVerificationCompleted has not been called
                         super.onCodeAutoRetrievalTimeOut(verificationId);
                         Toast.makeText(PhoneAuthActivity.this, "Se agoto el tiempo de respuesta :" + verificationId, Toast.LENGTH_SHORT).show();
                     }
