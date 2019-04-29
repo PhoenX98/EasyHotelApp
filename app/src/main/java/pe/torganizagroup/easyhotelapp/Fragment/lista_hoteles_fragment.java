@@ -38,9 +38,7 @@ public class lista_hoteles_fragment extends Fragment {
     private static final String TAG_ERROR = "Debug: ";
 
     private RecyclerView recyclerView;
-//    private GenHotAdapter lhAdapter;
     private ListaHotelAdapter HAdapter;
-//    private List<GenHot> lH = new ArrayList<> ();
     private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
     AlertDialog upss = null;
@@ -61,11 +59,10 @@ public class lista_hoteles_fragment extends Fragment {
         View view = inflater.inflate (R.layout.fragment_lista_hoteles, container, false);
 
         recyclerView = view.findViewById (R.id.ListaFullHotel);
-//        lhAdapter = new GenHotAdapter (getContext (),lH);
         HAdapter = new ListaHotelAdapter (getContext (), lH1);
         recyclerView.setAdapter (HAdapter);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager (getContext (), 2);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager (getActivity ());
+//        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager (getActivity ());
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -122,13 +119,13 @@ public class lista_hoteles_fragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel ();
-                        Toast.makeText (getContext (),"Gracias por tu comprension :3",Toast.LENGTH_SHORT).show ();
-                        dialog.dismiss ();
                     }
                 })
                 ;
         upss = builder.create();
         upss.show();
+        Toast.makeText (getContext (),"Gracias por tu comprension :3",Toast.LENGTH_SHORT).show ();
+
     }
 
     @Override

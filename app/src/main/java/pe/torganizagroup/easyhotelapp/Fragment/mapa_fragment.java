@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -77,7 +78,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     Marker markerLocation;
     MapView mMapView;
     GoogleMap mGoogleMap;
-
+    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
     private boolean mapsSupported = true;
 
     public mapa_fragment() {
@@ -180,16 +181,13 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         }
 
         Location location = locationManager.getLastKnownLocation (bestProvider);
-//        if (location != null) {
-//            onLocationChanged(location);
-//        }
+
             if(location!=null){
                 lat = location.getLatitude ();
                 lng = location.getLongitude ();
 
                 LatLng loc = new LatLng (lat,lng);
                 mGoogleMap.moveCamera (CameraUpdateFactory.newLatLng (loc));
-
 //                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
 
             }
@@ -205,7 +203,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         mGoogleMap.getUiSettings ().setZoomControlsEnabled (true);
         mGoogleMap.getUiSettings ().setMapToolbarEnabled (true);
         mGoogleMap.setMapType (GoogleMap.MAP_TYPE_NORMAL);
-//        mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, lng), 15));
+
     }
 
     private void cargarMarcadores() {
@@ -218,7 +216,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
                     try {
                         List<Hotels> h = response.body ();
 
-//                        assert h != null;
+                        assert h != null;
                         for (Hotels test: h){
                             Double lat = Double.parseDouble (test.getLatitude ());
                             Double lng = Double.parseDouble (test.getLength ());
@@ -248,11 +246,6 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
             }
         });
 
-//        FragmentTransaction ft = getFragmentManager().beginTransaction();
-//        if (Build.VERSION.SDK_INT >= 26) {
-//            ft.setReorderingAllowed(false);
-//        }
-//        ft.detach(this).attach(this).commit();
 
     }
 

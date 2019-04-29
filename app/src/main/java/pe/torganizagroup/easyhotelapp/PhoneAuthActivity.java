@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -28,6 +32,7 @@ public class PhoneAuthActivity extends Activity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private Button acceder;
+    private ImageView imgLogo;
 
     @Override
     protected void onStart() {
@@ -42,8 +47,12 @@ public class PhoneAuthActivity extends Activity {
 
         txtTelefono = (EditText) findViewById (R.id.txtTelefono);
         txtCodigo = (EditText) findViewById (R.id.txtCodigo);
-        acceder = (Button) findViewById (R.id.btnVerificar);
+        imgLogo = (ImageView) findViewById (R.id.imgLogo);
 
+
+        Glide.with (getApplicationContext ())
+                .load (R.drawable.logo_easy_hotel_min)
+                .into (imgLogo);
         mAuth = FirebaseAuth.getInstance ();
         mAuthStateListener = new FirebaseAuth.AuthStateListener (){
 
@@ -57,7 +66,38 @@ public class PhoneAuthActivity extends Activity {
                 }
             }
         };
+
+        txtCodigo.addTextChangedListener (codeWatcher);
+
     }
+
+    private  final TextWatcher codeWatcher = new TextWatcher () {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.length () == 6){
+
+                String code = txtCodigo.getText().toString();
+
+                if (TextUtils.isEmpty(code))
+                    return;
+
+                Intent intent = new Intent(PhoneAuthActivity.this, DrawableActivity.class);
+                startActivity(intent);
+                signInWithCredential(PhoneAuthProvider.getCredential(idVerificacion, code));
+                Toast.makeText (PhoneAuthActivity.this, "Verificando...",Toast.LENGTH_LONG).show ();
+            }
+        }
+    };
 
     public void requestCode(View view){
         String codigoPais = "+51";
@@ -80,8 +120,9 @@ public class PhoneAuthActivity extends Activity {
                     @Override
                     public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         super.onCodeSent(verificationId, forceResendingToken);
-                        Toast.makeText (PhoneAuthActivity.this, "Verificando...",Toast.LENGTH_LONG).show ();
+                        Toast.makeText (PhoneAuthActivity.this, "Enviando codigo...",Toast.LENGTH_LONG).show ();
                         idVerificacion = verificationId;
+
                     }
 
                     @Override
@@ -93,6 +134,7 @@ public class PhoneAuthActivity extends Activity {
         );
 
     }
+
     private void signInWithCredential(PhoneAuthCredential phoneAuthCredential) {
         mAuth.signInWithCredential(phoneAuthCredential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult> () {
@@ -109,16 +151,6 @@ public class PhoneAuthActivity extends Activity {
 
     }
 
-    public void signIn(View view) {
-        String code = txtCodigo.getText().toString();
 
-        if (TextUtils.isEmpty(code))
-            return;
-
-        Intent intent2 = new Intent(PhoneAuthActivity.this, DrawableActivity.class);
-        startActivity(intent2);
-        signInWithCredential(PhoneAuthProvider.getCredential(idVerificacion, code));
-        Toast.makeText (PhoneAuthActivity.this, "Verificando...",Toast.LENGTH_LONG).show ();
-    }
 
 }
