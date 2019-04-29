@@ -38,9 +38,9 @@ public class lista_hoteles_fragment extends Fragment {
     private static final String TAG_ERROR = "Debug: ";
 
     private RecyclerView recyclerView;
-    private GenHotAdapter lhAdapter;
+//    private GenHotAdapter lhAdapter;
     private ListaHotelAdapter HAdapter;
-    private List<GenHot> lH = new ArrayList<> ();
+//    private List<GenHot> lH = new ArrayList<> ();
     private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
     AlertDialog upss = null;
@@ -61,7 +61,7 @@ public class lista_hoteles_fragment extends Fragment {
         View view = inflater.inflate (R.layout.fragment_lista_hoteles, container, false);
 
         recyclerView = view.findViewById (R.id.ListaFullHotel);
-        lhAdapter = new GenHotAdapter (getContext (),lH);
+//        lhAdapter = new GenHotAdapter (getContext (),lH);
         HAdapter = new ListaHotelAdapter (getContext (), lH1);
         recyclerView.setAdapter (HAdapter);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager (getContext (), 2);
@@ -140,7 +140,7 @@ public class lista_hoteles_fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume ();
-        obtenerDatos ();
+//        obtenerDatos ();
     }
 
     @Override

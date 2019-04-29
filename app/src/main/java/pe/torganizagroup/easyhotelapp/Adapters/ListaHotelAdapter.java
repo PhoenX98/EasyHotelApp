@@ -61,7 +61,7 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
             @Override
             public void onClick(View v) {
 
-                ((Activity) mContext).finish ();
+//                ((Activity) mContext).finish ();
             }
         });
 

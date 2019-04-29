@@ -10,12 +10,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -60,20 +62,15 @@ import static pe.torganizagroup.easyhotelapp.Retrofit.Utilidades.NEW_TEST_URL;
 
 public class mapa_fragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
-    //Etiquetas de puracion
     private static final String TAG = "Locales";
     private static final String TAG_ERROR = "Debug";
-    private ArrayList<Coordenada> listaMarker = new ArrayList<> ();
-    double lat = -12.156496930432596;
-    double lng = -76.98385873408341;
-    double latitude = 0.0;
-    double longitude = 0.0;
+    double lat = 0.0;
+    double lng = 0.0;
     AlertDialog alert = null;
     AlertDialog upss = null;
 
     private Retrofit retrofit;
     private CoordenadaService markerService;
-
     private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
 
@@ -88,24 +85,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-
-        retrofit = new Retrofit.Builder ()
-                .baseUrl (COORDENADA_URL)
-                .addConverterFactory (GsonConverterFactory.create ())
-                .build ();
-
-        localTest = Utilidades.getService ();
-
-        cargarMarcadores ();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated (view, savedInstanceState);
-
-        mMapView = view.findViewById (R.id.mapViewCompleto);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated (savedInstanceState);
+        mMapView = Objects.requireNonNull (getActivity ()).findViewById (R.id.mapViewCompleto);
         mMapView.onCreate (savedInstanceState);
         mMapView.onResume ();
 
@@ -120,6 +102,28 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate (savedInstanceState);
+
+        retrofit = new Retrofit.Builder ()
+                .baseUrl (COORDENADA_URL)
+                .addConverterFactory (GsonConverterFactory.create ())
+                .build ();
+
+        localTest = Utilidades.getService ();
+        cargarMarcadores ();
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated (view, savedInstanceState);
+
+
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -128,16 +132,11 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         mMapView = (MapView) v.findViewById (R.id.mapViewCompleto);
         mMapView.onCreate (savedInstanceState);
 
+        LocationManager locationManager = (LocationManager) getActivity ().getSystemService (LOCATION_SERVICE);
 
-        Criteria criteria = new Criteria ();
-         LocationManager locationManager = (LocationManager) getActivity ().getSystemService (LOCATION_SERVICE);
-        String provider = locationManager.getBestProvider (criteria, true);
-//        Location location = locationManager.getLastKnownLocation (provider);
-
-//        assert locationManager != null;
+        assert locationManager != null;
         if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
             AlertNoGps();
-
         }
         return v;
     }
@@ -170,15 +169,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     @SuppressLint("MissingPermission")
     private void setUpMap() {
 
-        mGoogleMap.getUiSettings ().isCompassEnabled ();
-        mGoogleMap.setMaxZoomPreference (25);
-        mGoogleMap.setMinZoomPreference (05);
-        mGoogleMap.getUiSettings ().setMyLocationButtonEnabled (true);
-        mGoogleMap.getUiSettings ().setZoomControlsEnabled (true);
-        mGoogleMap.getUiSettings ().setMapToolbarEnabled (true);
-
-        mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, lng), 15));
-
+        LocationManager locationManager = (LocationManager) getActivity ().getSystemService (getActivity ().LOCATION_SERVICE);
+        Criteria criteria = new Criteria ();
+        String bestProvider = locationManager.getBestProvider (criteria, true);
         if (ActivityCompat.checkSelfPermission
                 (Objects.requireNonNull (getActivity ()), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission (getActivity (), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -186,22 +179,46 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
             return;
         }
 
-//        Location location= locationManager.getLastKnownLocation (provider);
-        mGoogleMap.setMyLocationEnabled (true);
+        Location location = locationManager.getLastKnownLocation (bestProvider);
+//        if (location != null) {
+//            onLocationChanged(location);
+//        }
+            if(location!=null){
+                lat = location.getLatitude ();
+                lng = location.getLongitude ();
 
+                LatLng loc = new LatLng (lat,lng);
+                mGoogleMap.moveCamera (CameraUpdateFactory.newLatLng (loc));
+
+//                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+
+            }
+
+
+        locationManager.requestLocationUpdates(bestProvider, 2000, 100, this);
+        mGoogleMap.setMyLocationEnabled (true);
+        mGoogleMap.getUiSettings ().isCompassEnabled ();
+        mGoogleMap.setMaxZoomPreference (25);
+        mGoogleMap.setMinZoomPreference (05);
+        mGoogleMap.getUiSettings ().setMyLocationButtonEnabled (true);
+        mGoogleMap.getUiSettings ().setZoomGesturesEnabled (true);
+        mGoogleMap.getUiSettings ().setZoomControlsEnabled (true);
+        mGoogleMap.getUiSettings ().setMapToolbarEnabled (true);
+        mGoogleMap.setMapType (GoogleMap.MAP_TYPE_NORMAL);
+//        mGoogleMap.moveCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, lng), 15));
     }
 
     private void cargarMarcadores() {
 
-        Call<List<Hotels>> calln = localTest.getHotels ();
-        calln.enqueue (new Callback<List<Hotels>> () {
+        Call<List<Hotels>> call = localTest.getHotels ();
+        call.enqueue (new Callback<List<Hotels>> () {
             @Override
             public void onResponse(Call<List<Hotels>> call, Response<List<Hotels>> response) {
                 if(response.isSuccessful ()){
                     try {
                         List<Hotels> h = response.body ();
 
-                        assert h != null;
+//                        assert h != null;
                         for (Hotels test: h){
                             Double lat = Double.parseDouble (test.getLatitude ());
                             Double lng = Double.parseDouble (test.getLength ());
@@ -231,6 +248,12 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
             }
         });
 
+//        FragmentTransaction ft = getFragmentManager().beginTransaction();
+//        if (Build.VERSION.SDK_INT >= 26) {
+//            ft.setReorderingAllowed(false);
+//        }
+//        ft.detach(this).attach(this).commit();
+
     }
 
     private void UpssAlert() {
@@ -255,7 +278,13 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     @Override
     public void onLocationChanged(Location location) {
         if(location!=null){
-            //Do something
+            lat = location.getLatitude ();
+            lng = location.getLongitude ();
+
+            LatLng loc = new LatLng (lat,lng);
+            mGoogleMap.moveCamera (CameraUpdateFactory.newLatLng (loc));
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+
         }
     }
 
