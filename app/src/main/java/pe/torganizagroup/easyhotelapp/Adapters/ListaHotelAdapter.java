@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +54,6 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
 
         viewHolder.cardView.setBackgroundColor(Color.parseColor ("#ffab02"));
         viewHolder.nombreLocal.setTextColor (Color.parseColor ("#FFFFFF"));
-        viewHolder.tipoLocal.setTextColor (Color.parseColor ("#000000"));
-        viewHolder.tarifaLocal.setTextColor (Color.parseColor ("#000000"));
         viewHolder.direccionLocal.setTextColor (Color.parseColor ("#000000"));
 
         viewHolder.nombreLocal.setText (nombre);
@@ -64,6 +66,15 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
 //                ((Activity) mContext).finish ();
             }
         });
+
+        Glide.with (mContext)
+                .load (R.drawable.fondo_edificio_alterno)
+                .apply (new RequestOptions ()
+                        .diskCacheStrategy (DiskCacheStrategy.ALL)
+                        .placeholder (R.drawable.fondo_edificio_alterno)
+                        .fallback (R.mipmap.ic_launcher)
+                )
+                .into (viewHolder.fotoLocal);
 
     }
 
@@ -83,9 +94,7 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView fotoLocal;
         private TextView nombreLocal;
-        private TextView tipoLocal;
         private TextView direccionLocal;
-        private TextView tarifaLocal;
         private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -93,9 +102,7 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
             cardView = (CardView) itemView.findViewById (R.id.ItemLista) ;
             fotoLocal = (ImageView) itemView.findViewById (R.id.fotoLocal);
             nombreLocal = (TextView) itemView.findViewById (R.id.txtNombreLocal);
-            tipoLocal = (TextView) itemView.findViewById (R.id.txtTipoLocal);
             direccionLocal = (TextView) itemView.findViewById (R.id.txtDireccionLocal);
-            tarifaLocal = (TextView) itemView.findViewById (R.id.txtTarifaLocal);
         }
     }
 

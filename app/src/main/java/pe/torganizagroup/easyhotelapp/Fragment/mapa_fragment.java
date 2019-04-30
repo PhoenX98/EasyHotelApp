@@ -10,56 +10,41 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-import pe.torganizagroup.easyhotelapp.Pojo.Coordenada;
-import pe.torganizagroup.easyhotelapp.Pojo.CoordenadaRespuesta;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
-import pe.torganizagroup.easyhotelapp.Retrofit.CoordenadaService;
 import pe.torganizagroup.easyhotelapp.Retrofit.HotelLista;
 import pe.torganizagroup.easyhotelapp.Retrofit.Utilidades;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.Context.LOCATION_SERVICE;
-import static pe.torganizagroup.easyhotelapp.Retrofit.Utilidades.COORDENADA_URL;
-import static pe.torganizagroup.easyhotelapp.Retrofit.Utilidades.NEW_TEST_URL;
 
 public class mapa_fragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
@@ -70,16 +55,11 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     AlertDialog alert = null;
     AlertDialog upss = null;
 
-    private Retrofit retrofit;
-    private CoordenadaService markerService;
     private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
 
-    Marker markerLocation;
     MapView mMapView;
     GoogleMap mGoogleMap;
-    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
-    private boolean mapsSupported = true;
 
     public mapa_fragment() {
 
@@ -106,11 +86,6 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
 
-        retrofit = new Retrofit.Builder ()
-                .baseUrl (COORDENADA_URL)
-                .addConverterFactory (GsonConverterFactory.create ())
-                .build ();
-
         localTest = Utilidades.getService ();
         cargarMarcadores ();
 
@@ -119,8 +94,6 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
-
-
 
     }
 
@@ -203,6 +176,8 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         mGoogleMap.getUiSettings ().setZoomControlsEnabled (true);
         mGoogleMap.getUiSettings ().setMapToolbarEnabled (true);
         mGoogleMap.setMapType (GoogleMap.MAP_TYPE_NORMAL);
+//        mGoogleMap.setOnMarkerClickListener ();
+
 
     }
 
@@ -216,7 +191,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
                     try {
                         List<Hotels> h = response.body ();
 
-                        assert h != null;
+//                        assert h != null;
                         for (Hotels test: h){
                             Double lat = Double.parseDouble (test.getLatitude ());
                             Double lng = Double.parseDouble (test.getLength ());
@@ -225,6 +200,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
                             MarkerOptions markerOptions = new MarkerOptions();
                             markerOptions.position (latLng);
                             markerOptions.title (title);
+//                            markerOptions.getSnippet ("sdsdasds");
                             markerOptions.icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker));
                             Marker m = mGoogleMap.addMarker (markerOptions);
                         }

@@ -3,6 +3,7 @@ package pe.torganizagroup.easyhotelapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -33,6 +35,8 @@ public class PhoneAuthActivity extends Activity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private Button acceder;
     private ImageView imgLogo;
+    private TextView count,sentence;
+
 
     @Override
     protected void onStart() {
@@ -48,11 +52,14 @@ public class PhoneAuthActivity extends Activity {
         txtTelefono = (EditText) findViewById (R.id.txtTelefono);
         txtCodigo = (EditText) findViewById (R.id.txtCodigo);
         imgLogo = (ImageView) findViewById (R.id.imgLogo);
-
+        count = (TextView) findViewById (R.id.txtCount);
+        sentence = (TextView) findViewById (R.id.txtSentence);
+        acceder = (Button) findViewById (R.id.btnEnviar);
 
         Glide.with (getApplicationContext ())
                 .load (R.drawable.logo_easy_hotel_min)
                 .into (imgLogo);
+
         mAuth = FirebaseAuth.getInstance ();
         mAuthStateListener = new FirebaseAuth.AuthStateListener (){
 
@@ -85,7 +92,6 @@ public class PhoneAuthActivity extends Activity {
         @Override
         public void afterTextChanged(Editable s) {
             if (s.length () == 6){
-
                 String code = txtCodigo.getText().toString();
 
                 if (TextUtils.isEmpty(code))
@@ -103,6 +109,10 @@ public class PhoneAuthActivity extends Activity {
         String codigoPais = "+51";
         String Telefono = txtTelefono.getText ().toString ();
         String phoneNumber = codigoPais + Telefono;
+
+        setCountDown();
+
+
         if(TextUtils.isEmpty (phoneNumber))
             return;
         PhoneAuthProvider.getInstance ().verifyPhoneNumber (
@@ -133,6 +143,48 @@ public class PhoneAuthActivity extends Activity {
                 }
         );
 
+
+    }
+
+    private void setCountDown() {
+
+        int res = 60;
+        count.setText (res+"");
+
+        count.setVisibility (View.VISIBLE);
+        sentence.setVisibility (View.VISIBLE);
+
+        Tiempo regresivo = new Tiempo (60000,1000);
+        regresivo.start ();
+        acceder.setEnabled (false);
+    }
+    public class Tiempo extends CountDownTimer{
+
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public Tiempo(long millisInFuture, long countDownInterval) {
+            super (millisInFuture, countDownInterval);
+
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            count.setText ("" + millisUntilFinished / 1000);
+        }
+
+        @Override
+        public void onFinish() {
+            Toast.makeText (getApplicationContext (),"Se acabo el tiempo de espera, vuelva a pedir el codigo por favor",Toast.LENGTH_SHORT).show ();
+            acceder.setEnabled (true);
+            count.setText (60+"");
+            count.setVisibility (View.INVISIBLE);
+            sentence.setVisibility (View.INVISIBLE);
+        }
     }
 
     private void signInWithCredential(PhoneAuthCredential phoneAuthCredential) {

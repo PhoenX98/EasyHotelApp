@@ -38,4 +38,5 @@ public class Ubications {
         this.coordinates = coordinates;
     }
 
+
 }

@@ -3,20 +3,22 @@ package pe.torganizagroup.easyhotelapp.Pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Hotels {
 
     @SerializedName("asignedPortfolio")
     @Expose
     private String asignedPortfolio;
-    @SerializedName("userId")
-    @Expose
-    private String userId;
-    @SerializedName("status")
-    @Expose
-    private Integer status;
     @SerializedName("coor")
     @Expose
     private String coor;
+    @SerializedName("status")
+    @Expose
+    private Integer status;
+    @SerializedName("userId")
+    @Expose
+    private String userId;
     @SerializedName("id")
     @Expose
     private String id;
@@ -43,7 +45,7 @@ public class Hotels {
     private String category;
     @SerializedName("qualification")
     @Expose
-    private String qualification;
+    private Integer qualification;
     @SerializedName("length")
     @Expose
     private String length;
@@ -53,19 +55,28 @@ public class Hotels {
     @SerializedName("ubications")
     @Expose
     private Ubications ubications;
+    @SerializedName("minimalRate")
+    @Expose
+    private String minimalRate;
+    @SerializedName("maximumRate")
+    @Expose
+    private String maximumRate;
+//    @SerializedName("associatedType")
+//    @Expose
+//    private Integer associatedType;
+    @SerializedName("photos")
+    @Expose
+    private List<String> photos = null;
 
     public Hotels(){
 
     }
 
-    public Hotels(String asignedPortfolio, String userId, Integer status, String coor, String id,
-                  String nameHotel, String address, String addressReference, String department,
-                  String province, String district, String category, String qualification, String length,
-                  String latitude, Ubications ubications) {
+    public Hotels(String asignedPortfolio, String coor, Integer status, String userId, String id, String nameHotel, String address, String addressReference, String department, String province, String district, String category, Integer qualification, String length, String latitude, Ubications ubications, String minimalRate, String maximumRate, Integer associatedType, List<String> photos) {
         this.asignedPortfolio = asignedPortfolio;
-        this.userId = userId;
-        this.status = status;
         this.coor = coor;
+        this.status = status;
+        this.userId = userId;
         this.id = id;
         this.nameHotel = nameHotel;
         this.address = address;
@@ -78,6 +89,10 @@ public class Hotels {
         this.length = length;
         this.latitude = latitude;
         this.ubications = ubications;
+        this.minimalRate = minimalRate;
+        this.maximumRate = maximumRate;
+//        this.associatedType = associatedType;
+        this.photos = photos;
     }
 
     public String getAsignedPortfolio() {
@@ -88,12 +103,12 @@ public class Hotels {
         this.asignedPortfolio = asignedPortfolio;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getCoor() {
+        return coor;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCoor(String coor) {
+        this.coor = coor;
     }
 
     public Integer getStatus() {
@@ -104,12 +119,12 @@ public class Hotels {
         this.status = status;
     }
 
-    public String getCoor() {
-        return coor;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setCoor(String coor) {
-        this.coor = coor;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getId() {
@@ -176,11 +191,11 @@ public class Hotels {
         this.category = category;
     }
 
-    public String getQualification() {
+    public Integer getQualification() {
         return qualification;
     }
 
-    public void setQualification(String qualification) {
+    public void setQualification(Integer qualification) {
         this.qualification = qualification;
     }
 
@@ -206,6 +221,38 @@ public class Hotels {
 
     public void setUbications(Ubications ubications) {
         this.ubications = ubications;
+    }
+
+    public String getMinimalRate() {
+        return minimalRate;
+    }
+
+    public void setMinimalRate(String minimalRate) {
+        this.minimalRate = minimalRate;
+    }
+
+    public String getMaximumRate() {
+        return maximumRate;
+    }
+
+    public void setMaximumRate(String maximumRate) {
+        this.maximumRate = maximumRate;
+    }
+
+//    public Integer getAssociatedType() {
+//        return associatedType;
+//    }
+//
+//    public void setAssociatedType(Integer associatedType) {
+//        this.associatedType = associatedType;
+//    }
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
     }
 
 }

@@ -45,16 +45,17 @@
         android:text="Enviar SMS" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/txtSentence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="El codigo de verificacion caduca en: "
         android:textColor="#000000"
         android:textAlignment="center"
+        android:visibility="invisible"
         android:textSize="16sp" />
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/txtCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -62,6 +63,7 @@
         android:textColor="#000000"
         android:textAlignment="center"
         android:inputType="number"
+        android:visibility="invisible"
         android:textSize="26sp" />
 
     <EditText

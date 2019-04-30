@@ -107,9 +107,7 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
             cardView = (CardView) itemView.findViewById (R.id.ItemLista) ;
             fotoLocal = (ImageView) itemView.findViewById (R.id.fotoLocal);
             nombreLocal = (TextView) itemView.findViewById (R.id.txtNombreLocal);
-            tipoLocal = (TextView) itemView.findViewById (R.id.txtTipoLocal);
             direccionLocal = (TextView) itemView.findViewById (R.id.txtDireccionLocal);
-            tarifaLocal = (TextView) itemView.findViewById (R.id.txtTarifaLocal);
 
 //            view.setOnClickListener(new View.OnClickListener(){
 //                @Override

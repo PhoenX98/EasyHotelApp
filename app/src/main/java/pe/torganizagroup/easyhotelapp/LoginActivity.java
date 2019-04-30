@@ -145,6 +145,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
         pdDialog = ProgressDialog.show (LoginActivity.this, "Iniciando sesión","Comprobando credenciales...", false, false);
+        pdDialog.dismiss ();
         loginButton.setVisibility (View.GONE);
 
         AuthCredential credential = FacebookAuthProvider.getCredential (accessToken.getToken ());
@@ -162,7 +163,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount) {
         pdDialog = ProgressDialog.show (LoginActivity.this, "Iniciando sesión","Comprobando credenciales...", false, false);
-        signInButton.setVisibility (View.GONE);
+        pdDialog.dismiss ();
+        //        signInButton.setVisibility (View.GONE);
         AuthCredential credential = GoogleAuthProvider.getCredential (signInAccount.getIdToken (), null);
         firebaseAuth.signInWithCredential (credential).addOnCompleteListener (this, new OnCompleteListener<AuthResult> () {
             @Override
@@ -182,7 +184,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             firebaseAuthWithGoogle(Objects.requireNonNull (result.getSignInAccount ()));
             pdDialog = ProgressDialog.show (LoginActivity.this, "Iniciando sesión","Comprobando credenciales...", false, false);
-
+            pdDialog.dismiss ();
         }else {
             Toast.makeText (this,R.string.not_log_in,Toast.LENGTH_SHORT).show ();
         }
