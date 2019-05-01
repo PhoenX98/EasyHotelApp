@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -50,14 +51,17 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
 
     private static final String TAG = "Locales";
     private static final String TAG_ERROR = "Debug";
+    private static final String TAG_MAP = "Map";
     double lat = 0.0;
     double lng = 0.0;
+//    double lat1 = 0.0;
+//    double lng1 = 0.0;
     AlertDialog alert = null;
     AlertDialog upss = null;
 
     private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
-
+//    GoogleApiClient mGoogleApiClient;
     MapView mMapView;
     GoogleMap mGoogleMap;
 
@@ -74,18 +78,22 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
             MapsInitializer.initialize (Objects.requireNonNull (getActivity ()).getApplicationContext ());
         } catch (Exception e) {
             e.printStackTrace ();
+            Log.i (TAG_MAP," Error al inicializar mapa " + e.getMessage ());
         }
 
         mMapView.getMapAsync (this);
 
+
     }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
 
         localTest = Utilidades.getService ();
-        cargarMarcadores ();
+
 
     }
 
@@ -110,6 +118,8 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
             AlertNoGps();
         }
+
+
         return v;
     }
 
@@ -134,6 +144,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
+//        mGoogleApiClient.connect ();
         setUpMap ();
 
     }
@@ -159,7 +170,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
 
                 LatLng loc = new LatLng (lat,lng);
 //                mGoogleMap.moveCamera (CameraUpdateFactory.newLatLng (loc));
-                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10.0f));
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 21));
 
             }
 
@@ -167,8 +178,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         locationManager.requestLocationUpdates(bestProvider, 2000, 100, this);
         mGoogleMap.setMyLocationEnabled (true);
         mGoogleMap.getUiSettings ().isCompassEnabled ();
-        mGoogleMap.setMaxZoomPreference (25);
-        mGoogleMap.setMinZoomPreference (05);
+        //max=21.0 - min=2.0
+        mGoogleMap.setMaxZoomPreference (21);
+        mGoogleMap.setMinZoomPreference (5);
         mGoogleMap.getUiSettings ().setMyLocationButtonEnabled (true);
         mGoogleMap.getUiSettings ().setZoomGesturesEnabled (true);
         mGoogleMap.getUiSettings ().setZoomControlsEnabled (true);
@@ -176,7 +188,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         mGoogleMap.setMapType (GoogleMap.MAP_TYPE_NORMAL);
 //        mGoogleMap.setOnMarkerClickListener ();
 
-
+        cargarMarcadores ();
     }
 
     private void cargarMarcadores() {
@@ -190,21 +202,24 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
                         List<Hotels> h = response.body ();
 
 //                        assert h != null;
-                        for (Hotels test: h){
-                            Double lat = Double.parseDouble (test.getLatitude ());
-                            Double lng = Double.parseDouble (test.getLength ());
+                        for (Hotels test: Objects.requireNonNull (h)){
+                            lat = Double.parseDouble (test.getLatitude ());
+                            lng = Double.parseDouble (test.getLength ());
                             LatLng latLng = new LatLng(lat, lng);
                             String title = test.getNameHotel ();
-                            MarkerOptions markerOptions = new MarkerOptions();
-                            markerOptions.position (latLng);
-                            markerOptions.title (title);
-//                            markerOptions.getSnippet ("sdsdasds");
-                            markerOptions.icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker));
-                            Marker m = mGoogleMap.addMarker (markerOptions);
+//                            MarkerOptions markerOptions = new MarkerOptions();
+//                            markerOptions.position (latLng);
+//                            markerOptions.title (title);
+////                            markerOptions.getSnippet ("sdsdasds");
+//                            markerOptions.icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker));
+                            mGoogleMap.addMarker (new MarkerOptions ()
+                                    .position (latLng)
+                                    .title (title)
+                                    .icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker)));
                         }
 
                     } catch (Exception e){
-                        Log.d (TAG_ERROR, "Hay un error");
+                        Log.d (TAG_ERROR, "Hay un error" + e.getMessage ());
                         e.printStackTrace ();
                     }
                 } else {

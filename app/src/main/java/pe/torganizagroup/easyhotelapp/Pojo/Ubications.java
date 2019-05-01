@@ -13,9 +13,8 @@ public class Ubications {
     @Expose
     private List<String> coordinates = null;
 
-    public Ubications(){
-
-    }
+//    public Ubications() {
+//    }
 
     public Ubications(String type, List<String> coordinates) {
         this.type = type;

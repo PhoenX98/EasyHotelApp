@@ -10,15 +10,15 @@ public class Hotels {
     @SerializedName("asignedPortfolio")
     @Expose
     private String asignedPortfolio;
-    @SerializedName("coor")
-    @Expose
-    private String coor;
-    @SerializedName("status")
-    @Expose
-    private Integer status;
     @SerializedName("userId")
     @Expose
     private String userId;
+    @SerializedName("coor")
+    @Expose
+    private String coor;
+    @SerializedName("photos")
+    @Expose
+    private List<String> photos = null;
     @SerializedName("id")
     @Expose
     private String id;
@@ -42,7 +42,7 @@ public class Hotels {
     private String district;
     @SerializedName("category")
     @Expose
-    private String category;
+    private Integer category;
     @SerializedName("qualification")
     @Expose
     private Integer qualification;
@@ -52,31 +52,31 @@ public class Hotels {
     @SerializedName("latitude")
     @Expose
     private String latitude;
+    @SerializedName("associatedType")
+    @Expose
+    private String associatedType;
     @SerializedName("ubications")
     @Expose
     private Ubications ubications;
+    @SerializedName("status")
+    @Expose
+    private Integer status;
     @SerializedName("minimalRate")
     @Expose
     private String minimalRate;
     @SerializedName("maximumRate")
     @Expose
     private String maximumRate;
-//    @SerializedName("associatedType")
-//    @Expose
-//    private Integer associatedType;
-    @SerializedName("photos")
-    @Expose
-    private List<String> photos = null;
 
-    public Hotels(){
+//    public Hotels(){
+//
+//    }
 
-    }
-
-    public Hotels(String asignedPortfolio, String coor, Integer status, String userId, String id, String nameHotel, String address, String addressReference, String department, String province, String district, String category, Integer qualification, String length, String latitude, Ubications ubications, String minimalRate, String maximumRate, Integer associatedType, List<String> photos) {
+    public Hotels(String asignedPortfolio, String userId, String coor, List<String> photos, String id, String nameHotel, String address, String addressReference, String department, String province, String district, Integer category, Integer qualification, String length, String latitude, String associatedType, Ubications ubications, Integer status, String minimalRate, String maximumRate) {
         this.asignedPortfolio = asignedPortfolio;
-        this.coor = coor;
-        this.status = status;
         this.userId = userId;
+        this.coor = coor;
+        this.photos = photos;
         this.id = id;
         this.nameHotel = nameHotel;
         this.address = address;
@@ -88,11 +88,11 @@ public class Hotels {
         this.qualification = qualification;
         this.length = length;
         this.latitude = latitude;
+        this.associatedType = associatedType;
         this.ubications = ubications;
+        this.status = status;
         this.minimalRate = minimalRate;
         this.maximumRate = maximumRate;
-//        this.associatedType = associatedType;
-        this.photos = photos;
     }
 
     public String getAsignedPortfolio() {
@@ -103,6 +103,14 @@ public class Hotels {
         this.asignedPortfolio = asignedPortfolio;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getCoor() {
         return coor;
     }
@@ -111,20 +119,12 @@ public class Hotels {
         this.coor = coor;
     }
 
-    public Integer getStatus() {
-        return status;
+    public List<String> getPhotos() {
+        return photos;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
     }
 
     public String getId() {
@@ -183,11 +183,11 @@ public class Hotels {
         this.district = district;
     }
 
-    public String getCategory() {
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
@@ -215,12 +215,28 @@ public class Hotels {
         this.latitude = latitude;
     }
 
+    public String getAssociatedType() {
+        return associatedType;
+    }
+
+    public void setAssociatedType(String associatedType) {
+        this.associatedType = associatedType;
+    }
+
     public Ubications getUbications() {
         return ubications;
     }
 
     public void setUbications(Ubications ubications) {
         this.ubications = ubications;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getMinimalRate() {
@@ -239,20 +255,5 @@ public class Hotels {
         this.maximumRate = maximumRate;
     }
 
-//    public Integer getAssociatedType() {
-//        return associatedType;
-//    }
-//
-//    public void setAssociatedType(Integer associatedType) {
-//        this.associatedType = associatedType;
-//    }
-
-    public List<String> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(List<String> photos) {
-        this.photos = photos;
-    }
 
 }

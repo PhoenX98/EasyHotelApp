@@ -18,6 +18,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -292,5 +293,12 @@ public class DrawableActivity extends AppCompatActivity
         if (firebaseAuthListener != null) {
             firebaseAuth.removeAuthStateListener (firebaseAuthListener);
         }
+    }
+
+    public void loadFragment(int contenedor, hotel_detalle_fragment hdf) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace (contenedor,hdf,hdf.toString ());
+        ft.addToBackStack (null);
+        ft.commit ();
     }
 }

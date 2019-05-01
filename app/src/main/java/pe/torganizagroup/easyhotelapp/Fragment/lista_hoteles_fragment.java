@@ -59,21 +59,11 @@ public class lista_hoteles_fragment extends Fragment {
         View view = inflater.inflate (R.layout.fragment_lista_hoteles, container, false);
 
         recyclerView = view.findViewById (R.id.ListaFullHotel);
-//        HAdapter = new ListaHotelAdapter (getContext (), lH1);
-        HAdapter= new ListaHotelAdapter (getActivity (),lH1,communicator);
+        HAdapter = new ListaHotelAdapter (getContext (), lH1);
         recyclerView.setAdapter (HAdapter);
-//        RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-//        int position = viewHolder.getAdapterPosition ();
-//        viewHolder.getItemId ();
-//        recyclerView.setAdapter (new ListaHotelAdapter (getContext (),lH1, new RecyclerViewOnItemClickListener () {
-//            @Override
-//            public void onClick(View v, int position) {
-//
-//            }
-//        }));
+
 
         final GridLayoutManager gridLayoutManager = new GridLayoutManager (getContext (), 2);
-//        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager (getActivity ());
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -93,18 +83,19 @@ public class lista_hoteles_fragment extends Fragment {
         call1.enqueue (new Callback<List<Hotels>> () {
             @Override
             public void onResponse(Call<List<Hotels>> call, Response<List<Hotels>> response) {
+                lH1.clear ();
                 if(response.isSuccessful ()){
                     try {
                         List<Hotels> h = response.body ();
                         lH1 = Objects.requireNonNull (h);
                         HAdapter.addHotelItem(lH1);
-                        HAdapter.notifyDataSetChanged ();
+
 
                     } catch (Exception e){
                         Log.d (TAG_ERROR, "Hay un error");
                         e.printStackTrace ();
                     }
-
+                    HAdapter.notifyDataSetChanged ();
                 } else {
                     Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
                     UpssAlert();
@@ -140,26 +131,11 @@ public class lista_hoteles_fragment extends Fragment {
 
     }
 
-    FragmentComunicator Comunicator = new FragmentComunicator () {
-        @Override
-        public void respond(int position, String name, String address, String price, List<String> photos) {
-            hotel_detalle_fragment HDF = new hotel_detalle_fragment ();
-            Bundle bundle = new Bundle ();
-            bundle.putString ("NAME",name);
-            bundle.putString ("ADDRESS",address);
-            bundle.putString ("PRICE",price);
-            bundle.putStringArrayList ("LIST", (ArrayList<String>) photos);
-            HDF.setArguments (bundle);
-            FragmentManager manager = getFragmentManager ();
-            FragmentTransaction transaction = manager.beginTransaction ();
-            transaction.replace (R.id.dumper,HDF).commit ();
-
-        }
-    };
 
     @Override
     public void onStart(){
         super.onStart ();
+        lH1.clear ();
         obtenerDatos();
 
     }
@@ -167,11 +143,7 @@ public class lista_hoteles_fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume ();
-        obtenerDatos ();
-//        HAdapter.getItemCount ();
-//        for (int i = 0; i < HAdapter.getItemCount (); i++){
-//
-//        }
+
     }
 
     @Override
