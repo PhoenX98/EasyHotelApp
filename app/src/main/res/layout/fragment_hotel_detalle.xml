@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <android.support.v4.view.ViewPager
+                android:id="@+id/hd_ViewPager"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp" />
 
@@ -27,6 +28,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/hd_txtName"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
@@ -75,6 +77,7 @@
                                 android:textSize="18sp" />
 
                             <TextView
+                                android:id="@+id/hd_txtPrice"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -112,7 +115,7 @@
                             android:layout_weight="1">
 
                             <RatingBar
-                                android:id="@+id/ratingBar"
+                                android:id="@+id/hd_StarScore"
                                 style="?android:attr/ratingBarStyleSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -134,6 +137,7 @@
                             android:weightSum="8">
 
                             <TextView
+                                android:id="@+id/hd_txtAddress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="5"
@@ -163,6 +167,7 @@
                                     android:background="@drawable/car" />
 
                                 <TextView
+                                    android:id="@+id/hd_txtDistance"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_weight="2"
@@ -178,7 +183,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txtTelefono"
+                        android:id="@+id/hd_txtPhoneNumber"
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="13dp"
@@ -209,7 +214,7 @@
 
                     <android.support.v7.widget.RecyclerView
                         xmlns:tools="http://schemas.android.com/tools"
-                        android:id="@+id/Re_servicios"
+                        android:id="@+id/hd_RvServices"
                         android:layout_width="fill_parent"
                         android:layout_height="120dp"
                         android:layout_marginHorizontal="10dp"
@@ -235,7 +240,7 @@
                 android:weightSum="3"
                 android:orientation="horizontal">
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/Re_Tipo_Hab"
+                    android:id="@+id/hd_RvRoom"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -255,7 +260,7 @@
             </View>
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/hd_btnGoHotel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="60dp"

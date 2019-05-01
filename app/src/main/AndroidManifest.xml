@@ -28,8 +28,12 @@
             android:name="com.google.android.actions"
             android:resource="@xml/borde_redondo" />
 
-        <activity android:name=".MyIntro" />
-        <activity android:name=".PhoneAuthActivity" /> <!-- Meta data para usar Google maps, Facebook login y geolocalizacion -->
+        <activity
+            android:name=".MyIntro"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PhoneAuthActivity"
+            android:screenOrientation="portrait"/> <!-- Meta data para usar Google maps, Facebook login y geolocalizacion -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/maps_key" />

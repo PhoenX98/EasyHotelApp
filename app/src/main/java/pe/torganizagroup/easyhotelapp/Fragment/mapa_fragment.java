@@ -61,9 +61,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     MapView mMapView;
     GoogleMap mGoogleMap;
 
-    public mapa_fragment() {
-
-    }
+    public mapa_fragment() { }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -160,8 +158,8 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
                 lng = location.getLongitude ();
 
                 LatLng loc = new LatLng (lat,lng);
-                mGoogleMap.moveCamera (CameraUpdateFactory.newLatLng (loc));
-//                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+//                mGoogleMap.moveCamera (CameraUpdateFactory.newLatLng (loc));
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10.0f));
 
             }
 

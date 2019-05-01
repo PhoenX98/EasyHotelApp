@@ -1,6 +1,7 @@
 package pe.torganizagroup.easyhotelapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,6 +10,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -56,6 +59,13 @@ public class PhoneAuthActivity extends Activity {
         sentence = (TextView) findViewById (R.id.txtSentence);
         acceder = (Button) findViewById (R.id.btnEnviar);
 
+        txtTelefono.requestFocus ();
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        assert imm != null;
+//        imm.showSoftInput (txtTelefono, InputMethodManager.SHOW_IMPLICIT);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        txtTelefono.addTextChangedListener (phoneWatcher);
+
         Glide.with (getApplicationContext ())
                 .load (R.drawable.logo_easy_hotel_min)
                 .into (imgLogo);
@@ -77,6 +87,27 @@ public class PhoneAuthActivity extends Activity {
         txtCodigo.addTextChangedListener (codeWatcher);
 
     }
+
+    private final TextWatcher phoneWatcher = new TextWatcher () {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.length () == 9){
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(txtTelefono.getWindowToken(), 0);
+            }
+        }
+    };
 
     private  final TextWatcher codeWatcher = new TextWatcher () {
         @Override
@@ -112,11 +143,12 @@ public class PhoneAuthActivity extends Activity {
 
         setCountDown();
 
-
+        int res = 60;
         if(TextUtils.isEmpty (phoneNumber))
             return;
         PhoneAuthProvider.getInstance ().verifyPhoneNumber (
-                phoneNumber, 60, TimeUnit.SECONDS, PhoneAuthActivity.this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks () {
+
+                phoneNumber, res, TimeUnit.SECONDS, PhoneAuthActivity.this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks () {
                     @Override
                     public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
                         signInWithCredential(phoneAuthCredential);
@@ -153,8 +185,9 @@ public class PhoneAuthActivity extends Activity {
 
         count.setVisibility (View.VISIBLE);
         sentence.setVisibility (View.VISIBLE);
-
-        Tiempo regresivo = new Tiempo (60000,1000);
+        txtCodigo.setVisibility (View.VISIBLE);
+        txtCodigo.requestFocus ();
+        Tiempo regresivo = new Tiempo (61000,1000);
         regresivo.start ();
         acceder.setEnabled (false);
     }

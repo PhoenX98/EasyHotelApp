@@ -48,14 +48,13 @@ public class GenHotAdapter extends RecyclerView.Adapter<GenHotAdapter.ViewHolder
         String hname = hotel.getNombreLocal ();
 
         //Para intercalar colores de elementos de la lista de 1 en 1 (A-B-A-B...)
-        if((i % 2) == 0){
+        if((i % 2) == 0) {
             viewHolder.cardView.setBackgroundColor(Color.parseColor ("#ffab02"));
             viewHolder.nombreLocal.setTextColor (Color.parseColor ("#FFFFFF"));
             viewHolder.tipoLocal.setTextColor (Color.parseColor ("#000000"));
             viewHolder.tarifaLocal.setTextColor (Color.parseColor ("#000000"));
             viewHolder.direccionLocal.setTextColor (Color.parseColor ("#000000"));
-        }
-        else{
+        } else {
             viewHolder.cardView.setBackgroundColor(Color.parseColor ("#ffab02"));
             viewHolder.nombreLocal.setTextColor (Color.WHITE);
             viewHolder.tipoLocal.setTextColor (Color.BLACK);

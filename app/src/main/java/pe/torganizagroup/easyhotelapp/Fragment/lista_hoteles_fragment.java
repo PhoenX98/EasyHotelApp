@@ -2,14 +2,14 @@ package pe.torganizagroup.easyhotelapp.Fragment;
 
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,9 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import pe.torganizagroup.easyhotelapp.Adapters.GenHotAdapter;
 import pe.torganizagroup.easyhotelapp.Adapters.ListaHotelAdapter;
-import pe.torganizagroup.easyhotelapp.Pojo.GenHot;
+import pe.torganizagroup.easyhotelapp.Interfaces.FragmentComunicator;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
 import pe.torganizagroup.easyhotelapp.Retrofit.HotelLista;
@@ -42,6 +41,7 @@ public class lista_hoteles_fragment extends Fragment {
     private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
     AlertDialog upss = null;
+    private FragmentComunicator communicator;
 
     public lista_hoteles_fragment() {
         // Required empty public constructor
@@ -59,8 +59,19 @@ public class lista_hoteles_fragment extends Fragment {
         View view = inflater.inflate (R.layout.fragment_lista_hoteles, container, false);
 
         recyclerView = view.findViewById (R.id.ListaFullHotel);
-        HAdapter = new ListaHotelAdapter (getContext (), lH1);
+//        HAdapter = new ListaHotelAdapter (getContext (), lH1);
+        HAdapter= new ListaHotelAdapter (getActivity (),lH1,communicator);
         recyclerView.setAdapter (HAdapter);
+//        RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+//        int position = viewHolder.getAdapterPosition ();
+//        viewHolder.getItemId ();
+//        recyclerView.setAdapter (new ListaHotelAdapter (getContext (),lH1, new RecyclerViewOnItemClickListener () {
+//            @Override
+//            public void onClick(View v, int position) {
+//
+//            }
+//        }));
+
         final GridLayoutManager gridLayoutManager = new GridLayoutManager (getContext (), 2);
 //        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager (getActivity ());
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -87,6 +98,7 @@ public class lista_hoteles_fragment extends Fragment {
                         List<Hotels> h = response.body ();
                         lH1 = Objects.requireNonNull (h);
                         HAdapter.addHotelItem(lH1);
+                        HAdapter.notifyDataSetChanged ();
 
                     } catch (Exception e){
                         Log.d (TAG_ERROR, "Hay un error");
@@ -128,20 +140,45 @@ public class lista_hoteles_fragment extends Fragment {
 
     }
 
+    FragmentComunicator Comunicator = new FragmentComunicator () {
+        @Override
+        public void respond(int position, String name, String address, String price, List<String> photos) {
+            hotel_detalle_fragment HDF = new hotel_detalle_fragment ();
+            Bundle bundle = new Bundle ();
+            bundle.putString ("NAME",name);
+            bundle.putString ("ADDRESS",address);
+            bundle.putString ("PRICE",price);
+            bundle.putStringArrayList ("LIST", (ArrayList<String>) photos);
+            HDF.setArguments (bundle);
+            FragmentManager manager = getFragmentManager ();
+            FragmentTransaction transaction = manager.beginTransaction ();
+            transaction.replace (R.id.dumper,HDF).commit ();
+
+        }
+    };
+
     @Override
     public void onStart(){
         super.onStart ();
         obtenerDatos();
+
     }
 
     @Override
     public void onResume() {
         super.onResume ();
-//        obtenerDatos ();
+        obtenerDatos ();
+//        HAdapter.getItemCount ();
+//        for (int i = 0; i < HAdapter.getItemCount (); i++){
+//
+//        }
     }
 
     @Override
     public void onStop() {
         super.onStop ();
     }
+
+
+
 }

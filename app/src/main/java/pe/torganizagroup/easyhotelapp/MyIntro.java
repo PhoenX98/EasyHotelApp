@@ -2,6 +2,7 @@ package pe.torganizagroup.easyhotelapp;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ public class MyIntro extends AppIntro2 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate (savedInstanceState);
 
         Intro1 fragment1 = new Intro1 ();
