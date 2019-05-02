@@ -44,7 +44,7 @@ public class lista_hoteles_fragment extends Fragment {
     private FragmentComunicator communicator;
 
     public lista_hoteles_fragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -61,7 +61,6 @@ public class lista_hoteles_fragment extends Fragment {
         recyclerView = view.findViewById (R.id.ListaFullHotel);
         HAdapter = new ListaHotelAdapter (getContext (), lH1);
         recyclerView.setAdapter (HAdapter);
-
 
         final GridLayoutManager gridLayoutManager = new GridLayoutManager (getContext (), 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -90,7 +89,6 @@ public class lista_hoteles_fragment extends Fragment {
                         lH1 = Objects.requireNonNull (h);
                         HAdapter.addHotelItem(lH1);
 
-
                     } catch (Exception e){
                         Log.d (TAG_ERROR, "Hay un error");
                         e.printStackTrace ();
@@ -100,13 +98,13 @@ public class lista_hoteles_fragment extends Fragment {
                     Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
                     UpssAlert();
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<Hotels>> call, Throwable t) {
                 Log.i (TAG_ERROR,"Error en el parseo de JSON, revisar parametros"+t.getMessage ());
                 t.printStackTrace ();
+                UpssAlert();
             }
         });
 
@@ -131,26 +129,21 @@ public class lista_hoteles_fragment extends Fragment {
 
     }
 
-
     @Override
     public void onStart(){
         super.onStart ();
         lH1.clear ();
         obtenerDatos();
-
     }
 
     @Override
     public void onResume() {
         super.onResume ();
-
     }
 
     @Override
     public void onStop() {
         super.onStop ();
     }
-
-
 
 }

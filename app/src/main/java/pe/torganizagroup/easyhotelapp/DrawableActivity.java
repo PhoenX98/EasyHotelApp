@@ -295,10 +295,4 @@ public class DrawableActivity extends AppCompatActivity
         }
     }
 
-    public void loadFragment(int contenedor, hotel_detalle_fragment hdf) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace (contenedor,hdf,hdf.toString ());
-        ft.addToBackStack (null);
-        ft.commit ();
-    }
 }

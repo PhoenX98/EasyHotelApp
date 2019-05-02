@@ -34,9 +34,17 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
     Context mContext;
     private List<Hotels> listaHotels = new ArrayList<> ();
     private List<String> urlList = new ArrayList<> ();
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
 
     public ListaHotelAdapter(Context mContext, List<Hotels> listaHotels) {
-
         this.mContext = mContext;
         this.listaHotels = listaHotels;
     }
@@ -55,8 +63,8 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
 
         Hotels h1 = listaHotels.get (i);
         String costeF = "Desde S/. ";
-        final hotel_detalle_fragment HDF =new hotel_detalle_fragment ();
-        final Bundle bundleLHA = new Bundle ();
+//        final hotel_detalle_fragment HDF =new hotel_detalle_fragment ();
+//        final Bundle bundleLHA = new Bundle ();
         final String nombre = h1.getNameHotel ();
         final String direccion = h1.getAddress ();
         final String tarifa = h1.getMinimalRate ();
@@ -101,36 +109,6 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
         }
 
 
-
-//        notifyDataSetChanged ();
-        viewHolder.itemView.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-
-                bundleLHA.putString ("NAME",nombre);
-                bundleLHA.putString ("ADDRESS",direccion);
-                bundleLHA.putString ("PRICE",tarifa);
-                bundleLHA.putStringArrayList ("LIST", (ArrayList<String>) urlList);
-
-                HDF.setArguments (bundleLHA);
-                switchFragment(R.id.contenedor,HDF);
-//
-//                Toast.makeText (mContext, "Data: "+String.valueOf (viewHolder.getAdapterPosition ()),Toast.LENGTH_SHORT).show ();
-
-            }
-        });
-    }
-
-    public void switchFragment(int contenedor, hotel_detalle_fragment hdf) {
-        if(mContext == null){
-
-            if(mContext instanceof DrawableActivity){
-                DrawableActivity da = (DrawableActivity) mContext;
-                da.loadFragment(contenedor,hdf);
-            }
-        return;
-    }
-
     }
 
     @Override
@@ -146,12 +124,13 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
         notifyDataSetChanged ();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder  {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView fotoLocal;
         private TextView nombreLocal;
         private TextView direccionLocal;
         private TextView tarifaLocal;
         private CardView cardView;
+        private MyViewHolderClick mListener;
 
         public ViewHolder(@NonNull View itemView) {
             super (itemView);
@@ -162,8 +141,14 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
             direccionLocal = (TextView) itemView.findViewById (R.id.txtDireccionLocal);
             tarifaLocal = (TextView) itemView.findViewById (R.id.txtTarifaLocal);
 
+
+
         }
 
+        @Override
+        public void onClick(View v) {
+
+        }
     }
 
 }

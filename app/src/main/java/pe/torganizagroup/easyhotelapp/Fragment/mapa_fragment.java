@@ -207,20 +207,16 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
                             lng = Double.parseDouble (test.getLength ());
                             LatLng latLng = new LatLng(lat, lng);
                             String title = test.getNameHotel ();
-//                            MarkerOptions markerOptions = new MarkerOptions();
-//                            markerOptions.position (latLng);
-//                            markerOptions.title (title);
-////                            markerOptions.getSnippet ("sdsdasds");
-//                            markerOptions.icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker));
                             mGoogleMap.addMarker (new MarkerOptions ()
-                                    .position (latLng)
-                                    .title (title)
-                                    .icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker)));
+                                .position (latLng)
+                                .title (title)
+                                .icon (BitmapDescriptorFactory.fromResource (R.drawable.mini_logo_marker)));
                         }
 
                     } catch (Exception e){
                         Log.d (TAG_ERROR, "Hay un error" + e.getMessage ());
                         e.printStackTrace ();
+
                     }
                 } else {
                     Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
@@ -232,9 +228,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
             public void onFailure(Call<List<Hotels>> call, Throwable t) {
                 Log.i (TAG_ERROR,"Error en el parseo de JSON, revisar parametros"+t.getMessage ());
                 t.printStackTrace ();
+                UpssAlert();
             }
         });
-
 
     }
 
