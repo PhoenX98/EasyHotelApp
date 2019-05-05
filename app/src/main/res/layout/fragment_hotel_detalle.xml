@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <android.support.v4.view.ViewPager
-                android:id="@+id/hd_ViewPager"
+                android:id="@+id/hd_viewPager"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp" />
 
@@ -33,7 +33,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:gravity="center|start"
-                    android:text="Nombre Hotel"
+                    android:text=""
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="25dp" />
@@ -82,7 +82,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="bottom"
-                                android:text="00"
+                                android:text=""
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="20sp" />
@@ -104,28 +104,28 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:orientation="vertical"
                         android:weightSum="2">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1">
 
                             <RatingBar
                                 android:id="@+id/hd_StarScore"
                                 style="?android:attr/ratingBarStyleSmall"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:clickable="false"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:isIndicator="true"
                                 android:numStars="5"
-                                android:rating="4"
+                                android:rating="5"
                                 android:stepSize="1" />
                         </LinearLayout>
 
@@ -134,48 +134,51 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal"
-                            android:weightSum="8">
-
+                            >
+                            <!--android:weightSum="8"-->
                             <TextView
                                 android:id="@+id/hd_txtAddress"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_location_on_black_24dp"
                                 android:text="direccion muestra"
                                 android:textColor="#000000"
                                 android:textAlignment="textStart" />
+                            <!--android:layout_weight="8"-->
 
-                            <View
-                                android:layout_width="2dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="3dp"
-                                android:background="#000000" />
+                            <!--<View-->
+                                <!--android:layout_width="2dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_margin="3dp"-->
+                                <!--android:background="#000000"-->
+                                <!--tools:visibility="gone" />-->
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="3"
-                                android:orientation="horizontal"
-                                android:weightSum="3">
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_weight="3"-->
+                                <!--android:orientation="horizontal"-->
+                                <!--android:visibility="gone"-->
+                                <!--android:weightSum="3">-->
 
-                                <ImageView
-                                    android:layout_width="35dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginHorizontal="5dp"
-                                    android:scaleType="fitCenter"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/car" />
+                                <!--<ImageView-->
+                                    <!--android:layout_width="35dp"-->
+                                    <!--android:layout_height="20dp"-->
+                                    <!--android:layout_marginHorizontal="5dp"-->
+                                    <!--android:scaleType="fitCenter"-->
+                                    <!--android:layout_weight="1"-->
+                                    <!--android:background="@drawable/car" />-->
 
-                                <TextView
-                                    android:id="@+id/hd_txtDistance"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="2"
-                                    android:text="min"
-                                    android:textColor="#000000"
-                                    android:textAlignment="center"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
+                                <!--<TextView-->
+                                    <!--android:id="@+id/hd_txtDistance"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="match_parent"-->
+                                    <!--android:layout_weight="2"-->
+                                    <!--android:text="min"-->
+                                    <!--android:textColor="#000000"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="12sp" />-->
+                            <!--</LinearLayout>-->
 
                         </LinearLayout>
                         <!--android:background="@drawable/car"-->
@@ -191,11 +194,12 @@
                         android:layout_weight="1"
                         android:background="@drawable/img_telefono_con_fondo"
                         android:gravity="center|end"
-                        android:text="959368787"
+                        android:text=""
                         android:textAlignment="textEnd"
                         android:textColor="#000000"
                         android:textSize="12sp" />
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -228,36 +232,40 @@
 
             <View
                 android:background="#ffab02"
-                android:layout_height="10dp"
+                android:layout_height="5dp"
                 android:layout_width="fill_parent"
                 android:layout_marginVertical="5dp"
                 android:layout_marginHorizontal="5dp">
             </View>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="125dp"
-                android:weightSum="3"
-                android:orientation="horizontal">
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/hd_RvRoom"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="5dp"
-                    tools:listitem="@layout/dh_item_hab_icon">
+            <!--<LinearLayout-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="125dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:weightSum="3"-->
+                <!--tools:visibility="gone">-->
 
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
+                <!--<android.support.v7.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"-->
+                    <!--android:id="@+id/hd_RvRoom"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginHorizontal="10dp"-->
+                    <!--android:layout_marginVertical="5dp"-->
+                    <!--tools:listitem="@layout/dh_item_hab_icon"-->
+                    <!--tools:visibility="gone">-->
 
-            <View
-                android:background="#ffab02"
-                android:layout_height="5dp"
-                android:layout_width="fill_parent"
-                android:layout_marginVertical="5dp"
-                android:layout_marginHorizontal="10dp">
-            </View>
+                <!--</android.support.v7.widget.RecyclerView>-->
+            <!--</LinearLayout>-->
+
+            <!--<View-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="5dp"-->
+                <!--android:layout_marginHorizontal="10dp"-->
+                <!--android:layout_marginVertical="5dp"-->
+                <!--android:background="#ffab02"-->
+                <!--tools:visibility="gone">-->
+
+            <!--</View>-->
 
             <Button
                 android:id="@+id/hd_btnGoHotel"

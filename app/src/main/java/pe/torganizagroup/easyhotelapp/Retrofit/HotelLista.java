@@ -9,9 +9,8 @@ import retrofit2.http.GET;
 
 public interface HotelLista {
 
-    @GET("listas")
-    Call<List<GenHot>> getlocal();
-
+//    @GET("hotels/find?status=1")
+//    Call<List<Hotels>> getHotels();
     @GET("hotels")
     Call<List<Hotels>> getHotels();
 

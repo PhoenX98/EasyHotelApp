@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     //Pantalla intro persoalizada
     implementation 'com.github.AppIntro:AppIntro:v4.2.3'
+    implementation 'net.skoumal.fragmentback:fragment-back:0.2.3'
 }
 android {
     useLibrary 'org.apache.http.legacy'

@@ -3,9 +3,10 @@ package pe.torganizagroup.easyhotelapp.Pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Hotels {
+public class Hotels implements Serializable {
 
     @SerializedName("asignedPortfolio")
     @Expose
@@ -67,10 +68,6 @@ public class Hotels {
     @SerializedName("maximumRate")
     @Expose
     private String maximumRate;
-
-//    public Hotels(){
-//
-//    }
 
     public Hotels(String asignedPortfolio, String userId, String coor, List<String> photos, String id, String nameHotel, String address, String addressReference, String department, String province, String district, Integer category, Integer qualification, String length, String latitude, String associatedType, Ubications ubications, Integer status, String minimalRate, String maximumRate) {
         this.asignedPortfolio = asignedPortfolio;

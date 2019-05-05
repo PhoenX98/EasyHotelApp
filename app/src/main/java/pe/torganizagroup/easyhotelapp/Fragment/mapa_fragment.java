@@ -228,17 +228,36 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
             public void onFailure(Call<List<Hotels>> call, Throwable t) {
                 Log.i (TAG_ERROR,"Error en el parseo de JSON, revisar parametros"+t.getMessage ());
                 t.printStackTrace ();
-                UpssAlert();
+                UpssAlertF();
             }
         });
 
+    }
+
+    private void UpssAlertF() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull (getActivity ()));
+        builder.setMessage("Parece que hay un error, estamos trabajando en resolverlo ;v")
+                .setCancelable(false)
+                .setTitle (" ¡Upps! - Error 101 ")
+                .setIcon (R.drawable.ic_cancel_black_24dp)
+                .setPositiveButton ("Ok", new DialogInterface.OnClickListener () {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel ();
+                        Toast.makeText (getContext (),"Gracias por tu comprension :3",Toast.LENGTH_SHORT).show ();
+                        dialog.dismiss ();
+                    }
+                })
+        ;
+        upss = builder.create();
+        upss.show();
     }
 
     private void UpssAlert() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull (getActivity ()));
         builder.setMessage("Parece que hay un error, estamos trabajando en resolverlo ;v")
                 .setCancelable(false)
-                .setTitle (" ¡Upps! ")
+                .setTitle (" ¡Upps! - Error 102 ")
                 .setIcon (R.drawable.ic_cancel_black_24dp)
                 .setPositiveButton ("Ok", new DialogInterface.OnClickListener () {
                     @Override

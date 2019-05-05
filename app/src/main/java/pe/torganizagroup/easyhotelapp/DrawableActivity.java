@@ -6,10 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.icu.text.LocaleDisplayNames;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -17,9 +20,14 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -59,6 +67,7 @@ import pe.torganizagroup.easyhotelapp.Fragment.menu_inicio_fragment;
 
 import static pe.torganizagroup.easyhotelapp.R.drawable.user;
 
+//FragmentActivity
 public class DrawableActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -100,12 +109,17 @@ public class DrawableActivity extends AppCompatActivity
         toggle.syncState ();
 
         NavigationView navigationView = findViewById (R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener (this);
+//        navigationView.getBackground ().setAlpha ();
         FragmentManager fragmentManager = getSupportFragmentManager ();
         fragmentManager.beginTransaction ().replace (R.id.contenedor, new mapa_fragment ()).commit ();
 
         @SuppressLint("CutPasteId")
         View header = ((NavigationView)findViewById (R.id.nav_view)).getHeaderView (0);
+
+        navigationView.getBackground ().setColorFilter (0x99FFFFFF, PorterDuff.Mode.MULTIPLY);
+        header.getBackground().setColorFilter(0x99FFFFFF, PorterDuff.Mode.MULTIPLY);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder (GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail ()
@@ -129,6 +143,8 @@ public class DrawableActivity extends AppCompatActivity
         }
     };
     }
+
+
 
     private void setUserData(FirebaseUser user) {
 
@@ -229,18 +245,31 @@ public class DrawableActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
+        oneStepBack();
+    }
+
+    private void oneStepBack() {
+
+        FragmentTransaction fts = getSupportFragmentManager().beginTransaction();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() >= 2) {
+            fragmentManager.popBackStackImmediate();
+            fts.commit();
+        } else {
+            doubleClickToExit();
         }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Presione atras otra vez para salir", Toast.LENGTH_SHORT).show();
-        new Handler ().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
+
+    }
+
+    private static long back_pressed;
+
+    private void doubleClickToExit() {
+
+        if ((back_pressed + 2000) > System.currentTimeMillis())
+            finish();
+        else
+            Toast.makeText(DrawableActivity.this, "Click again to exit", Toast.LENGTH_SHORT).show();
+        back_pressed = System.currentTimeMillis();
     }
 
     @Override
@@ -258,6 +287,8 @@ public class DrawableActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+//        SpannableString spanString = new SpannableString (item.getTitle ().toString ());
+//        spanString.setSpan (new ForegroundColorSpan (Color.WHITE, 0,spanString.length ()),0);
         int id = item.getItemId ();
         FragmentManager fragmentManager = getSupportFragmentManager ();
 
@@ -285,6 +316,35 @@ public class DrawableActivity extends AppCompatActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    public void showFragmentWithTransition(Fragment current, Fragment newFragment, String tag, View sharedView, String sharedElementName) {
+        FragmentManager fragmentManager = getSupportFragmentManager ();
+
+        boolean fragmentPopped = fragmentManager.popBackStackImmediate(tag, 0);
+
+        if (fragmentPopped) {
+            // fragment is pop from backStack
+        } else {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                current.setSharedElementReturnTransition (TransitionInflater.from (this).inflateTransition (R.transition.default_transition));
+                current.setExitTransition (TransitionInflater.from (this).inflateTransition (android.R.transition.no_transition));
+
+                newFragment.setSharedElementEnterTransition (TransitionInflater.from (this).inflateTransition (R.transition.default_transition));
+                newFragment.setEnterTransition (TransitionInflater.from (this).inflateTransition (android.R.transition.no_transition));
+            }
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.contenedor, newFragment, tag);
+            fragmentTransaction.addToBackStack(null);
+
+//            fragmentTransaction.addSharedElement(sharedView, sharedElementName);
+            fragmentTransaction.commit();
+
+
+
+        }
     }
 
     @Override

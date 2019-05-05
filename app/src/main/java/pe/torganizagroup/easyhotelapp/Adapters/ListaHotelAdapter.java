@@ -1,10 +1,9 @@
 package pe.torganizagroup.easyhotelapp.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -25,28 +23,20 @@ import java.util.List;
 import pe.torganizagroup.easyhotelapp.DrawableActivity;
 import pe.torganizagroup.easyhotelapp.Fragment.hotel_detalle_fragment;
 import pe.torganizagroup.easyhotelapp.Fragment.lista_hoteles_fragment;
-import pe.torganizagroup.easyhotelapp.Interfaces.FragmentComunicator;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
 
 public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.ViewHolder> {
 
-    Context mContext;
+    private Context mContext;
     private List<Hotels> listaHotels = new ArrayList<> ();
     private List<String> urlList = new ArrayList<> ();
-    private OnItemClickListener mListener;
+    private lista_hoteles_fragment fragment;
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        mListener = listener;
-    }
-
-    public ListaHotelAdapter(Context mContext, List<Hotels> listaHotels) {
+    public ListaHotelAdapter(Context mContext, List<Hotels> listaHotels,  lista_hoteles_fragment hotelListfragment) {
         this.mContext = mContext;
         this.listaHotels = listaHotels;
+        this.fragment = hotelListfragment;
     }
 
     @NonNull
@@ -59,15 +49,16 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
-
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
+        //
         Hotels h1 = listaHotels.get (i);
+
         String costeF = "Desde S/. ";
-//        final hotel_detalle_fragment HDF =new hotel_detalle_fragment ();
-//        final Bundle bundleLHA = new Bundle ();
+
         final String nombre = h1.getNameHotel ();
         final String direccion = h1.getAddress ();
         final String tarifa = h1.getMinimalRate ();
+        final String associatedType = h1.getAssociatedType ();
 
         //carga de elemento de indice de numero de elementos en la lista photos
         //se debe mantener esas lineas en orden
@@ -79,12 +70,13 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
         viewHolder.nombreLocal.setTextColor (Color.parseColor ("#FFFFFF"));
         viewHolder.direccionLocal.setTextColor (Color.parseColor ("#000000"));
         viewHolder.tarifaLocal.setTextColor (Color.parseColor ("#000000"));
+
         viewHolder.nombreLocal.setText (nombre);
         viewHolder.direccionLocal.setText (direccion);
         viewHolder.tarifaLocal.setText (costeF+tarifa+" ");
 
 //        Si en el json hay un hotel que no tenga el parametro photos
-//         arrojara error null object reference
+//        arrojara error null object reference
 
         if ( urlList.size () == 0){
             Glide.with (mContext)
@@ -124,13 +116,15 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
         notifyDataSetChanged ();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder  {
+
         private ImageView fotoLocal;
         private TextView nombreLocal;
         private TextView direccionLocal;
         private TextView tarifaLocal;
         private CardView cardView;
-        private MyViewHolderClick mListener;
+        private int pos = -1;
+
 
         public ViewHolder(@NonNull View itemView) {
             super (itemView);
@@ -141,14 +135,22 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
             direccionLocal = (TextView) itemView.findViewById (R.id.txtDireccionLocal);
             tarifaLocal = (TextView) itemView.findViewById (R.id.txtTarifaLocal);
 
-
+            itemView.setOnClickListener (new View.OnClickListener () {
+                @Override
+                public void onClick(View v) {
+                    DrawableActivity drawableActivity = (DrawableActivity) mContext;
+                    drawableActivity.getSupportFragmentManager ();
+                    hotel_detalle_fragment hdf = new hotel_detalle_fragment ();
+//                    FragmentManager fragmentManager = getSuportFragmentManager ();
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace (R.id.contenedor,hdf);
+//                    fragmentTransaction.commit ();
+                    fragment.openHotelDetailFragment (getAdapterPosition (), v.findViewById (R.id.fotoLocal));
+                }
+            });
 
         }
 
-        @Override
-        public void onClick(View v) {
 
-        }
     }
-
 }

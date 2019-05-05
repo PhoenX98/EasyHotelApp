@@ -3,26 +3,35 @@ package pe.torganizagroup.easyhotelapp.Pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class HotelDetails {
 
     @SerializedName("hotelId")
     @Expose
     private String hotelId;
-    @SerializedName("supplierPartyl")
-    @Expose
-    private String supplierPartyl;
     @SerializedName("webSite")
     @Expose
     private String webSite;
     @SerializedName("service")
     @Expose
-    private Object service;
+    private List<String> service = null;
+    @SerializedName("room_Photos")
+    @Expose
+    private String[] roomPhotos = null;
+//    private List<String> roomPhotos = null;
+    @SerializedName("room_Types")
+    @Expose
+    private RoomTypes roomTypes;
     @SerializedName("id")
     @Expose
     private String id;
     @SerializedName("ruc")
     @Expose
     private String ruc;
+    @SerializedName("supplierParty")
+    @Expose
+    private String supplierParty;
     @SerializedName("registrationAddress")
     @Expose
     private String registrationAddress;
@@ -48,21 +57,15 @@ public class HotelDetails {
     @Expose
     private String asignedPortfolio;
 
-    public HotelDetails(){
-
-    }
-
-    public HotelDetails(String hotelId, String supplierPartyl, String webSite, Object service,
-                        String id, String ruc, String registrationAddress, String localTelephone,
-                        String localMobile, String localMail, String facebook, String instagram,
-                        String twitter, String asignedPortfolio) {
-
+    public HotelDetails(String hotelId, String webSite, List<String> service, String[] roomPhotos, RoomTypes roomTypes, String id, String ruc, String supplierParty, String registrationAddress, String localTelephone, String localMobile, String localMail, String facebook, String instagram, String twitter, String asignedPortfolio) {
         this.hotelId = hotelId;
-        this.supplierPartyl = supplierPartyl;
         this.webSite = webSite;
         this.service = service;
+        this.roomPhotos = roomPhotos;
+        this.roomTypes = roomTypes;
         this.id = id;
         this.ruc = ruc;
+        this.supplierParty = supplierParty;
         this.registrationAddress = registrationAddress;
         this.localTelephone = localTelephone;
         this.localMobile = localMobile;
@@ -71,7 +74,6 @@ public class HotelDetails {
         this.instagram = instagram;
         this.twitter = twitter;
         this.asignedPortfolio = asignedPortfolio;
-
     }
 
     public String getHotelId() {
@@ -82,14 +84,6 @@ public class HotelDetails {
         this.hotelId = hotelId;
     }
 
-    public String getSupplierPartyl() {
-        return supplierPartyl;
-    }
-
-    public void setSupplierPartyl(String supplierPartyl) {
-        this.supplierPartyl = supplierPartyl;
-    }
-
     public String getWebSite() {
         return webSite;
     }
@@ -98,12 +92,28 @@ public class HotelDetails {
         this.webSite = webSite;
     }
 
-    public Object getService() {
+    public List<String> getService() {
         return service;
     }
 
-    public void setService(Object service) {
+    public void setService(List<String> service) {
         this.service = service;
+    }
+
+    public String[] getRoomPhotos() {
+        return roomPhotos;
+    }
+
+    public void setRoomPhotos(String[] roomPhotos) {
+        this.roomPhotos = roomPhotos;
+    }
+
+    public RoomTypes getRoomTypes() {
+        return roomTypes;
+    }
+
+    public void setRoomTypes(RoomTypes roomTypes) {
+        this.roomTypes = roomTypes;
     }
 
     public String getId() {
@@ -120,6 +130,14 @@ public class HotelDetails {
 
     public void setRuc(String ruc) {
         this.ruc = ruc;
+    }
+
+    public String getSupplierParty() {
+        return supplierParty;
+    }
+
+    public void setSupplierParty(String supplierParty) {
+        this.supplierParty = supplierParty;
     }
 
     public String getRegistrationAddress() {
@@ -185,5 +203,4 @@ public class HotelDetails {
     public void setAsignedPortfolio(String asignedPortfolio) {
         this.asignedPortfolio = asignedPortfolio;
     }
-
 }
