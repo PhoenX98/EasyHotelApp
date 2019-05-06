@@ -6,20 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".DrawableActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00FFFFFF"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#00FFFFFF"/>
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+            android:layout_height="wrap_content">
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="0dp"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                >
+                <!--android:theme="@style/AppTheme.AppBarOverlay"-->
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    />
+                <!--android:background="#ef9926"/>-->
+                <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
 
-    </android.support.design.widget.AppBarLayout>
+
+            </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
 
     <include layout="@layout/content_drawable" />
 

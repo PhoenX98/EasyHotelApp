@@ -6,6 +6,8 @@ import pe.torganizagroup.easyhotelapp.Pojo.GenHot;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface HotelLista {
 
@@ -13,5 +15,8 @@ public interface HotelLista {
 //    Call<List<Hotels>> getHotels();
     @GET("hotels")
     Call<List<Hotels>> getHotels();
+
+    @GET("hotels")
+    Call<List<Hotels>> getFilterHotels(@Query ("district") String result);
 
 }

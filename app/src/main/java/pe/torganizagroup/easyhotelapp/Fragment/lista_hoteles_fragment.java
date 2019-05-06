@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +28,7 @@ import pe.torganizagroup.easyhotelapp.DrawableActivity;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
 import pe.torganizagroup.easyhotelapp.Retrofit.HotelLista;
+import pe.torganizagroup.easyhotelapp.Retrofit.Ubigeo;
 import pe.torganizagroup.easyhotelapp.Retrofit.Utilidades;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,13 +39,16 @@ public class lista_hoteles_fragment extends Fragment {
     private static final String TAG = "Locales";
     private static final String TAG_ERROR = "Debug: ";
 
-
     private RecyclerView recyclerView;
     private ListaHotelAdapter HAdapter;
     private List<Hotels> lH1 = new ArrayList<> ();
+
     private HotelLista localTest;
     AlertDialog upss = null;
     private Context context;
+
+    FloatingActionButton fab;
+    Button btnFilter;
 
     public lista_hoteles_fragment() {
 
@@ -58,7 +66,8 @@ public class lista_hoteles_fragment extends Fragment {
         View view = inflater.inflate (R.layout.fragment_lista_hoteles, container, false);
         context = getActivity ();
         recyclerView = view.findViewById (R.id.ListaFullHotel);
-
+        fab = (FloatingActionButton) view.findViewById (R.id.list_fabBtn);
+        btnFilter = (Button) view.findViewById (R.id.list_btnFilter);
 
         final GridLayoutManager gridLayoutManager = new GridLayoutManager (getContext (), 2);
         gridLayoutManager.setSpanSizeLookup (new GridLayoutManager.SpanSizeLookup () {
@@ -74,6 +83,30 @@ public class lista_hoteles_fragment extends Fragment {
         recyclerView.setLayoutManager (gridLayoutManager);
         recyclerView.setHasFixedSize (true);
         recyclerView.setItemAnimator (new DefaultItemAnimator ());
+
+        btnFilter.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                busqueda_fragment h = new busqueda_fragment ();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = Objects.requireNonNull (fragmentManager).beginTransaction();
+                fragmentTransaction.replace (R.id.contenedor,h);
+                fragmentTransaction.commit ();
+            }
+        });
+
+        fab.setImageResource (R.drawable.fab_mapa);
+
+        fab.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                mapa_fragment h = new mapa_fragment ();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = Objects.requireNonNull (fragmentManager).beginTransaction();
+                fragmentTransaction.replace (R.id.contenedor,h);
+                fragmentTransaction.commit ();
+            }
+        });
 
         return view;
     }

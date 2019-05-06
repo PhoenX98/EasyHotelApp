@@ -54,6 +54,7 @@
             android:layout_weight="1"
             android:gravity="center|center_horizontal|center_vertical"
             android:text="Aceptar"
+            android:checked="false"
             android:textAlignment="center"
             android:textSize="14sp"
             android:textStyle="italic" />

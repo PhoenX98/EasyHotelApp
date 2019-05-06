@@ -13,13 +13,17 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -59,6 +63,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
     AlertDialog alert = null;
     AlertDialog upss = null;
 
+    FloatingActionButton fab;
+    Button btnFilter;
+
     private List<Hotels> lH1 = new ArrayList<> ();
     private HotelLista localTest;
 //    GoogleApiClient mGoogleApiClient;
@@ -83,6 +90,28 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
 
         mMapView.getMapAsync (this);
 
+        btnFilter.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                busqueda_fragment h = new busqueda_fragment ();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = Objects.requireNonNull (fragmentManager).beginTransaction();
+                fragmentTransaction.replace (R.id.contenedor,h);
+                fragmentTransaction.commit ();
+            }
+        });
+
+        fab.setImageResource (R.drawable.fab_lista);
+        fab.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                lista_hoteles_fragment h = new lista_hoteles_fragment ();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = Objects.requireNonNull (fragmentManager).beginTransaction();
+                fragmentTransaction.replace (R.id.contenedor,h);
+                fragmentTransaction.commit ();
+            }
+        });
 
     }
 
@@ -111,6 +140,9 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
 
         mMapView = (MapView) v.findViewById (R.id.mapViewCompleto);
         mMapView.onCreate (savedInstanceState);
+        fab = (FloatingActionButton) v.findViewById (R.id.map_fab);
+        btnFilter = (Button) v.findViewById (R.id.map_btnFilter);
+//        FloatingActionButton
 
         LocationManager locationManager = (LocationManager) getActivity ().getSystemService (LOCATION_SERVICE);
 
@@ -163,19 +195,17 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback, Locat
         }
 
         Location location = locationManager.getLastKnownLocation (bestProvider);
-
             if(location!=null){
                 lat = location.getLatitude ();
                 lng = location.getLongitude ();
-
                 LatLng loc = new LatLng (lat,lng);
 //                mGoogleMap.moveCamera (CameraUpdateFactory.newLatLng (loc));
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 21));
 
             }
-
-
         locationManager.requestLocationUpdates(bestProvider, 2000, 100, this);
+
+
         mGoogleMap.setMyLocationEnabled (true);
         mGoogleMap.getUiSettings ().isCompassEnabled ();
         //max=21.0 - min=2.0

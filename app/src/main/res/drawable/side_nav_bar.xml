@@ -1,4 +1,5 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <!--android:centerColor="#009688"-->
     <!--<gradient-->
@@ -9,8 +10,8 @@
         <!--android:type="linear" />-->
     <gradient
 
-        android:centerColor="#FFFFFF"
-        android:endColor="#FFFFFF"
-        android:startColor="#FFFFFF"
+        android:centerColor="@android:color/transparent"
+        android:endColor="@android:color/transparent"
+        android:startColor="@android:color/transparent"
         android:type="linear" />
 </shape>

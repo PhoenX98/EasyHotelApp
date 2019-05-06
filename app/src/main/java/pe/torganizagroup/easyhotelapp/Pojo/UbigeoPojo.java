@@ -4,21 +4,41 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UbigeoPojo {
+    @SerializedName("number")
+    @Expose
+    private String number;
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("departamento")
-    @Expose
-    private String departamento;
-    @SerializedName("provincia")
-    @Expose
-    private String provincia;
-    @SerializedName("distrito")
-    @Expose
-    private String distrito;
-    @SerializedName("nombre")
-    @Expose
-    private String nombre;
+
+    public UbigeoPojo(){
+
+    }
+
+    public UbigeoPojo(String number, String name, String id) {
+        this.number = number;
+        this.name = name;
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -26,37 +46,5 @@ public class UbigeoPojo {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getDepartamento() {
-        return departamento;
-    }
-
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    public String getDistrito() {
-        return distrito;
-    }
-
-    public void setDistrito(String distrito) {
-        this.distrito = distrito;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 }

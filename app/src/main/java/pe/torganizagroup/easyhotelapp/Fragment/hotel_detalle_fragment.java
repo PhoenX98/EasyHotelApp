@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Objects;
 
 import pe.torganizagroup.easyhotelapp.Adapters.CustomPageAdapter;
+import pe.torganizagroup.easyhotelapp.DrawableActivity;
 import pe.torganizagroup.easyhotelapp.Pojo.HotelDetails;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
@@ -96,7 +97,7 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
         txtPrice =(TextView) v.findViewById (R.id.hd_txtPrice);
         txtPhone = (TextView) v.findViewById (R.id.hd_txtPhoneNumber);
         btnBack = (Button) v.findViewById (R.id.hd_btnGoHotel);
-
+        viewPager = (ViewPager) v.findViewById(R.id.view_pager);
 
         final GridLayoutManager LMServices = new GridLayoutManager (getContext (), 3);
 //        final GridLayoutManager LMRooms = new GridLayoutManager (getContext (), 3);
@@ -110,9 +111,6 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
 //        RvR.setItemAnimator (new DefaultItemAnimator ());
 
         rate_bar = v.findViewById (R.id.hd_StarScore);
-//        viewPager = (ViewPager) Objects.requireNonNull (this.getActivity ()).findViewById (R.id.view_pager);
-        
-
 
         return v;
     }
@@ -179,7 +177,7 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
                                 Log.d ("Fotos: ",x.trim ());
                             }
 
-                            viewPager = (ViewPager) getView ().findViewById(R.id.view_pager);
+
 
                             viewPager.setAdapter (new PagerAdapter () {
                                 @Override
