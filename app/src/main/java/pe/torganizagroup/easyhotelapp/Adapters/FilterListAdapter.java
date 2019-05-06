@@ -24,33 +24,31 @@ import pe.torganizagroup.easyhotelapp.Fragment.lista_hoteles_fragment;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
 import pe.torganizagroup.easyhotelapp.R;
 
-public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.ViewHolder> {
+public class FilterListAdapter extends RecyclerView.Adapter<FilterListAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Hotels> listaHotels = new ArrayList<> ();
+    private List<Hotels> listaFiltro = new ArrayList<> ();
     private List<String> urlList = new ArrayList<> ();
     private lista_hoteles_fragment fragment;
 
-    public ListaHotelAdapter(Context mContext, List<Hotels> listaHotels,  lista_hoteles_fragment hotelListfragment) {
+    public FilterListAdapter(Context mContext, List<Hotels> listaFiltro, lista_hoteles_fragment fragment) {
         this.mContext = mContext;
-        this.listaHotels = listaHotels;
-        this.fragment = hotelListfragment;
+        this.listaFiltro = listaFiltro;
+        this.fragment = fragment;
     }
-
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public FilterListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from (mContext);
         View view = inflater.inflate (R.layout.item_local, viewGroup,false);
-        ViewHolder holder = new ViewHolder (view);
-        return holder;
+        return new ViewHolder (view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
-        //
-        Hotels h1 = listaHotels.get (i);
+    public void onBindViewHolder(@NonNull FilterListAdapter.ViewHolder viewHolder, int i) {
+
+        Hotels h1 = listaFiltro.get (i);
 
         String costeF = "Desde S/. ";
 
@@ -58,9 +56,6 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
         final String direccion = h1.getAddress ();
         final String tarifa = h1.getMinimalRate ();
         final String associatedType = h1.getAssociatedType ();
-
-        //carga de elemento de indice de numero de elementos en la lista photos
-        //se debe mantener esas lineas en orden
 
         urlList = h1.getPhotos ();
         String foto = urlList.get (0);
@@ -73,9 +68,6 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
         viewHolder.nombreLocal.setText (nombre);
         viewHolder.direccionLocal.setText (direccion);
         viewHolder.tarifaLocal.setText (costeF+tarifa+" ");
-
-//        Si en el json hay un hotel que no tenga el parametro photos
-//        arrojara error null object reference
 
         if ( urlList.size () == 0){
             Glide.with (mContext)
@@ -99,19 +91,18 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
                     .into (viewHolder.fotoLocal);
         }
 
-
     }
 
     @Override
     public int getItemCount() {
-        if (listaHotels == null )
+        if (listaFiltro == null){
             return 0;
-        return listaHotels.size ();
-
+        }
+        return listaFiltro.size ();
     }
 
-    public void addHotelItem(List<Hotels> list){
-        listaHotels.addAll (list);
+    public void addHotelFilter(List<Hotels> list){
+        listaFiltro.addAll (list);
         notifyDataSetChanged ();
     }
 
@@ -122,8 +113,6 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
         private TextView direccionLocal;
         private TextView tarifaLocal;
         private CardView cardView;
-        private int pos = -1;
-
 
         public ViewHolder(@NonNull View itemView) {
             super (itemView);
@@ -148,4 +137,7 @@ public class ListaHotelAdapter extends RecyclerView.Adapter<ListaHotelAdapter.Vi
 
 
     }
+
+
 }
+

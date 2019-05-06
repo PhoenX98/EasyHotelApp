@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="2dp"
+
         android:background="@drawable/ic_menu_send" />
 
     <TextView

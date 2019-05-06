@@ -275,6 +275,14 @@
                 android:background="@drawable/style_button_login"
                 android:text="Buscar Hoteles" />
 
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/style_button_login"
+                android:text="Regresar" />
+
         </LinearLayout>
 
     </FrameLayout>

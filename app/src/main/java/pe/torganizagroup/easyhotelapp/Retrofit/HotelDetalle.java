@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 
 public interface HotelDetalle {
 
-    @GET("hotelsDetails")
+    @GET("hotelsdetails")
     Call<List<HotelDetails>> getHotelDetalle(@Query ("hotelId") String HotelId);
 
 }

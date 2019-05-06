@@ -9,14 +9,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import pe.torganizagroup.easyhotelapp.Fragment.hotel_detalle_fragment;
 import pe.torganizagroup.easyhotelapp.R;
 
 public class DhHabAdapter extends RecyclerView.Adapter<DhHabAdapter.ViewHolder> {
 
     private Context mContext;
+    private List<String> service = new ArrayList<> ();
+    private hotel_detalle_fragment fragment;
 
-    public DhHabAdapter(Context mContext) {
+    public DhHabAdapter(Context mContext, List<String> service, hotel_detalle_fragment fragment) {
         this.mContext = mContext;
+        this.service = service;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -29,13 +37,24 @@ public class DhHabAdapter extends RecyclerView.Adapter<DhHabAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+            String strings = service.get (i);
 
+            viewHolder.txtHabName.setText (strings);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        if (service == null){
+            return 0;
+        }
+        return service.size ();
     }
+
+    public void addServices(List<String> list){
+        service.addAll (list);
+        notifyDataSetChanged ();
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 

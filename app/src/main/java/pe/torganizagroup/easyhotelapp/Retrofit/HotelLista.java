@@ -17,6 +17,12 @@ public interface HotelLista {
     Call<List<Hotels>> getHotels();
 
     @GET("hotels")
-    Call<List<Hotels>> getFilterHotels(@Query ("district") String result);
+    Call<List<Hotels>> getFilterDep(@Query ("department") String result);
+
+    @GET("hotels")
+    Call<List<Hotels>> getFilterPro(@Query ("province") String result);
+
+    @GET("hotels")
+    Call<List<Hotels>> getFilterDis(@Query ("district") String result);
 
 }

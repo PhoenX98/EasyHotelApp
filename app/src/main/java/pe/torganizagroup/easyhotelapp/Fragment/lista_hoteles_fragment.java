@@ -49,6 +49,7 @@ public class lista_hoteles_fragment extends Fragment {
 
     FloatingActionButton fab;
     Button btnFilter;
+    private ListaHotelAdapter FAdapter;
 
     public lista_hoteles_fragment() {
 
@@ -77,7 +78,9 @@ public class lista_hoteles_fragment extends Fragment {
             }
         });
 
-        HAdapter = new ListaHotelAdapter (getContext (), lH1, this);
+        HAdapter = new ListaHotelAdapter (getActivity (), lH1, this);
+//        recyclerView.setAdapter (FAdapter);
+//        FAdapter = new ListaHotelAdapter (getContext (),lH1,this);
         recyclerView.setAdapter (HAdapter);
 
         recyclerView.setLayoutManager (gridLayoutManager);
@@ -158,8 +161,8 @@ public class lista_hoteles_fragment extends Fragment {
                         Toast.makeText (getContext (), "Gracias por tu comprension :3", Toast.LENGTH_SHORT).show ();
                         dialog.dismiss ();
                     }
-                })
-        ;
+                }
+        );
 
         //1090, no presionar enter
 
@@ -171,19 +174,33 @@ public class lista_hoteles_fragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart ();
-        lH1.clear ();
-        obtenerDatos ();
-
+//        lH1.clear ();
+        llenadoDatos();
     }
 
     @Override
     public void onResume() {
         super.onResume ();
+//        if (FAdapter.getItemCount ()==0){
+//            Toast.makeText (getActivity (),"Llenando Recycerview",Toast.LENGTH_LONG).show ();
+//        }else{
+//            Toast.makeText (getActivity (),"Recyclerview lleno",Toast.LENGTH_LONG).show ();
+            obtenerDatos ();
+//        }
+    }
+
+    private void llenadoDatos() {
+        Bundle b = getArguments ();
+        if (b!= null){
+            Hotels o = (Hotels) b.getSerializable ("ListaFilter");
+
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop ();
+//        lH1.clear ();
     }
 
 

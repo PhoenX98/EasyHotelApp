@@ -32,7 +32,7 @@
         <!--android:layout_marginTop="10dp"-->
         <Button
             android:id="@+id/list_btnFilter"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginRight="150dp"

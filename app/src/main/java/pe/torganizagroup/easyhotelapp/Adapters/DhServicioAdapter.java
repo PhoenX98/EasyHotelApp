@@ -1,5 +1,6 @@
 package pe.torganizagroup.easyhotelapp.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,14 +9,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import pe.torganizagroup.easyhotelapp.Fragment.hotel_detalle_fragment;
+import pe.torganizagroup.easyhotelapp.Pojo.HotelDetails;
 import pe.torganizagroup.easyhotelapp.R;
 
 public class DhServicioAdapter extends RecyclerView.Adapter<DhServicioAdapter.ViewHolder> {
 
     private Context mContext;
+    private List<String> service = new ArrayList<> ();
+    private hotel_detalle_fragment fragment;
 
-    public DhServicioAdapter(Context mContext) {
+    public DhServicioAdapter(Context mContext, List<String> service, hotel_detalle_fragment fragment) {
         this.mContext = mContext;
+        this.service = service;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -26,14 +36,26 @@ public class DhServicioAdapter extends RecyclerView.Adapter<DhServicioAdapter.Vi
         return new ViewHolder (view);
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        String s = service.get (i);
+
+        viewHolder.txtServName.setText (s);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        if (service == null){
+            return 0;
+        }
+        return service.size ();
+    }
+
+    public void addServices(List<String> details) {
+        service.addAll (details);
+        notifyDataSetChanged ();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

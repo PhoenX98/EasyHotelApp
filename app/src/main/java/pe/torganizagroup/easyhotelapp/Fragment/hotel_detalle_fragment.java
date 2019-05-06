@@ -33,9 +33,11 @@ import java.util.List;
 import java.util.Objects;
 
 import pe.torganizagroup.easyhotelapp.Adapters.CustomPageAdapter;
+import pe.torganizagroup.easyhotelapp.Adapters.DhServicioAdapter;
 import pe.torganizagroup.easyhotelapp.DrawableActivity;
 import pe.torganizagroup.easyhotelapp.Pojo.HotelDetails;
 import pe.torganizagroup.easyhotelapp.Pojo.Hotels;
+import pe.torganizagroup.easyhotelapp.Pojo.Service;
 import pe.torganizagroup.easyhotelapp.R;
 import pe.torganizagroup.easyhotelapp.Retrofit.HotelDetalle;
 import pe.torganizagroup.easyhotelapp.Retrofit.Utilidades;
@@ -56,16 +58,10 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
     private String hd_Id,hd_name,hd_address,hd_phoneNumber,hd_price,hd_score;
     private RecyclerView RvS,RvR;
     private List<HotelDetails> detailsList = new ArrayList<> ();
+    private List<String> serviceList = new ArrayList<> ();
+    private DhServicioAdapter servicioAdapter;
     private String[] hd_photoList = new String[0];
-    private int[] photoPlace =  {
-        R.drawable.fondo_edificio_alterno,
-        R.drawable.fondo_edificio_alterno,
-        R.drawable.fondo_edificio_alterno,
-        R.drawable.fondo_edificio_alterno,
-        R.drawable.fondo_edificio_alterno };
-
     private HotelDetalle detalleLista;
-
     private RatingBar rate_bar;
     private Button btnBack;
     private ViewPager viewPager;
@@ -83,33 +79,28 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
 
     }
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate (R.layout.fragment_hotel_detalle, container, false);
-
+        mContext = getActivity ();
         RvS = (RecyclerView) v.findViewById (R.id.hd_RvServices);
-//        RvR = (RecyclerView) v.findViewById (R.id.hd_RvRoom);
         txtName = (TextView) v.findViewById (R.id.hd_txtName);
         txtAddress = (TextView) v.findViewById (R.id.hd_txtAddress);
         txtPrice =(TextView) v.findViewById (R.id.hd_txtPrice);
         txtPhone = (TextView) v.findViewById (R.id.hd_txtPhoneNumber);
         btnBack = (Button) v.findViewById (R.id.hd_btnGoHotel);
-        viewPager = (ViewPager) v.findViewById(R.id.view_pager);
+//        viewPager = (ViewPager) v.findViewById(R.id.view_pager);
+//        CustomPageAdapter customPageAdapter = new CustomPageAdapter (mContext,hd_photoList);
+//        viewPager.setAdapter (customPageAdapter);
+        servicioAdapter =  new DhServicioAdapter (getContext (),serviceList,this);
+        RvS.setAdapter (servicioAdapter);
 
         final GridLayoutManager LMServices = new GridLayoutManager (getContext (), 3);
-//        final GridLayoutManager LMRooms = new GridLayoutManager (getContext (), 3);
-//        LMRooms.setOrientation (LinearLayoutManager.VERTICAL);
         LMServices.setOrientation (LinearLayoutManager.VERTICAL);
         RvS.setLayoutManager (LMServices);
-//        RvR.setLayoutManager (LMRooms);
         RvS.setHasFixedSize (true);
-//        RvR.setHasFixedSize (true);
         RvS.setItemAnimator (new DefaultItemAnimator ());
-//        RvR.setItemAnimator (new DefaultItemAnimator ());
-
         rate_bar = v.findViewById (R.id.hd_StarScore);
 
         return v;
@@ -118,8 +109,10 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated (savedInstanceState);
+    }
 
 
+    private void createData() {
         Bundle b = getArguments ();
         if(b!=null){
 
@@ -139,21 +132,20 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
                 obtenerDetalle(hotId);
             }
 
+            btnBack.setOnClickListener (new View.OnClickListener () {
+                @Override
+                public void onClick(View v) {
+                    lista_hoteles_fragment h = new lista_hoteles_fragment ();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = Objects.requireNonNull (fragmentManager).beginTransaction();
+                    fragmentTransaction.replace (R.id.contenedor,h);
+                    fragmentTransaction.commit ();
+                }
+            });
         }
-//        retrieveData();
 
-        btnBack.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                lista_hoteles_fragment h = new lista_hoteles_fragment ();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = Objects.requireNonNull (fragmentManager).beginTransaction();
-                fragmentTransaction.replace (R.id.contenedor,h);
-                fragmentTransaction.commit ();
-            }
-        });
+
     }
-
 
 
     private void obtenerDetalle(String hd_Id) {
@@ -165,76 +157,40 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
             public void onResponse(Call<List<HotelDetails>> call, Response<List<HotelDetails>> response) {
 
                 if (response.isSuccessful ()){
-//                    hd_photoList.clear();
                     try {
-                        detailsList = response.body();
 
-                        for (HotelDetails d : Objects.requireNonNull (detailsList)){
+                        List<HotelDetails> details = response.body();
+
+                        detailsList = Objects.requireNonNull (details);
+//                        servicioAdapter.addServices(details);
+
+                        for (HotelDetails d : Objects.requireNonNull (detailsList)) {
                             txtPhone.setText (d.getLocalTelephone ());
+                            List<String> services = d.getService ();
+                            servicioAdapter.addServices(services);
 
-                            hd_photoList = d.getRoomPhotos ();
-                            for (String x : hd_photoList){
-                                Log.d ("Fotos: ",x.trim ());
-                            }
-
-
-
-                            viewPager.setAdapter (new PagerAdapter () {
-                                @Override
-                                public int getCount() {
-                                    return hd_photoList.length;
-                                }
-
-                                @Override
-                                public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
-                                    return view == (o);
-                                }
-
-                                @NonNull
-                                @Override
-                                public Object instantiateItem(@NonNull ViewGroup container, int position) {
-                                    ImageView imageView = new ImageView (getContext ());
-
-                                    if(!hd_photoList[position].equals ("")){
-                                        Glide.with (Objects.requireNonNull (getContext ()))
-                                                .load (hd_photoList[position])
-                                                .into (imageView);
-                                    }else{
-                                        Toast.makeText (getContext (),"error en glide",Toast.LENGTH_LONG).show ();
-                                    }
-
-                                    container.addView (imageView);
-                                    return imageView;
-                                }
-
-                                @Override
-                                public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-                                    container.removeView ((View) object);
-                                }
-                            });
-
-//                            if (viewPager != null){
-//
-//                                Toast.makeText (getContext ()," Peticion aceptada",Toast.LENGTH_LONG).show ();
-
-////                                Toast.makeText (getContext (),"Evaluando resultado de contexto",Toast.LENGTH_LONG).show ();
-
-//
-//                            }else{
-//                                call.cancel ();
-//                                Toast.makeText (getContext (),"Error en el view pager mascota",Toast.LENGTH_LONG).show ();
-//                            }
-//                            customPageAdapter = new CustomPageAdapter (Objects.requireNonNull (getContext ()),hd_photoList);
-//                            viewPager.setAdapter (customPageAdapter);
-
+//                            viewPager.setAdapter (new CustomPageAdapter (mContext,hd_photoList));
 
                         }
+//                        for (HotelDetails d : Objects.requireNonNull (detailsList)){
+//                            txtPhone.setText (d.getLocalTelephone ());
+//                            List<String> services = d.getService ();
+//                            hd_photoList = d.getRoomPhotos ();
+//                            serviceList = Objects.requireNonNull (services);
+//
+//                            for (String x : hd_photoList){
+//                                Log.d ("Fotos: ",x.trim ());
+//                            }
+//
+//                        }
+
+
 
                     }catch (Exception e){
+                        call.cancel ();
                         Log.d (TAG_ERROR, "Hay un error");
                         e.printStackTrace ();
                     }
-
 
                 } else {
                     Log.i (TAG,"El metodo try ha fallado: " + response.errorBody ());
@@ -247,18 +203,15 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
                 Log.i (TAG,"Hay un error en la respuesta: " + t.getMessage ());
             }
         });
-
-
-
-
     }
-
 
     @Override
     public void onStart() {
         super.onStart ();
-
+        createData();
     }
+
+
 
     @Override
     public void onStop() {
@@ -270,11 +223,7 @@ public class hotel_detalle_fragment extends Fragment implements BackFragment {
         super.onResume ();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach (context);
-//        mContext = context;
-    }
+
 
 
     @Override

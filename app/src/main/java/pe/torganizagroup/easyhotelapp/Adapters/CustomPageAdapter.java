@@ -14,17 +14,17 @@ public class CustomPageAdapter extends PagerAdapter {
 
     private LayoutInflater inflater;
     private Context context;
-    private String[] photo;
+    private String[] hd_photoList;
 
-    public CustomPageAdapter(Context context, String[] photo) {
+    public CustomPageAdapter(Context context, String[] hd_photoList) {
         inflater = (LayoutInflater) context.getSystemService (Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
-        this.photo = photo;
+        this.hd_photoList = hd_photoList;
     }
 
     @Override
     public int getCount() {
-        return photo.length;
+        return hd_photoList.length;
     }
 
     @Override
@@ -37,9 +37,9 @@ public class CustomPageAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView (context);
 
-            if(!photo[position].equals ("")){
+            if(!hd_photoList[position].equals ("")){
                 Glide.with (context)
-                        .load (photo[position])
+                        .load (hd_photoList[position])
                         .into (imageView);
             }
 
